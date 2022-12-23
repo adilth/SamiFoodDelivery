@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import { CreateContainer, Header, MainContainer } from "./components";
 import { AnimatePresence } from "framer-motion";
-function App() {
-  const [count, setCount] = useState(0);
+import getAllFoodData from "./utils/getAllData";
 
+function App() {
+  const fetchData = getAllFoodData();
+  useEffect(() => {
+    fetchData();
+  }, []);
   return (
     <AnimatePresence mode="wait">
       <div className="w-full h-auto flex flex-col bg-primary">
