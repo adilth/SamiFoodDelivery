@@ -4,7 +4,6 @@ import HeroImg from "../assets/png/heroBg.png";
 import { heroData } from "../utils/data";
 
 function Hero() {
-  console.log(heroData);
   return (
     <section className="grid grid-cols-1 md:grid-cols-2 gap-2 w-full" id="hero">
       <div className="py-4 flex-1 flex flex-col items-start justify-center gap-6">
