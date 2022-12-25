@@ -9,12 +9,13 @@ import { app } from "../firebase.config";
 import Logo from "../assets/png/logo-color-removebg-preview-min.png";
 import { useStateValue } from "../context/stateProvider";
 import { actionTypes } from "../context/reducer";
+import { showMenuCart } from "../utils/getAllData";
 
 const Header = () => {
   const firebaseAuth = getAuth(app);
   const provider = new GoogleAuthProvider();
 
-  const [{ user }, dispatch] = useStateValue();
+  const [{ user, foodCart }, dispatch] = useStateValue();
   const [isMenu, setMenu] = useState(false);
   const login = async () => {
     if (!user) {
@@ -38,7 +39,8 @@ const Header = () => {
       user: null,
     });
   };
-
+  //call shopping cart action from getAllData
+  const showCart = showMenuCart();
   return (
     <header className="fixed bg-primary z-50 w-full p-3 px-4 md:p-5 md:px-16">
       {/* screen */}
@@ -66,7 +68,20 @@ const Header = () => {
               Service
             </li>
           </motion.ul>
-          <ShoppingCart />
+          <div
+            className="relative flex items-center justify-center"
+            onClick={showCart}
+          >
+            <FaShoppingCart className="text-textColor text-2xl ml-8 cursor-pointer" />
+            {foodCart && foodCart.length > 0 && (
+              <div className="absolute -top-0 md:-top-3 -right-1 w-5 h-5 rounded-full bg-cartNumBg flex items-center justify-center">
+                <p className="text-xs text-white font-demibold">
+                  {foodCart.length}
+                </p>
+              </div>
+            )}
+          </div>
+          {/* <ShoppingCart onClick={showCart} addCart={foodCart} /> */}
           <div className="relative">
             <motion.img
               whileTap={{ scale: 0.7 }}
@@ -79,7 +94,6 @@ const Header = () => {
               <motion.div
                 initial={{ opacity: 0, scale: 0.6 }}
                 animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.6 }}
                 className="w-40 absolute flex flex-col top-12 right-0 bg-gray-50 shadow-xl rounded-lg "
               >
                 {user && user.email === "rajaadil19952019@gmail.com" && (
@@ -109,7 +123,20 @@ const Header = () => {
           <img src={Logo} className="w-36 object-cover" alt="logo" />
         </Link>
         <div className="flex gap-4">
-          <ShoppingCart />
+          <div
+            className="relative flex items-center justify-center"
+            onClick={showCart}
+          >
+            <FaShoppingCart className="text-textColor text-2xl ml-8 cursor-pointer" />
+            {foodCart && foodCart.length > 0 && (
+              <div className="absolute -top-0 md:-top-3 -right-1 w-5 h-5 rounded-full bg-cartNumBg flex items-center justify-center">
+                <p className="text-xs text-white font-demibold">
+                  {foodCart.length}
+                </p>
+              </div>
+            )}
+          </div>
+          {/* <ShoppingCart onClick={showCart} foodCart={foodCart} /> */}
           <div className="relative">
             <motion.img
               whileTap={{ scale: 0.6 }}
@@ -175,27 +202,18 @@ const Header = () => {
   );
 };
 
-function ShoppingCart() {
-  const [{ cartShow, cartItems }, dispatch] = useStateValue();
-  const showCart = () => {
-    dispatch({
-      type: actionTypes.SET_CART_SHOW,
-      cartShow: !cartShow,
-    });
-  };
+function ShoppingCart({ onClick, foodCart }) {
   return (
     <div
       className="relative flex items-center justify-center"
-      onClick={showCart}
+      onClick={onClick}
     >
       <FaShoppingCart className="text-textColor text-2xl ml-8 cursor-pointer" />
-      {/* {cartItems && cartItems.length > 0 && ( */}
-      <div className="absolute -top-0 md:-top-3 -right-1 w-5 h-5 rounded-full bg-cartNumBg flex items-center justify-center">
-        <p className="text-xs text-white font-demibold">
-          3 {/* {cartItems.length} */}
-        </p>
-      </div>
-      {/* )} */}
+      {foodCart && foodCart.length > 0 && (
+        <div className="absolute -top-0 md:-top-3 -right-1 w-5 h-5 rounded-full bg-cartNumBg flex items-center justify-center">
+          <p className="text-xs text-white font-demibold">{foodCart.length}</p>
+        </div>
+      )}
     </div>
   );
 }
