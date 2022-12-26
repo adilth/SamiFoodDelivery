@@ -6,7 +6,7 @@ import { useStateValue } from "../context/stateProvider";
 
 function FoodSection() {
   const [scrollValue, setScrollValue] = useState(0);
-  const [{ foodItems, cartShow }, dispatch] = useStateValue();
+  const [{ foodItems }, dispatch] = useStateValue();
   useEffect(() => {}, [scrollValue]);
   return (
     <section className="w-full my-4" id="FoodMenu">
