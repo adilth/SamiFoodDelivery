@@ -32,12 +32,7 @@ export const categories = [
   {
     id: 1,
     name: "Chicken",
-    URLSearchParams: "chicken",
-  },
-  {
-    id: 2,
-    name: "Beef",
-    URLSearchParams: "beef",
+    URLSearchParams: "Chicken",
   },
   {
     id: 3,
@@ -70,7 +65,7 @@ export const categories = [
     URLSearchParams: "rice",
   },
   {
-    id: 8,
+    id: 9,
     name: "soft Drinks",
     URLSearchParams: "drinks",
   },
