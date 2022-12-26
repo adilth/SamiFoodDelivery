@@ -9,22 +9,21 @@ import { actionTypes } from "../context/reducer";
 
 function FoodRows({ flag, data, scrollValue }) {
   const rowFood = useRef();
-  const [{ foodCartAdd }, dispatch] = useStateValue();
-  const [items, setItems] = useState([]);
+  const [{ foodCart }, dispatch] = useStateValue();
+  const [dishFood, setDishFood] = useState(foodCart);
   const addToCart = () => {
     dispatch({
       type: actionTypes.SET_FOOD_CART,
-      foodCartAdd: items,
+      foodCart: dishFood,
     });
-    localStorage.setItem("foodCart", JSON.stringify(items));
+    localStorage.setItem("food", JSON.stringify(dishFood));
   };
   useEffect(() => {
     addToCart();
-  }, [items]);
-  // useEffect(() => {
-  //   rowFood.current.scrollLeft += scrollValue;
-  // console.log(rowFood.current.scrollLeft);
-  // }, [scrollValue]);
+  }, [dishFood]);
+  useEffect(() => {
+    rowFood.current.scrollLeft += scrollValue;
+  }, [scrollValue]);
   useEffect(() => {
     if (rowFood.current) {
       scrollValue += rowFood.current.splide.Components.Controller.getNext(
@@ -91,7 +90,7 @@ function FoodRows({ flag, data, scrollValue }) {
                 <motion.div
                   whileTap={{ scale: 0.75 }}
                   className="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center cursor-pointer hover:shadow-md -mt-8"
-                  onClick={() => setItems(...foodCartAdd, items)}
+                  onClick={() => setDishFood([...foodCart, item])}
                 >
                   <FaShoppingCart className="text-white" />
                 </motion.div>
