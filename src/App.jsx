@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
-import { CreateContainer, Footer, Header } from "./components";
+import { CardShopping, CreateContainer, Footer, Header } from "./components";
 import { AnimatePresence } from "framer-motion";
 import getAllFoodData from "./utils/getAllData";
-import { Home, Menu } from "./pages";
+import { FoodDetails, Home, Menu } from "./pages";
+import { useStateValue } from "./context/stateProvider";
 
 function App() {
+  const [{ cartShow }, dispatch] = useStateValue();
   const fetchData = getAllFoodData();
   useEffect(() => {
     fetchData();
   }, []);
+  useEffect(() => {}, [cartShow]);
   return (
     <AnimatePresence mode="wait">
       <div className="w-full h-auto flex flex-col bg-primary">
@@ -19,9 +22,11 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/createItems" element={<CreateContainer />} />
             <Route path="/menu" element={<Menu />} />
+            <Route path="/:name" element={<FoodDetails />} />
           </Routes>
         </main>
         <Footer />
+        {cartShow && <CardShopping />}
       </div>
     </AnimatePresence>
   );
