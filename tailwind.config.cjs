@@ -3,6 +3,10 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
+      gridTemplateColumns: {
+        menu_auto_fit: "repeat(auto-fit, minmax(14rem, 1fr))",
+        menu_auto_fit_min: "repeat(auto-fit, minmax(14rem, 18rem))",
+      },
       width: {
         150: "150px",
         190: "190px",
