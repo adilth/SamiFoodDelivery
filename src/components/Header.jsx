@@ -42,24 +42,24 @@ const Header = () => {
   //call shopping cart action from getAllData
   const showCart = showMenuCart();
   return (
-    <header className="fixed bg-primary z-50 w-full p-3 px-4 md:p-5 md:px-16">
+    <header className="fixed bg-primary z-50 w-full p-3 px-4 md:p-5 md:px-12">
       {/* screen */}
-      <div className="hidden md:flex w-full h-full justify-between">
+      <div className="hidden sm:flex w-full h-full justify-between">
         <Link to={"/"} className="flex items-center gap-2">
           <img src={Logo} className="w-36 object-cover" alt="logo" />
         </Link>
-        <div className="flex items-center gap-8">
+        <div className="flex items-center gap-6">
           <motion.ul
             initial={{ opacity: 0, x: 200 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 200 }}
-            className="flex  items-center gap-8 ml-auto"
+            className="flex items-center gap-6 ml-auto"
           >
             <li className="text-base text-textColor hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer">
-              Home
+              <Link to={"/"}>Home</Link>
             </li>
             <li className="text-base text-textColor hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer">
-              Menu
+              <Link to={"/menu"}> Menu</Link>
             </li>
             <li className="text-base text-textColor hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer">
               About Us
@@ -68,20 +68,7 @@ const Header = () => {
               Service
             </li>
           </motion.ul>
-          <div
-            className="relative flex items-center justify-center"
-            onClick={showCart}
-          >
-            <FaShoppingCart className="text-textColor text-2xl ml-8 cursor-pointer" />
-            {foodCart && foodCart.length > 0 && (
-              <div className="absolute -top-0 md:-top-3 -right-1 w-5 h-5 rounded-full bg-cartNumBg flex items-center justify-center">
-                <p className="text-xs text-white font-demibold">
-                  {foodCart.length}
-                </p>
-              </div>
-            )}
-          </div>
-          {/* <ShoppingCart onClick={showCart} addCart={foodCart} /> */}
+          <ShoppingCart onClick={showCart} foodCart={foodCart} />
           <div className="relative">
             <motion.img
               whileTap={{ scale: 0.7 }}
@@ -118,25 +105,12 @@ const Header = () => {
         </div>
       </div>
       {/* mobile */}
-      <div className="flex justify-between md:hidden w-full h-full">
+      <div className="flex justify-between sm:hidden w-full h-full">
         <Link to={"/"} className="flex items-center gap-2">
           <img src={Logo} className="w-36 object-cover" alt="logo" />
         </Link>
         <div className="flex gap-4">
-          <div
-            className="relative flex items-center justify-center"
-            onClick={showCart}
-          >
-            <FaShoppingCart className="text-textColor text-2xl ml-8 cursor-pointer" />
-            {foodCart && foodCart.length > 0 && (
-              <div className="absolute -top-0 md:-top-3 -right-1 w-5 h-5 rounded-full bg-cartNumBg flex items-center justify-center">
-                <p className="text-xs text-white font-demibold">
-                  {foodCart.length}
-                </p>
-              </div>
-            )}
-          </div>
-          {/* <ShoppingCart onClick={showCart} foodCart={foodCart} /> */}
+          <ShoppingCart onClick={showCart} foodCart={foodCart} />
           <div className="relative">
             <motion.img
               whileTap={{ scale: 0.6 }}
@@ -152,9 +126,9 @@ const Header = () => {
                 exit={{ opacity: 0, scale: 0.6 }}
                 className="w-40 bg-gray-50 shadow-xl rounded-lg flex flex-col absolute top-12 right-0"
               >
-                {user && user.email === "vetrivel.galaxy@gmail.com" && (
+                {user && user.email === "rajaadil19952019@gmail.com" && (
                   <Link to={"/createItem"}>
-                    <p className="px-4 py-2 flex items-center gap-3 cursor-pointer hover:bg-slate-100 transition-all duration-100 ease-in-out text-textColor text-base">
+                    <p className="px-4 py-2 flex items-center justify-between gap-2 cursor-pointer hover:bg-slate-100 transition-all duration-100 ease-in-out text-textColor text-base">
                       New Item <FaPlus />
                     </p>
                   </Link>
@@ -165,13 +139,13 @@ const Header = () => {
                     className="text-base text-textColor hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer hover:bg-slate-100 px-4 py-2"
                     onClick={() => setMenu(false)}
                   >
-                    Home
+                    <Link to={"/"}>Home</Link>
                   </li>
                   <li
                     className="text-base text-textColor hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer hover:bg-slate-100 px-4 py-2"
                     onClick={() => setMenu(false)}
                   >
-                    Menu
+                    <Link to={"/menu"}> Menu</Link>
                   </li>
                   <li
                     className="text-base text-textColor hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer hover:bg-slate-100 px-4 py-2"
@@ -209,9 +183,9 @@ function ShoppingCart({ onClick, foodCart }) {
       onClick={onClick}
     >
       <FaShoppingCart className="text-textColor text-2xl ml-8 cursor-pointer" />
-      {foodCart && foodCart.length > 0 && (
+      {foodCart && foodCart?.length > 0 && (
         <div className="absolute -top-0 md:-top-3 -right-1 w-5 h-5 rounded-full bg-cartNumBg flex items-center justify-center">
-          <p className="text-xs text-white font-demibold">{foodCart.length}</p>
+          <p className="text-xs text-white font-demibold">{foodCart?.length}</p>
         </div>
       )}
     </div>
