@@ -77,6 +77,7 @@ function MenuSection() {
           <FoodRows
             flag={false}
             data={foodItems?.filter((n) => n.category == filterCategory)}
+            splide={true}
           />
         </div>
       </div>
