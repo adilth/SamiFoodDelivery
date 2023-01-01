@@ -9,6 +9,8 @@ function CardItems({ item, setFlag, flag }) {
   // const [items, setItems] = useState([]);
   const [qty, setQty] = useState(item.qty);
 
+  console.log(products);
+  
   const cartDispatch = () => {
     localStorage.setItem("food", JSON.stringify(products));
     dispatch({
@@ -18,6 +20,9 @@ function CardItems({ item, setFlag, flag }) {
   };
 
   const updateQty = (action, id) => {
+    foodCart.map((food, idx, arr) => {
+      if (arr.indexOf(food.id) < 0) return;
+    });
     if (action == "add") {
       setQty(qty + 1);
       foodCart.map((item) => {
