@@ -5,7 +5,7 @@ import { heroData } from "../utils/data";
 
 function Hero() {
   return (
-    <section className="grid grid-cols-1 md:grid-cols-2 gap-2 w-full" id="hero">
+    <section className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full" id="hero">
       <div className="py-4 flex-1 flex flex-col items-start justify-center gap-6">
         <div className="flex items-start gap-2 justify-center bg-orange-100 px-4 py-1 rounded-full">
           <p className="text-base text-orange-500 font-semibolb">
@@ -19,9 +19,9 @@ function Hero() {
             />
           </div>
         </div>
-        <p className="text-[2.5rem] md:text-[3.5rem] lg:text-[4.2rem] font-bold tracking-wide text-headingColor">
+        <p className="text-[2.5rem] md:text-[3.5rem] lg:text-[4rem] font-bold tracking-wide text-headingColor">
           the Fastest Delivery in{" "}
-          <span className="text-orange-600 text-[3rem] md:text-[3.75rem] lg:text-[5rem]">
+          <span className="text-orange-600 text-[3rem] md:text-[3.75rem] lg:text-[4.7rem]">
             Your City
           </span>
         </p>
@@ -41,17 +41,17 @@ function Hero() {
             className="h-420 lg:h-full w-full lg:w-auto"
           />
         </div>
-        <div className="w-full h-full absolute top-0 left-0 flex gap-4 flex-wrap items-center justify-center px-4 xl:px-20 md:px-8 lg:px-10  pt-5 lg:pt-0">
+        <div className="w-full xlg:w-[80%] h-full absolute top-0 right-0 grid grid-cols-2 snap-center gap-10 sm:gap-6   px-8 sm:px-3 xl:px-20 lg:px-4 pt-5 lg:pt-0 place-items-center ">
           {heroData &&
             heroData.map((data) => (
               <div
                 key={data.id}
-                className=" lg:w-190  p-4 bg-cardOverlay backdrop-blur-md rounded-2xl flex flex-col items-center justify-center drop-shadow-lg"
+                className=" lg:w-190 bg-cardOverlay backdrop-blur-md rounded-2xl flex flex-col items-center justify-center drop-shadow-lg px-7 md:px-3"
               >
                 <img
                   src={data.src}
                   alt={data.decp}
-                  className="w-[6.5rem] md:w-28 lg:w-[8.25rem] -mt-10 lg:-mt-16 "
+                  className="w-[7rem] md:w-32  lg:w-[8.25rem] -mt-10 lg:-mt-16 "
                 />
                 <p className="text-ms text-base font-semibold text-textColor mt-1 md:mt-2">
                   {data.name}
