@@ -14,6 +14,12 @@ export const saveItem = async (data) => {
     merge: true,
   });
 };
+export const saveForm = async (data) => {
+  const docItems = doc(firestore, "dataForm", `${Date.now()}`);
+  await setDoc(docItems, data, {
+    merge: true,
+  });
+};
 
 //fetch all food items
 export const fetchAllFood = async () => {
