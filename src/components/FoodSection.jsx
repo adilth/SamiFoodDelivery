@@ -25,7 +25,12 @@ function FoodSection() {
         </div>
       </div>
 
-      <FoodRows flag={true} data={foodItems} scrollValue={scrollValue} />
+      <FoodRows
+        flag={true}
+        data={foodItems?.filter((n) => n.vegan == "vegan")}
+        scrollValue={scrollValue}
+        splide={true}
+      />
     </section>
   );
 }
