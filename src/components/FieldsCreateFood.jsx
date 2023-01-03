@@ -12,6 +12,7 @@ import {
   MdFoodBank,
   MdAttachMoney,
 } from "react-icons/md";
+import { BiMessageSquareEdit } from "react-icons/bi";
 import { categories } from "../utils/data";
 import Loader from "./Loader";
 import { storage } from "../firebase.config";
@@ -25,7 +26,12 @@ function FieldsCreateFood({ setMsg, setFields, setAlertText }) {
   const [category, setCategory] = useState(null);
   const [imgFood, setImgFood] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [topping, setTopping] = useState("nonVegan");
+  const [desc, setDesc] = useState("");
 
+  const onOptionChange = (e) => {
+    setTopping(e.target.value);
+  };
   const fetchData = getAllFoodData();
   const uploadImage = (e) => {
     setIsLoading(true);
@@ -97,6 +103,8 @@ function FieldsCreateFood({ setMsg, setFields, setAlertText }) {
           category: category,
           qty: 1,
           price: price,
+          vegan: topping,
+          desc: desc,
         };
         saveItem(dataFood);
         setIsLoading(false);
@@ -124,8 +132,9 @@ function FieldsCreateFood({ setMsg, setFields, setAlertText }) {
     setTitle("");
     setImgFood(null);
     setCalories("");
-    setCategory("Select Category");
+    setCategory("other");
     setPrice("");
+    setDesc("");
   };
   return (
     <>
@@ -139,6 +148,38 @@ function FieldsCreateFood({ setMsg, setFields, setAlertText }) {
           placeholder="Enter a title"
           className="w-full text-lg bg-transparent lg:font-semibold border-none placeholder:text-gray-400 text-textColor"
         />
+      </div>
+      <div className="w-full py-2 border-b border-gray-300 flex gap-2 items-center">
+        <div className="flex pb-3 mr-4">
+          <input
+            type="radio"
+            required
+            name="topping"
+            value="vegan"
+            id="vegan"
+            checked={topping === "vegan"}
+            onChange={onOptionChange}
+            className="w-4 mr-2  "
+          />
+          <label htmlFor="vegan" className="lg:font-semibold text-textColor">
+            Vegan
+          </label>
+        </div>
+        <div className="flex pb-3">
+          <input
+            type="radio"
+            required
+            name="topping"
+            value="nonVegan"
+            id="nonVegan"
+            checked={topping === "nonVegan"}
+            onChange={onOptionChange}
+            className="w-4 mr-2 lg:font-semibold text-textColor"
+          />
+          <label htmlFor="nonVegan" className="lg:font-semibold text-textColor">
+            not Vegan
+          </label>
+        </div>
       </div>
       <div className="w-full">
         <select
@@ -226,7 +267,7 @@ function FieldsCreateFood({ setMsg, setFields, setAlertText }) {
         <div className="w-full py-2 border-b border-gray-300 flex items-center gap-2">
           <MdAttachMoney className="text-gray-700 text-2xl" />
           <input
-            type="text"
+            type="number"
             required
             value={price}
             onChange={(e) => setPrice(e.target.value)}
@@ -234,6 +275,17 @@ function FieldsCreateFood({ setMsg, setFields, setAlertText }) {
             className="w-full text-lg bg-transparent lg:font-semibold border-none placeholder:text-gray-400 text-textColor"
           />
         </div>
+      </div>
+      <div className="w-full py-3 border-b border-gray-300 flex gap-2">
+        <BiMessageSquareEdit className="text-gray-700 text-2xl " />
+        <textarea
+          type="text"
+          required
+          value={desc}
+          onChange={(e) => setDesc(e.target.value)}
+          placeholder="Enter Description"
+          className="w-full text-lg bg-transparent lg:font-semibold border-none placeholder:text-gray-400 text-textColor"
+        />
       </div>
       <div className="flex w-full items-center">
         <button
