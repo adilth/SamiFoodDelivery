@@ -8,12 +8,12 @@ import { useStateValue } from "./context/stateProvider";
 
 function App() {
   const location = useLocation();
-  const [{ cartShow }, dispatch] = useStateValue();
+  const [{ cartShow, foodItem }, dispatch] = useStateValue();
   const fetchData = getAllFoodData();
   useEffect(() => {
     fetchData();
-  }, []);
-  useEffect(() => {}, [cartShow]);
+  }, [foodItem]);
+  // useEffect(() => {}, [cartShow]);
   return (
     <AnimatePresence mode="wait">
       <div className="w-full h-auto flex flex-col bg-primary">
@@ -23,7 +23,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/createItems" element={<CreateContainer />} />
             <Route path="/menu" element={<Menu />} />
-            <Route path="/:nameId" element={<FoodDetails />} />
+            <Route path="/food/:nameId" element={<FoodDetails />} />
           </Routes>
         </main>
         <Footer />
