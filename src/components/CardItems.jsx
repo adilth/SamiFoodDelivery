@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { BiPlus, BiMinus } from "react-icons/bi";
 import { motion } from "framer-motion";
 import { useStateValue } from "../context/stateProvider";
@@ -10,7 +10,7 @@ function CardItems({ item, setFlag, flag }) {
   const [qty, setQty] = useState(item.qty);
 
   console.log(products);
-  
+
   const cartDispatch = () => {
     localStorage.setItem("food", JSON.stringify(products));
     dispatch({
@@ -50,9 +50,13 @@ function CardItems({ item, setFlag, flag }) {
       }
     }
   };
+  const productsUpdate = useMemo(() => {
+    return { foodCart, qty };
+  }, [qty, products]);
+
   useEffect(() => {
     products = foodCart;
-  }, [qty, products]);
+  }, [productsUpdate]);
 
   return (
     <div className="w-full p-1 rounded-lg bg-cardItem flex items-center gap-2">
