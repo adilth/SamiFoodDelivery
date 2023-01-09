@@ -12,3 +12,4 @@ export { ImgLink as ImgLink } from "./FoodRows";
 export { default as FoodRows } from "./FoodRows";
 export { default as Loader } from "./Loader";
 export { default as Comments } from "./Comments";
+export { default as Search } from "./Search";
