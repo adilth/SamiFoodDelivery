@@ -7,7 +7,7 @@ function Footer() {
   return (
     <footer
       id="footer"
-      className=" py-6 px-6 md:px-16 grid grid-cols-4  gap-10 bg-cartBg"
+      className=" py-8 md:py-10 px-6 md:px-16 grid grid-cols-4  gap-10 bg-cartBg"
     >
       <div className="self-start">
         <Link to={"/"} className="">
@@ -24,16 +24,16 @@ function Footer() {
         exit={{ opacity: 0, x: 200 }}
         className="flex flex-col item-center text-center gap-4 "
       >
-        <li className="text-base text-card  hover:text-primary duration-100 transition-all ease-in-out cursor-pointer">
+        <li className="text-base text-card underline decoration-red-600 underline-offset-2 hover:text-primary duration-100 transition-all ease-in-out cursor-pointer">
           <Link to={"/"}>Home</Link>
         </li>
-        <li className="text-base text-card  hover:text-primary duration-100 transition-all ease-in-out cursor-pointer">
+        <li className="text-base text-card underline decoration-red-600 underline-offset-2 hover:text-primary duration-100 transition-all ease-in-out cursor-pointer">
           <Link to={"/menu"}> Menu</Link>
         </li>
-        <li className="text-base text-card  hover:text-primary duration-100 transition-all ease-in-out cursor-pointer">
+        <li className="text-base text-card underline decoration-red-600 underline-offset-2 hover:text-primary duration-100 transition-all ease-in-out cursor-pointer">
           About Us
         </li>
-        <li className="text-base text-card  hover:text-primary duration-100 transition-all ease-in-out cursor-pointer">
+        <li className="text-base text-card underline decoration-red-600 underline-offset-2 hover:text-primary duration-100 transition-all ease-in-out cursor-pointer">
           Service
         </li>
       </motion.ul>
