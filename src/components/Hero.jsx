@@ -2,6 +2,7 @@ import React from "react";
 import Delivery from "../assets/png/pngkey.com-delivery-png-1145548.png";
 import HeroImg from "../assets/png/heroBg.png";
 import { heroData } from "../utils/data";
+import { Link } from "react-router-dom";
 
 function Hero() {
   return (
@@ -29,9 +30,12 @@ function Hero() {
           Discover local, on-demand delivery or Pickup from restaurants, nearby
           grocery and convenience stores, and more.
         </p>
-        <button className="bg-gradient-to-br from-orange-400 to-orange-500 w-full md:w-auto px-4 py-2 rounded-lg hover:shadow-lg transition-all ease-in-out duration-100 text-white">
+        <Link
+          to={"/menu"}
+          className="bg-gradient-to-br from-orange-400 to-orange-500 w-full md:w-auto px-4 py-2 rounded-lg hover:shadow-lg transition-all ease-in-out duration-100 text-white"
+        >
           Order Now
-        </button>
+        </Link>
       </div>
       <div className="py-4 flex relative">
         <div className="w-full lg:h-650 flex justify-end">
