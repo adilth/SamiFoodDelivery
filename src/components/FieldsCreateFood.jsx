@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useReducer, useState } from "react";
 import {
   deleteObject,
   getDownloadURL,
@@ -20,14 +20,20 @@ import { saveItem } from "../utils/firebaseFunc";
 import getAllFoodData from "../utils/getAllData";
 
 function FieldsCreateFood({ setMsg, setFields, setAlertText }) {
-  const [title, setTitle] = useState("");
-  const [calories, setCalories] = useState("");
-  const [price, setPrice] = useState("");
-  const [category, setCategory] = useState(null);
+  // const [title, setTitle] = useState("");
+  // const [calories, setCalories] = useState("");
+  // const [price, setPrice] = useState("");
+  // const [category, setCategory] = useState(null);
   const [imgFood, setImgFood] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [topping, setTopping] = useState("nonVegan");
-  const [desc, setDesc] = useState("");
+  // const [desc, setDesc] = useState("");
+  const [event, updateEvent] = useReducer(
+    (prev, next) => {
+      return { ...prev, ...next };
+    },
+    { title: "", calories: "", desc: "", price: "", category: null }
+  );
 
   const onOptionChange = (e) => {
     setTopping(e.target.value);
@@ -86,7 +92,13 @@ function FieldsCreateFood({ setMsg, setFields, setAlertText }) {
   const saveDataFood = () => {
     setIsLoading(true);
     try {
-      if (!title || !calories || !imgFood || !price || !category) {
+      if (
+        !event.title ||
+        !event.calories ||
+        !imgFood ||
+        !event.price ||
+        !event.category
+      ) {
         setFields(true);
         setMsg("Please field all fields before Save ");
         setAlertText("danger");
@@ -97,14 +109,14 @@ function FieldsCreateFood({ setMsg, setFields, setAlertText }) {
       } else {
         const dataFood = {
           id: `${Date.now()}`,
-          title: title,
+          title: event.title,
           imgURL: imgFood,
-          calories: calories,
-          category: category,
+          calories: event.calories,
+          category: event.category,
           qty: 1,
-          price: price,
+          price: event.price,
           vegan: topping,
-          desc: desc,
+          desc: event.desc,
         };
         saveItem(dataFood);
         setIsLoading(false);
@@ -129,12 +141,19 @@ function FieldsCreateFood({ setMsg, setFields, setAlertText }) {
     fetchData();
   };
   const clearFields = () => {
-    setTitle("");
+    updateEvent({
+      title: "",
+      calories: "",
+      desc: "",
+      price: "",
+      category: "other",
+    });
+    // setTitle("");
     setImgFood(null);
-    setCalories("");
-    setCategory("other");
-    setPrice("");
-    setDesc("");
+    // setCalories("");
+    // setCategory("other");
+    // setPrice("");
+    // setDesc("");
   };
   return (
     <>
@@ -143,8 +162,8 @@ function FieldsCreateFood({ setMsg, setFields, setAlertText }) {
         <input
           type="text"
           required
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          value={event.title}
+          onChange={(e) => updateEvent({ title: e.target.value })}
           placeholder="Enter a title"
           className="w-full text-lg bg-transparent lg:font-semibold border-none placeholder:text-gray-400 text-textColor"
         />
@@ -186,7 +205,7 @@ function FieldsCreateFood({ setMsg, setFields, setAlertText }) {
           name="foodCategory"
           id="category"
           className="w-full text-base border-b-2 border-gray-200 p-2 rounded-md cursor-pointer"
-          onChange={(e) => setCategory(e.target.value)}
+          onChange={(e) => updateEvent({ category: e.target.value })}
         >
           <option value="other" className=" font-bold">
             Select Category
@@ -258,8 +277,8 @@ function FieldsCreateFood({ setMsg, setFields, setAlertText }) {
           <input
             type="text"
             required
-            value={calories}
-            onChange={(e) => setCalories(e.target.value)}
+            value={event.calories}
+            onChange={(e) => updateEvent({ calories: e.target.value })}
             placeholder="Calories"
             className="w-full text-lg bg-transparent lg:font-semibold border-none placeholder:text-gray-400 text-textColor"
           />
@@ -269,8 +288,8 @@ function FieldsCreateFood({ setMsg, setFields, setAlertText }) {
           <input
             type="number"
             required
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
+            value={event.price}
+            onChange={(e) => updateEvent({ price: e.target.value })}
             placeholder="Price"
             className="w-full text-lg bg-transparent lg:font-semibold border-none placeholder:text-gray-400 text-textColor"
           />
@@ -281,8 +300,8 @@ function FieldsCreateFood({ setMsg, setFields, setAlertText }) {
         <textarea
           type="text"
           required
-          value={desc}
-          onChange={(e) => setDesc(e.target.value)}
+          value={event.desc}
+          onChange={(e) => updateEvent({ desc: e.target.value })}
           placeholder="Enter Description"
           className="w-full text-lg bg-transparent lg:font-semibold border-none placeholder:text-gray-400 text-textColor"
         />
