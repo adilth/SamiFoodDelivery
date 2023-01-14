@@ -32,7 +32,7 @@ function Hero() {
         </p>
         <Link
           to={"/menu"}
-          className="bg-gradient-to-br from-orange-400 to-orange-500 px-4 py-2 rounded-lg hover:shadow-lg transition-all ease-in-out duration-100 text-white"
+          className="bg-gradient-to-br font-bold from-orange-400 to-orange-500 px-7 py-3 rounded-lg hover:shadow-lg transition-all ease-in-out duration-100 text-white mx-auto sm:mx-0"
         >
           Order Now
         </Link>
