@@ -22,7 +22,7 @@ function Search() {
     return data.filter((item) => {
       console.log(input);
       if (
-        item.price.toLowerCase().includes(input.toLowerCase()) ||
+        item.title.toLowerCase().includes(input.toLowerCase()) ||
         item.category.toLowerCase().includes(input.toLowerCase())
       ) {
         return item;
