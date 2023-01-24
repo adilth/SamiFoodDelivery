@@ -15,7 +15,6 @@ function FoodDetails() {
   const [dishFood, setDishFood] = useState(foodCart);
   const [details, setDetails] = useState({});
   const [isLoading, setIsLoading] = useState(true);
-  console.log(foodItems);
   const addToCart = () => {
     dispatch({
       type: actionTypes.SET_FOOD_CART,
@@ -42,7 +41,7 @@ function FoodDetails() {
   }, [dishFood]);
 
   return (
-    <div className="p-4 flex flex-col justify-center ">
+    <section id="food-Details" className="p-4 flex flex-col justify-center ">
       <div className="grid grid-cols-2 gap-8 mb-10">
         {isLoading && <Loader />}
         <div className="w-full">
@@ -66,7 +65,18 @@ function FoodDetails() {
           <motion.div
             whileTap={{ scale: 0.75 }}
             className="w-12 h-12 rounded-full bg-red-600 flex items-center justify-center cursor-pointer hover:shadow-md "
-            onClick={() => setDishFood([...foodCart, details])}
+            onClick={() =>
+              setDishFood((prev) => {
+                let exist = prev?.find((food) => food.id == details.id);
+                console.log(prev);
+                if (!exist) {
+                  return [...foodCart, details];
+                } else {
+                  exist.qty = exist.qty + 1;
+                  return [...foodCart];
+                }
+              })
+            }
           >
             <FaShoppingCart className="text-white text-[1.4rem]" />
           </motion.div>
@@ -83,7 +93,7 @@ function FoodDetails() {
           splide={false}
         />
       </div>
-    </div>
+    </section>
   );
 }
 
