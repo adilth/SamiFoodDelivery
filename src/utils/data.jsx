@@ -69,4 +69,9 @@ export const categories = [
     name: "soft Drinks",
     URLSearchParams: "drinks",
   },
+  {
+    id: 10,
+    name: "Salad",
+    URLSearchParams: "salad",
+  },
 ];
