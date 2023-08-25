@@ -1,7 +1,8 @@
 import React from "react";
 import Delivery from "../assets/png/pngkey.com-delivery-png-1145548.png";
-import HeroImg from "../assets/png/heroBg.png";
+import HeroImg from "../assets/png/c983b457564097.59db4a734d0d5.gif";
 import { heroData } from "../utils/data";
+import { Link } from "react-router-dom";
 
 function Hero() {
   return (
@@ -29,19 +30,22 @@ function Hero() {
           Discover local, on-demand delivery or Pickup from restaurants, nearby
           grocery and convenience stores, and more.
         </p>
-        <button className="bg-gradient-to-br from-orange-400 to-orange-500 w-full md:w-auto px-4 py-2 rounded-lg hover:shadow-lg transition-all ease-in-out duration-100 text-white">
+        <Link
+          to={"/menu"}
+          className="bg-gradient-to-br font-bold from-orange-400 to-orange-500 px-7 py-3 rounded-lg hover:shadow-lg transition-all ease-in-out duration-100 text-white mx-auto sm:mx-0"
+        >
           Order Now
-        </button>
+        </Link>
       </div>
-      <div className="py-4 flex relative">
-        <div className="w-full lg:h-650 flex justify-end">
+      <div className="sm:py-6 pb-6 pt-0 px-4 md:px-1 flex justify-center relative">
+        <div className="ms:w-full w-[80%] flex justify-end">
           <img
             src={HeroImg}
             alt="hero image"
-            className="h-420 lg:h-full w-full lg:w-auto"
+            className="lg:h-full w-full lg:w-auto rounded-full"
           />
         </div>
-        <div className="w-full xlg:w-[80%] h-full absolute top-0 right-0 grid grid-cols-2 snap-center gap-10 sm:gap-6   px-8 sm:px-3 xl:px-20 lg:px-4 pt-5 lg:pt-0 place-items-center ">
+        {/* <div className="w-full xlg:w-[80%] h-full absolute top-0 right-0 grid grid-cols-2 snap-center gap-10 sm:gap-6   px-8 sm:px-3 xl:px-20 lg:px-4 pt-5 lg:pt-0 place-items-center ">
           {heroData &&
             heroData.map((data) => (
               <div
@@ -65,7 +69,7 @@ function Hero() {
                 </p>
               </div>
             ))}
-        </div>
+        </div> */}
       </div>
     </section>
   );

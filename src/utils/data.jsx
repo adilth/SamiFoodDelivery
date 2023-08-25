@@ -1,7 +1,7 @@
-import Rice from "../assets/img/r5.png";
-import IceCream from "../assets/img/i7.png";
-import SeoFood from "../assets/img/fi1.png";
-import TandooriChicken from "../assets/img/c3.png";
+import Rice from "../assets/img/r2.png";
+import IceCream from "../assets/img/i4.png";
+import SeoFood from "../assets/img/fi5.png";
+import TandooriChicken from "../assets/img/c6.png";
 
 export const heroData = [
   {
@@ -68,5 +68,10 @@ export const categories = [
     id: 9,
     name: "soft Drinks",
     URLSearchParams: "drinks",
+  },
+  {
+    id: 10,
+    name: "Salad",
+    URLSearchParams: "salad",
   },
 ];
