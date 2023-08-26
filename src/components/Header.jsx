@@ -3,14 +3,22 @@ import { FaShoppingCart, FaPlus, FaSignOutAlt } from "react-icons/fa";
 import { motion } from "framer-motion";
 import Avatar from "../assets/img/avatar-icon.png";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 import { app } from "../firebase.config";
 import Logo from "../assets/png/logo-color-removebg-preview-min.png";
 import { useStateValue } from "../context/stateProvider";
 import { actionTypes } from "../context/reducer";
 import { showMenuCart } from "../utils/getAllData";
-
+import {
+  buttonTap,
+  buttonTapFar,
+  buttonTapSoft,
+  fadeIn,
+  fadeInOutWithScale,
+  fadeInOutWithTransition,
+} from "../animations";
+import { isActiveStyles, isNotActiveStyles } from "../utils/data";
 const Header = () => {
   const firebaseAuth = getAuth(app);
   const provider = new GoogleAuthProvider();
@@ -50,58 +58,87 @@ const Header = () => {
         </Link>
         <div className="flex items-center gap-6">
           <motion.ul
-            initial={{ opacity: 0, x: 200 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 200 }}
+            {...fadeInOutWithTransition}
             className="flex items-center gap-6 ml-auto"
           >
-            <li className="text-base text-textColor hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer">
-              <Link to={"/"}>Home</Link>
-            </li>
-            <li className="text-base text-textColor hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer">
-              <Link to={"/menu"}> Menu</Link>
-            </li>
-            <li className="text-base text-textColor hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer">
+            <NavLink
+              to={"/"}
+              className={({ isActive }) =>
+                isActive ? isActiveStyles : isNotActiveStyles
+              }
+            >
+              Home
+            </NavLink>
+            <NavLink
+              to={"/menu"}
+              className={({ isActive }) =>
+                isActive ? isActiveStyles : isNotActiveStyles
+              }
+            >
+              Menu
+            </NavLink>
+            <NavLink
+              to={"/aboutus"}
+              className={({ isActive }) =>
+                isActive ? isActiveStyles : isNotActiveStyles
+              }
+            >
               About Us
-            </li>
-            <li className="text-base text-textColor hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer">
+            </NavLink>
+            <NavLink
+              to={"/services"}
+              className={({ isActive }) =>
+                isActive ? isActiveStyles : isNotActiveStyles
+              }
+            >
               Service
-            </li>
+            </NavLink>
           </motion.ul>
           <ShoppingCart onClick={showCart} foodCart={foodCart} />
-          <div className="relative">
-            <motion.img
-              whileTap={{ scale: 0.7 }}
-              src={user ? user.photoURL : Avatar}
-              alt="avatar image"
-              className="w-10 min-[40px] h-10 min-h-[40px] drop-shadow-xl rounded-full cursor-pointer"
-              onClick={login}
-            />
-            {isMenu && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.6 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="w-40 absolute flex flex-col top-12 right-0 bg-gray-50 shadow-xl rounded-lg "
-              >
-                {user && user.email === "rajaadil19952019@gmail.com" && (
-                  <Link to={"/createItems"}>
-                    <p
-                      className="px-4 py-2 flex items-center justify-between cursor-pointer hover:bg-slate-300 transition-colors duration-100 ease-in-out text-textColor text-base "
-                      onClick={() => setMenu(false)}
-                    >
-                      New Item <FaPlus />
-                    </p>
-                  </Link>
-                )}
-                <p
-                  className="px-4 py-2 flex items-center justify-between cursor-pointer hover:bg-slate-300 transition-colors duration-100 ease-in-out text-textColor text-base "
-                  onClick={logOut}
+          {user ? (
+            <div className="relative">
+              <motion.img
+                {...buttonTap}
+                src={user ? user.photoURL : Avatar}
+                alt="avatar image"
+                className="w-10 min-[40px] h-10 min-h-[40px] drop-shadow-xl rounded-full cursor-pointer"
+              />
+              {isMenu && (
+                <motion.div
+                  {...fadeIn}
+                  className="w-40 absolute flex flex-col top-12 right-0 bg-gray-50 shadow-xl rounded-lg "
                 >
-                  Log out <FaSignOutAlt />
-                </p>
-              </motion.div>
-            )}
-          </div>
+                  {user && user.email === "rajaadil19952019@gmail.com" && (
+                    <Link to={"/createItems"}>
+                      <p
+                        className="px-4 py-2 flex items-center justify-between cursor-pointer hover:bg-slate-300 transition-colors duration-100 ease-in-out text-textColor text-base "
+                        onClick={() => setMenu(false)}
+                      >
+                        New Item <FaPlus />
+                      </p>
+                    </Link>
+                  )}
+                  <p
+                    className="px-4 py-2 flex items-center justify-between cursor-pointer hover:bg-slate-300 transition-colors duration-100 ease-in-out text-textColor text-base "
+                    onClick={logOut}
+                  >
+                    Log out <FaSignOutAlt />
+                  </p>
+                </motion.div>
+              )}
+            </div>
+          ) : (
+            <>
+              <NavLink onClick={login}>
+                <motion.button
+                  {...buttonTap}
+                  className="px-3 py-2 rounded-md shadow-md bg-lightOverlay border border-red-300 cursor-pointer"
+                >
+                  Login
+                </motion.button>
+              </NavLink>
+            </>
+          )}
         </div>
       </div>
       {/* mobile */}
@@ -113,7 +150,7 @@ const Header = () => {
           <ShoppingCart onClick={showCart} foodCart={foodCart} />
           <div className="relative">
             <motion.img
-              whileTap={{ scale: 0.6 }}
+              {...buttonTapFar}
               src={user ? user.photoURL : Avatar}
               className="w-10 min-w-[40px] h-10 min-h-[40px] drop-shadow-xl cursor-pointer rounded-full"
               alt="userprofile"
@@ -121,9 +158,7 @@ const Header = () => {
             />
             {isMenu && (
               <motion.div
-                initial={{ opacity: 0, scale: 0.6 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.6 }}
+                {...fadeInOutWithScale}
                 className="w-40 bg-gray-50 shadow-xl rounded-lg flex flex-col absolute top-12 right-0"
               >
                 {user && user.email === "rajaadil19952019@gmail.com" && (
@@ -178,7 +213,8 @@ const Header = () => {
 
 function ShoppingCart({ onClick, foodCart }) {
   return (
-    <div
+    <motion.div
+      {...buttonTapSoft}
       className="relative flex items-center justify-center"
       onClick={onClick}
     >
@@ -188,7 +224,7 @@ function ShoppingCart({ onClick, foodCart }) {
           <p className="text-xs text-white font-demibold">{foodCart?.length}</p>
         </div>
       )}
-    </div>
+    </motion.div>
   );
 }
 export default Header;
