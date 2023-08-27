@@ -3,11 +3,16 @@ import { motion } from "framer-motion";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import FoodRows from "./FoodRows";
 import { useStateValue } from "../context/stateProvider";
-
+import Loader from "./Loader";
+import { fadeInOut } from "../animations";
 function FoodSection() {
   const [scrollValue, setScrollValue] = useState(0);
   const [{ foodItems }, dispatch] = useStateValue();
+  const [loader, setLoader] = useState(true);
   useEffect(() => {}, [scrollValue]);
+  setInterval(() => {
+    setLoader(false);
+  }, 30);
   return (
     <section className="w-full my-4" id="FoodMenu">
       <div className="w-full flex items-center justify-between">
@@ -24,13 +29,21 @@ function FoodSection() {
           </SwipedSquare>
         </div>
       </div>
-
-      <FoodRows
-        flag={true}
-        data={foodItems?.filter((n) => n.vegan == "vegan")}
-        scrollValue={scrollValue}
-        splide={true}
-      />
+      {loader ? (
+        <motion.div
+          {...fadeInOut}
+          className="flex items-center justify-center h-full"
+        >
+          <Loader />
+        </motion.div>
+      ) : (
+        <FoodRows
+          flag={true}
+          data={foodItems?.filter((n) => n.vegan == "vegan")}
+          scrollValue={scrollValue}
+          splide={true}
+        />
+      )}
     </section>
   );
 }
