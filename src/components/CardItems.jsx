@@ -3,13 +3,14 @@ import { BiPlus, BiMinus } from "react-icons/bi";
 import { motion } from "framer-motion";
 import { useStateValue } from "../context/stateProvider";
 import { actionTypes } from "../context/reducer";
+import { buttonTap } from "../animations/motion";
 let products = [];
 function CardItems({ item, setFlag, flag }) {
   const [{ foodCart }, dispatch] = useStateValue();
   // const [items, setItems] = useState([]);
   const [qty, setQty] = useState(item.qty);
 
-  console.log(products);
+  // console.log(products);
 
   const cartDispatch = () => {
     localStorage.setItem("food", JSON.stringify(products));
@@ -24,7 +25,7 @@ function CardItems({ item, setFlag, flag }) {
       if (arr.indexOf(food.id) < 0) return;
     });
     if (action == "add") {
-      setQty(qty + 1);
+      setQty((prev) => qty + 1);
       foodCart.map((item) => {
         if (item.id === id) {
           item.qty += 1;
@@ -52,7 +53,7 @@ function CardItems({ item, setFlag, flag }) {
   };
   const productsUpdate = useMemo(() => {
     return { foodCart, qty };
-  }, [qty, products]);
+  }, [qty]);
 
   useEffect(() => {
     products = foodCart;
@@ -75,7 +76,7 @@ function CardItems({ item, setFlag, flag }) {
       {/* buttons section */}
       <div className="group flex items-center gap-2 ml-auto cursor-pointer">
         <motion.div
-          whileTap={{ scale: 0.75 }}
+          {...buttonTap}
           onClick={() => updateQty("remove", item?.id)}
         >
           <BiMinus className="text-gray-50" />
@@ -83,10 +84,7 @@ function CardItems({ item, setFlag, flag }) {
         <p className="w-5 h-5 rounded-sm bg-cartBg text-gray-50 flex items-center justify-center">
           {qty}
         </p>
-        <motion.div
-          whileTap={{ scale: 0.75 }}
-          onClick={() => updateQty("add", item?.id)}
-        >
+        <motion.div {...buttonTap} onClick={() => updateQty("add", item?.id)}>
           <BiPlus className="text-gray-50 " />
         </motion.div>
       </div>
