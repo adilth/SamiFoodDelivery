@@ -5,6 +5,9 @@ import { IoFastFood } from "react-icons/io5";
 import { useStateValue } from "../context/stateProvider";
 import FoodRows from "./FoodRows";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
+import { splideMenu } from "../animations/splides";
+import { buttonTap } from "../animations/motion";
+
 function MenuSection() {
   const [{ foodItems }, dispatch] = useStateValue();
   const [filterCategory, setFilterCategory] = useState("Chicken");
@@ -33,18 +36,7 @@ function MenuSection() {
 function MenuFilterCategory({ filterCategory, setFilterCategory }) {
   return (
     <Splide
-      options={{
-        arrows: false,
-        drag: true,
-        perPage: 8,
-        focus: "center",
-        breakpoints: {
-          1080: {
-            perPage: 6.5,
-          },
-        },
-        gap: "2rem",
-      }}
+      {...splideMenu}
       className="w-full flex items-center justify-start lg:justify-center gap-8 py-6 overflow-x-scroll scrollbar-none"
     >
       {categories &&
@@ -59,7 +51,7 @@ function MenuFilterCategory({ filterCategory, setFilterCategory }) {
             onClick={() => setFilterCategory(category.URLSearchParams)}
           >
             <motion.div
-              whileTap={{ scale: 0.75 }}
+              {...buttonTap}
               className="flex flex-col items-center justify-center"
             >
               <div
