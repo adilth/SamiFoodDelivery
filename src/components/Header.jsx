@@ -17,8 +17,9 @@ import {
   fadeIn,
   fadeInOutWithScale,
   fadeInOutWithTransition,
-} from "../animations";
+} from "../animations/motion";
 import { isActiveStyles, isNotActiveStyles } from "../utils/data";
+import { saveUser } from "../utils/firebaseFunc";
 const Header = () => {
   const firebaseAuth = getAuth(app);
   const provider = new GoogleAuthProvider();
@@ -28,12 +29,15 @@ const Header = () => {
   const login = async () => {
     if (!user) {
       const {
-        user: { refreshToken, providerData },
+        user: { providerData },
       } = await signInWithPopup(firebaseAuth, provider);
+      console.log(providerData);
       dispatch({
         type: actionTypes.SET_USER,
         user: providerData[0],
       });
+      console.log(providerData[0].uid);
+      await saveUser({ ...providerData[0], createAt: `${Date.now()}` });
       localStorage.setItem("user", JSON.stringify(providerData[0]));
     } else {
       setMenu(!isMenu);
@@ -50,7 +54,7 @@ const Header = () => {
   //call shopping cart action from getAllData
   const showCart = showMenuCart();
   return (
-    <header className="fixed bg-primary z-50 w-full p-3 px-4 md:p-5 md:px-12">
+    <header className="fixed bg-primary z-50 w-full p-3 px-4 md:py-4 md:px-12">
       {/* screen */}
       <div className="hidden sm:flex w-full h-full justify-between">
         <Link to={"/"} className="flex items-center gap-2">
@@ -100,24 +104,29 @@ const Header = () => {
               <motion.img
                 {...buttonTap}
                 src={user ? user.photoURL : Avatar}
+                onMouseEnter={() => setMenu(true)}
                 alt="avatar image"
+                referrerPolicy="no-referrer"
                 className="w-10 min-[40px] h-10 min-h-[40px] drop-shadow-xl rounded-full cursor-pointer"
               />
               {isMenu && (
                 <motion.div
                   {...fadeIn}
+                  onMouseLeave={() => setMenu(false)}
                   className="w-40 absolute flex flex-col top-12 right-0 bg-gray-50 shadow-xl rounded-lg "
                 >
                   {user && user.email === "rajaadil19952019@gmail.com" && (
-                    <Link to={"/createItems"}>
-                      <p
-                        className="px-4 py-2 flex items-center justify-between cursor-pointer hover:bg-slate-300 transition-colors duration-100 ease-in-out text-textColor text-base "
-                        onClick={() => setMenu(false)}
-                      >
-                        New Item <FaPlus />
+                    <Link to={"/dashboard/home"}>
+                      <p className="px-4 py-2 flex items-center justify-between cursor-pointer hover:bg-slate-300 transition-colors duration-100 ease-in-out text-textColor text-base ">
+                        Dashboard <FaPlus />
                       </p>
                     </Link>
                   )}
+                  <Link to={"/dashboard/orders"}>
+                    <p className="px-4 py-2 flex items-center justify-between cursor-pointer hover:bg-slate-300 transition-colors duration-100 ease-in-out text-textColor text-base ">
+                      Orders <FaSignOutAlt />
+                    </p>
+                  </Link>
                   <p
                     className="px-4 py-2 flex items-center justify-between cursor-pointer hover:bg-slate-300 transition-colors duration-100 ease-in-out text-textColor text-base "
                     onClick={logOut}
