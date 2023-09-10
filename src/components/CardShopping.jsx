@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MdOutlineKeyboardBackspace } from "react-icons/md";
 import { RiRefreshFill } from "react-icons/ri";
 import { motion } from "framer-motion";
@@ -7,6 +7,11 @@ import CardItems from "./CardItems";
 import { actionTypes } from "../context/reducer";
 import EmptyCart from "../assets/img/emptyCart.svg";
 import { showMenuCart } from "../utils/getAllData";
+import {
+  buttonTap,
+  buttonTapSoft,
+  fadeInOutWithTransition,
+} from "../animations/motion";
 
 function CardShopping() {
   const [{ foodCart, user }, dispatch] = useStateValue();
@@ -15,16 +20,12 @@ function CardShopping() {
   const [isPaymentLoading, setPaymentLoading] = useState(false);
   const showCart = showMenuCart();
 
-  const totAndFlag = useMemo(() => {
-    return [tot.flag];
-  }, [tot, flag]);
   useEffect(() => {
     let totalPrice = foodCart?.reduce((acc, item) => {
       return acc + item?.qty * item?.price;
     }, 0);
     setTot(totalPrice);
-    // console.log(foodCart);
-  }, [totAndFlag]);
+  }, [foodCart]);
 
   const clearCart = () => {
     dispatch({
@@ -37,22 +38,17 @@ function CardShopping() {
 
   return (
     <div className="fixed top-0 right-0 left-0 bottom-0 w-full h-screen bg-cardOverlayCart z-[233]">
-      <motion.div
-        className="absolute top-0 right-0 w-full md:w-275 lg:w-300 h-screen bg-white drop-shadow-md flex flex-col z-[333]"
-        initial={{ opacity: 0, x: 200 }}
-        animate={{ opacity: 1, x: 0 }}
-        exit={{ opacity: 0, x: 200 }}
-      >
+      <motion.div {...fadeInOutWithTransition}>
         <div
           className="w-full flex items-center justify-between p-4 cursor-pointer"
           onClick={showCart}
         >
-          <motion.div whileTap={{ scale: 0.75 }}>
+          <motion.div {...buttonTap}>
             <MdOutlineKeyboardBackspace className="text-textColor text-3xl" />
           </motion.div>
           <div className="text-textColor text-lg font-semibold">Cart</div>
           <motion.p
-            whileTap={{ scale: 0.82 }}
+            {...buttonTapSoft}
             onClick={clearCart}
             className="flex items-center gap-2 p-1 bg-gray-100 rounded-md hover:shadow-md cursor-pointer text-textColor text-base"
           >
@@ -125,7 +121,7 @@ function CardShopping() {
 function ButtonCheckOut({ text }) {
   return (
     <motion.button
-      whileTap={{ scale: 0.8 }}
+      {...buttonTap}
       type="button"
       className="w-full p-2 rounded-full bg-gradient-to-tr from-orange-400 to-orange-600 text-gray-50 text-lg my-2 hover:shadow-lg"
     >
