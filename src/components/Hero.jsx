@@ -1,8 +1,8 @@
 import React from "react";
 import Delivery from "../assets/png/pngkey.com-delivery-png-1145548.png";
 import HeroImg from "../assets/png/c983b457564097.59db4a734d0d5.gif";
-import { heroData } from "../utils/data";
 import { Link } from "react-router-dom";
+import { buttonTap } from "../animations/motion";
 
 function Hero() {
   return (
@@ -45,31 +45,6 @@ function Hero() {
             className="lg:h-full w-full lg:w-auto rounded-full"
           />
         </div>
-        {/* <div className="w-full xlg:w-[80%] h-full absolute top-0 right-0 grid grid-cols-2 snap-center gap-10 sm:gap-6   px-8 sm:px-3 xl:px-20 lg:px-4 pt-5 lg:pt-0 place-items-center ">
-          {heroData &&
-            heroData.map((data) => (
-              <div
-                key={data.id}
-                className=" lg:w-190 bg-cardOverlay backdrop-blur-md rounded-2xl flex flex-col items-center justify-center drop-shadow-lg px-7 md:px-3"
-              >
-                <img
-                  src={data.src}
-                  alt={data.decp}
-                  className="w-[7rem] md:w-32  lg:w-[8.25rem] -mt-10 lg:-mt-16 "
-                />
-                <p className="text-ms text-base font-semibold text-textColor mt-1 md:mt-2">
-                  {data.name}
-                </p>
-                <p className=" text-xs text-lighttextGray font-semibold my-1 lg:my-2">
-                  {data.decp}
-                </p>
-                <p className="text-ms font-semibold text-headingColor">
-                  <span className="text-xs text-green-700 mr-1">$</span>
-                  {data.price}
-                </p>
-              </div>
-            ))}
-        </div> */}
       </div>
     </section>
   );
