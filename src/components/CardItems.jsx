@@ -4,28 +4,22 @@ import { motion } from "framer-motion";
 import { useStateValue } from "../context/stateProvider";
 import { actionTypes } from "../context/reducer";
 import { buttonTap } from "../animations/motion";
-let products = [];
+
 function CardItems({ item, setFlag, flag }) {
   const [{ foodCart }, dispatch] = useStateValue();
-  // const [items, setItems] = useState([]);
+  const [updatedCart, setUpdatedCart] = useState([...foodCart]);
   const [qty, setQty] = useState(item.qty);
-
-  // console.log(products);
-
   const cartDispatch = () => {
-    localStorage.setItem("food", JSON.stringify(products));
+    localStorage.setItem("food", JSON.stringify(updatedCart));
     dispatch({
       type: actionTypes.SET_FOOD_CART,
-      foodCart: products,
+      foodCart: updatedCart,
     });
   };
 
   const updateQty = (action, id) => {
-    foodCart.map((food, idx, arr) => {
-      if (arr.indexOf(food.id) < 0) return;
-    });
-    if (action == "add") {
-      setQty((prev) => qty + 1);
+    if (action === "add") {
+      setQty((prev) => prev + 1);
       foodCart.map((item) => {
         if (item.id === id) {
           item.qty += 1;
@@ -34,13 +28,12 @@ function CardItems({ item, setFlag, flag }) {
       });
       cartDispatch();
     } else {
-      // initial state value is one so you need to check if 1 then remove it
-      if (qty == 1) {
-        products = foodCart.filter((item) => item.id !== id);
+      if (qty === 1) {
+        setUpdatedCart(updatedCart.filter((item) => item.id !== id));
         setFlag(flag + 1);
         cartDispatch();
       } else {
-        setQty(qty - 1);
+        setQty((prev) => prev - 1);
         foodCart.map((item) => {
           if (item.id === id) {
             item.qty -= 1;
@@ -50,14 +43,9 @@ function CardItems({ item, setFlag, flag }) {
         cartDispatch();
       }
     }
-  };
-  const productsUpdate = useMemo(() => {
-    return { foodCart, qty };
-  }, [qty]);
 
-  useEffect(() => {
-    products = foodCart;
-  }, [productsUpdate]);
+    setFlag(flag + 1);
+  };
 
   return (
     <div className="w-full p-1 rounded-lg bg-cardItem flex items-center gap-2">
