@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { useStateValue } from "../context/stateProvider";
 import FoodRows from "./FoodRows";
+import DebounceSearch from "./DebounceSearch";
 
 function Search() {
   const [input, setInput] = useState("");
@@ -50,15 +51,8 @@ function Search() {
             <option value="low-price">Low Price</option>
           </select>
         </div>
-        <div className="relative w-[290px] mt-2 mb-4">
-          <input
-            onChange={(e) => setInput(e.target.value)}
-            type="text"
-            placeholder="Search..."
-            className="w-full px-2 py-4 rounded-xl"
-            value={input}
-          />
-          <FaSearch className="absolute top-[50%] right-6 translate-x-full -translate-y-1/2" />
+        <div className="relative flex justify-end mr-6 h-fit">
+          <DebounceSearch value={input} onChange={(value) => setInput(value)} />
         </div>
       </div>
       <div className="w-full mt-3">
