@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import { Splide, SplideTrack, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
@@ -7,11 +7,17 @@ import { useStateValue } from "../context/stateProvider";
 import { actionTypes } from "../context/reducer";
 import { Link } from "react-router-dom";
 import NotFoundImg from "./NotFoundImg";
+import { buttonTap } from "../animations/motion";
+import { foodRowsSides } from "../animations/splides";
 
-function FoodRows({ flag, data, scrollValue, splide }) {
+function FoodRows({ flag, data, splide }) {
   const rowFood = useRef();
   const [{ foodCart }, dispatch] = useStateValue();
-  const [dishFood, setDishFood] = useState(foodCart);
+  const [dishFood, setDishFood] = useState([...foodCart]);
+  // const [loader, setLoader] = useState(true);
+  // setInterval(() => {
+  //   setLoader(false);
+  // }, 1000);
   const addToCart = () => {
     dispatch({
       type: actionTypes.SET_FOOD_CART,
@@ -19,39 +25,36 @@ function FoodRows({ flag, data, scrollValue, splide }) {
     });
     localStorage.setItem("food", JSON.stringify(dishFood));
   };
-  const setMemo = useMemo(() => {
-    return [...foodCart, dishFood];
-  }, [dishFood]);
+
   useEffect(() => {
     addToCart();
-  }, [setMemo]);
-  useEffect(() => {
-    rowFood.current.scrollLeft += scrollValue;
-  }, [scrollValue]);
+  }, [dishFood]);
 
+  const handleAddToCart = (item) => {
+    let exist = foodCart?.find((el) => el.id === item.id);
+    console.log(exist);
+    setDishFood((card) => {
+      if (exist == null) {
+        return [...foodCart, item];
+      } else {
+        item.qty += 1;
+        return [...foodCart];
+      }
+    });
+  };
+
+  let focusStart = `${data?.length > 2 ? "center" : "start"}`;
+  const updatedFoodRowsSides = {
+    options: {
+      ...foodRowsSides.options,
+      focus: focusStart,
+    },
+  };
   if (splide) {
     return (
       <Splide
         ref={rowFood}
-        options={{
-          perPage: 4.4,
-          breakpoints: {
-            1000: {
-              perPage: 3.2,
-              gap: "1.5rem",
-            },
-            702: {
-              perPage: 2.2,
-              gap: "1.2rem",
-            },
-          },
-          rewind: true,
-          arrows: false,
-          focus: `${data?.length > 2 ? "center" : "start"}`,
-          omitEnd: true,
-          drag: "free",
-          gap: "1.2rem",
-        }}
+        {...updatedFoodRowsSides}
         hasTrack={false}
         className={`food_item w-full my-12 flex items-center justify-start scroll-smooth ${
           flag
@@ -69,20 +72,9 @@ function FoodRows({ flag, data, scrollValue, splide }) {
                 <div className="w-full flex items-center cursor-pointer justify-evenly">
                   <ImgLink item={item} />
                   <motion.div
-                    whileTap={{ scale: 0.75 }}
+                    {...buttonTap}
                     className="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center cursor-pointer hover:shadow-md -mt-8"
-                    onClick={() =>
-                      setDishFood((prev) => {
-                        let exist = prev?.find((food) => food.id == item.id);
-                        console.log(exist);
-                        if (!exist) {
-                          return [...foodCart, item];
-                        } else {
-                          exist.qty++;
-                          return [...foodCart];
-                        }
-                      })
-                    }
+                    onClick={() => handleAddToCart(item)}
                   >
                     <FaShoppingCart className="text-white" />
                   </motion.div>
@@ -117,7 +109,7 @@ function FoodRows({ flag, data, scrollValue, splide }) {
                 <motion.div
                   whileTap={{ scale: 0.75 }}
                   className="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center cursor-pointer hover:shadow-md -mt-8"
-                  onClick={() => setDishFood([...foodCart, item])}
+                  onClick={() => setDishFood([...dishFood, item])}
                 >
                   <FaShoppingCart className="text-white" />
                 </motion.div>
