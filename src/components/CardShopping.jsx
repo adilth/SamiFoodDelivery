@@ -38,7 +38,10 @@ function CardShopping() {
 
   return (
     <div className="fixed top-0 right-0 left-0 bottom-0 w-full h-screen bg-cardOverlayCart z-[233]">
-      <motion.div {...fadeInOutWithTransition}>
+      <motion.div
+        className="absolute top-0 right-0 w-full md:w-275 lg:w-300 h-screen bg-white drop-shadow-md flex flex-col z-[333]"
+        {...fadeInOutWithTransition}
+      >
         <div
           className="w-full flex items-center justify-between p-4 cursor-pointer"
           onClick={showCart}
