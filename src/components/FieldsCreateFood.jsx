@@ -16,23 +16,34 @@ import { BiMessageSquareEdit } from "react-icons/bi";
 import { categories } from "../utils/data";
 import Loader from "./Loader";
 import { storage } from "../firebase.config";
-import { saveItem } from "../utils/firebaseFunc";
+import { saveItem, updateItem } from "../utils/firebaseFunc";
 import getAllFoodData from "../utils/getAllData";
 
-function FieldsCreateFood({ setMsg, setFields, setAlertText }) {
-  // const [title, setTitle] = useState("");
-  // const [calories, setCalories] = useState("");
-  // const [price, setPrice] = useState("");
-  // const [category, setCategory] = useState(null);
-  const [imgFood, setImgFood] = useState(null);
+const initialEventData = {
+  title: "",
+  calories: "",
+  desc: "",
+  price: "",
+  category: null,
+};
+function FieldsCreateFood({
+  setMsg,
+  setFields,
+  setAlertText,
+  isUpdating,
+  initialData,
+  setOpen,
+}) {
+  const [imgFood, setImgFood] = useState(
+    initialData ? initialData.imgURL : null
+  );
   const [isLoading, setIsLoading] = useState(false);
-  const [topping, setTopping] = useState("nonVegan");
-  // const [desc, setDesc] = useState("");
+  const [topping, setTopping] = useState(
+    initialData ? initialData.vegan : "nonVegan"
+  );
   const [event, updateEvent] = useReducer(
-    (prev, next) => {
-      return { ...prev, ...next };
-    },
-    { title: "", calories: "", desc: "", price: "", category: null }
+    (prev, next) => ({ ...prev, ...next }),
+    initialData || initialEventData
   );
 
   const onOptionChange = (e) => {
@@ -51,45 +62,45 @@ function FieldsCreateFood({ setMsg, setFields, setAlertText }) {
           (snapShot.bytesTransferred / snapShot.totalBytes) * 100;
       },
       (error) => {
-        console.log(error);
-        setFields(true);
-        setMsg("Error uploading file: please try again ");
-        setAlertText("danger");
-        setTimeout(() => {
-          setFields(false);
-          setIsLoading(false);
-        }, 4000);
+        console.error(error);
+        handleError("Error deleting image: please try again ");
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           setImgFood(downloadURL);
-          console.log(downloadURL);
-          setFields(true);
-          setIsLoading(false);
-          setMsg("Image uploaded Successfully ");
-          setAlertText("success");
-          setTimeout(() => {
-            setFields(false);
-          }, 4000);
+          handleSuccess("Image uploaded Successfully ");
         });
       }
     );
+  };
+  const handleError = (errorMessage) => {
+    setFields(true);
+    setMsg(errorMessage);
+    setAlertText("danger");
+    setTimeout(() => {
+      setFields(false);
+      setIsLoading(false);
+    }, 4000);
+  };
+  const handleSuccess = (successMsg) => {
+    setFields(true);
+    setIsLoading(false);
+    setMsg(successMsg);
+    setAlertText("success");
+    setTimeout(() => {
+      setFields(false);
+      setIsLoading(false);
+    }, 4000);
   };
   const deleteImage = () => {
     setIsLoading(true);
     const deleteRef = ref(storage, imgFood);
     deleteObject(deleteRef).then(() => {
       setImgFood(null);
-      setFields(true);
-      setIsLoading(false);
-      setMsg("Image deleted Successfully ");
-      setAlertText("success");
-      setTimeout(() => {
-        setFields(false);
-      }, 4000);
+      handleSuccess("Image deleted Successfully");
     });
   };
-  const saveDataFood = () => {
+  const saveDataFood = async () => {
     setIsLoading(true);
     try {
       if (
@@ -99,16 +110,13 @@ function FieldsCreateFood({ setMsg, setFields, setAlertText }) {
         !event.price ||
         !event.category
       ) {
-        setFields(true);
-        setMsg("Please field all fields before Save ");
-        setAlertText("danger");
-        setTimeout(() => {
-          setFields(false);
-          setIsLoading(false);
-        }, 4000);
-      } else {
+        handleError("Please fill in all fields before Save ");
+        return;
+      }
+
+      if (isUpdating) {
         const dataFood = {
-          id: `${Date.now()}`,
+          id: initialData.id,
           title: event.title,
           imgURL: imgFood,
           calories: event.calories,
@@ -118,42 +126,36 @@ function FieldsCreateFood({ setMsg, setFields, setAlertText }) {
           vegan: topping,
           desc: event.desc,
         };
-        saveItem(dataFood);
-        setIsLoading(false);
-        setFields(true);
-        setMsg("Data uploading Successfully ");
-        setAlertText("success");
-        setTimeout(() => {
-          setFields(false);
-        }, 4000);
-        clearFields();
+        console.log(dataFood);
+        console.log(initialData);
+        await updateItem(initialData, dataFood);
+        setOpen(false);
+      } else {
+        const dataFood = {
+          title: event.title,
+          imgURL: imgFood,
+          calories: event.calories,
+          category: event.category,
+          qty: 1,
+          price: event.price,
+          vegan: topping,
+          desc: event.desc,
+        };
+        let newData = { ...dataFood, id: Date.now() };
+        // Handle save new data logic using newData...
+        saveItem(newData);
       }
+      handleSuccess("Data uploading Successfully");
+      clearFields();
     } catch (error) {
       console.log(error);
-      setFields(true);
-      setMsg("Error uploading file: please try again ");
-      setAlertText("danger");
-      setTimeout(() => {
-        setFields(false);
-        setIsLoading(false);
-      }, 4000);
+      handleError("Error uploading file: please try again ");
     }
     fetchData();
   };
   const clearFields = () => {
-    updateEvent({
-      title: "",
-      calories: "",
-      desc: "",
-      price: "",
-      category: "other",
-    });
-    // setTitle("");
+    updateEvent(initialEventData);
     setImgFood(null);
-    // setCalories("");
-    // setCategory("other");
-    // setPrice("");
-    // setDesc("");
   };
   return (
     <>
@@ -214,7 +216,7 @@ function FieldsCreateFood({ setMsg, setFields, setAlertText }) {
             categories.map((c) => (
               <option
                 key={c.id + c.name}
-                value={c.URLSearchParams}
+                value={c.name}
                 className="text-base border-0 capitalize text-headingColor bg-white"
               >
                 {c.name}
@@ -222,7 +224,10 @@ function FieldsCreateFood({ setMsg, setFields, setAlertText }) {
             ))}
         </select>
       </div>
-      <div className="group flex items-center justify-center flex-col border-2 border-dotted border-gray-300 w-full h-225 md:h-420 curser-pointer rounded-lg">
+      <div
+        className="group flex items-center justify-center flex-col border-2 border-dotted border-gray-300 w-full 
+      h-[180px] md:h-[280px] curser-pointer rounded-lg"
+      >
         {isLoading ? (
           <Loader />
         ) : (
@@ -312,7 +317,7 @@ function FieldsCreateFood({ setMsg, setFields, setAlertText }) {
           className="ml-0 md:ml-auto w-full md:w-auto border-none bg-emerald-500 px-12 py-2 rounded-lg text-lg text-white font-semibold"
           onClick={saveDataFood}
         >
-          Save
+          {isUpdating ? "Update" : "Save"}
         </button>
       </div>
     </>
