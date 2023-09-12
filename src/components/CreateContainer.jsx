@@ -2,19 +2,18 @@ import React from "react";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import FieldsCreateFood from "./FieldsCreateFood";
+import { fadeInOut } from "../animations/motion";
 
 const CreateContainer = () => {
   const [fields, setFields] = useState(false);
   const [msg, setMsg] = useState(null);
   const [alertText, setAlertText] = useState("danger");
   return (
-    <div className="w-full min-h-screen flex items-center justify-center">
-      <div className="w-[90%] md:w-[75%] border border-gray-300 rounded-lg p-4 flex flex-col items-center justify-center gap-4">
+    <div className="w-full h-full flex justify-center pt-6">
+      <div className="w-[90%] md:w-[75%] border border-gray-300 rounded-lg p-4 flex flex-col  gap-4">
         {fields && (
           <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            {...fadeInOut}
             className={`w-full p-2 rounded-lg text-center text-lg font-semibold ${
               alertText === "danger"
                 ? "bg-red-400 text-red-900"
@@ -28,6 +27,7 @@ const CreateContainer = () => {
           setMsg={setMsg}
           setFields={setFields}
           setAlertText={setAlertText}
+          isUpdating={false}
         />
       </div>
     </div>
