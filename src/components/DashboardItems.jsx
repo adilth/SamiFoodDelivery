@@ -1,11 +1,11 @@
 import { FaEdit } from "react-icons/fa";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import { useStateValue } from "../context/stateProvider";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import DataTable from "./DataTable";
 import { useAlertState } from "../context/alertProvider";
 import { alertActionTypes } from "../context/alertReducer";
-import Modale from "./Modale";
+import ModalUpdateItem from "./ModalUpdateItem";
 import { deleteItem } from "../utils/firebaseFunc";
 function DashboardItems() {
   const [{ foodItems }, dispatch] = useStateValue();
@@ -106,7 +106,11 @@ function DashboardItems() {
     <>
       <DataTable columns={columns} data={data} />;
       {open && (
-        <Modale slug="product" setOpen={() => setOpen(false)} item={editItem} />
+        <ModalUpdateItem
+          slug="product"
+          setOpen={() => setOpen(false)}
+          item={editItem}
+        />
       )}
     </>
   );
