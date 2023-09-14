@@ -1,10 +1,13 @@
 import {
   collection,
+  deleteDoc,
+  deleteField,
   doc,
   getDocs,
   orderBy,
   query,
   setDoc,
+  updateDoc,
   where,
 } from "firebase/firestore";
 import { firestore } from "../firebase.config";
@@ -13,6 +16,18 @@ export const saveItem = async (data) => {
   const docItems = doc(firestore, "foodItems", `${Date.now()}`);
   await setDoc(docItems, data, {
     merge: true,
+  });
+};
+export const updateItem = async (data, newData) => {
+  const cityRef = await doc(firestore, "foodItems", data.id);
+  await updateDoc(cityRef, newData, {
+    merge: true,
+  });
+};
+export const deleteItem = async (id) => {
+  const cityRef = await doc(firestore, "foodItems", id);
+  await deleteDoc(cityRef, {
+    capital: deleteField(),
   });
 };
 export const saveForm = async (data) => {
