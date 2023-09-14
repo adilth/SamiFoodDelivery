@@ -3,6 +3,7 @@ export const actionTypes = {
   SET_FOOD: "set_food",
   SET_SHOW_CART: "set_showing_cart",
   SET_FOOD_CART: "set_food_cart",
+  GET_ALL_USERS: "get_all_users",
 };
 
 export const reducer = (state, action) => {
@@ -27,6 +28,11 @@ export const reducer = (state, action) => {
       return {
         ...state,
         foodCart: action.foodCart,
+      };
+    case actionTypes.GET_ALL_USERS:
+      return {
+        ...state,
+        users: action.users,
       };
     default:
       return state;
