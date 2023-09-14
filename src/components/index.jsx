@@ -13,3 +13,6 @@ export { default as FoodRows } from "./FoodRows";
 export { default as Loader } from "./Loader";
 export { default as Comments } from "./Comments";
 export { default as Search } from "./Search";
+export { default as DashboardLeftSection } from "./DashboardLeftSection";
+export { default as DashboardRightSection } from "./DashboardRightSection";
+export { default as Alert } from "./Alert";
