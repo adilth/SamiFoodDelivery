@@ -3,10 +3,12 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import { Alert, Loader } from "./components";
 import { AnimatePresence } from "framer-motion";
 import getAllFoodData from "./utils/getAllData";
-const HomeRoute = lazy(() => import("./pages/HomeRoute"));
 import { useStateValue } from "./context/stateProvider";
 import { useAlertState } from "./context/alertProvider";
+const HomeRoute = lazy(() => import("./pages/HomeRoute"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
+const Success = lazy(() => import("./pages/Success"));
+
 function App() {
   const location = useLocation();
   const [{ foodItem }, dispatch] = useStateValue();
@@ -32,6 +34,14 @@ function App() {
             element={
               <Suspense fallback={<Loader />}>
                 <Dashboard />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/checkout-success"
+            element={
+              <Suspense fallback={<Loader />}>
+                <Success />
               </Suspense>
             }
           />
