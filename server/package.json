@@ -1,0 +1,32 @@
+{
+  "name": "samifood",
+  "version": "1.0.0",
+  "description": "a delivery website for food that user need",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test",
+    "start": "node index.js",
+    "dev:server": "node --watch index.js",
+    "dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "firebase-admin": "^11.10.1",
+    "stripe": "^13.5.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adilth/SamiFoodDelivery.git"
+  },
+  "author": "adil tahiri",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adilth/SamiFoodDelivery/issues"
+  },
+  "homepage": "https://github.com/adilth/SamiFoodDelivery#readme",
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
