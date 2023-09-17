@@ -4,60 +4,64 @@ const db = admin.firestore();
 db.settings({ ignoreUndefinedProperties: true });
 const stripe = require("stripe")(process.env.STRIPE_KEY);
 // const express = require("express");
-router.post("/create-checkout-session", async (req, res) => {
-  const customer = await stripe.customers.create({
-    metadata: {
-      user_id: req.body.data.user.uid.toString(),
-      // cart: JSON.stringify(req.body.data.cart),
-      total: req.body.data.total,
-    },
-  });
+router.post("/create-checkout-session", async (req, res, next) => {
+  try {
+    const customer = await stripe.customers.create({
+      metadata: {
+        user_id: req.body.data.user.uid.toString(),
+        total: req.body.data.total,
+      },
+    });
+    const line_items = req.body.data.cart.map((item) => {
+      return {
+        price_data: {
+          currency: "usd",
+          product_data: {
+            name: item.title,
+            images: [item.imgURL],
+            metadata: {
+              id: item.id,
+              category: item.category,
+            },
+          },
+          unit_amount: item.price * 100,
+        },
+        quantity: item.qty,
+      };
+    });
 
-  const line_items = req.body.data.cart.map((item) => {
-    return {
-      price_data: {
-        currency: "usd",
-        product_data: {
-          name: item.title,
-          images: [item.imgURL],
-          metadata: {
-            id: item.id,
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ["card"],
+      shipping_address_collection: { allowed_countries: ["US", "CA"] },
+      shipping_options: [
+        {
+          shipping_rate_data: {
+            type: "fixed_amount",
+            fixed_amount: { amount: 0, currency: "usd" },
+            display_name: "Free shipping",
+            delivery_estimate: {
+              minimum: { unit: "hour", value: 2 },
+              maximum: { unit: "hour", value: 4 },
+            },
           },
         },
-        unit_amount: item.price * 100,
+      ],
+      phone_number_collection: {
+        enabled: true,
       },
-      quantity: item.qty,
-    };
-  });
 
-  const session = await stripe.checkout.sessions.create({
-    payment_method_types: ["card"],
-    shipping_address_collection: { allowed_countries: ["US", "CA"] },
-    shipping_options: [
-      {
-        shipping_rate_data: {
-          type: "fixed_amount",
-          fixed_amount: { amount: 0, currency: "usd" },
-          display_name: "Free shipping",
-          delivery_estimate: {
-            minimum: { unit: "hour", value: 2 },
-            maximum: { unit: "hour", value: 4 },
-          },
-        },
-      },
-    ],
-    phone_number_collection: {
-      enabled: true,
-    },
+      line_items,
+      customer: customer.id,
+      mode: "payment",
+      success_url: `${process.env.CLIENT_URL}/checkout-success`,
+      cancel_url: `${process.env.CLIENT_URL}/`,
+    });
 
-    line_items,
-    customer: customer.id,
-    mode: "payment",
-    success_url: `${process.env.CLIENT_URL}/checkout-success`,
-    cancel_url: `${process.env.CLIENT_URL}/`,
-  });
-
-  res.send({ url: session.url });
+    res.send({ url: session.url });
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
 });
 router.post("/webhook", async (req, res) => {
   const sig = req.headers["stripe-signature"];
@@ -78,51 +82,63 @@ router.post("/webhook", async (req, res) => {
   eventType = event.type;
   // Handle the event
   if (eventType === "checkout.session.completed") {
-    let session = await stripe.customers.retrieve(data.customer, {
-      expand: ["payment_intent.payment_method", "customer"],
-    });
+    let session = await stripe.customers.retrieve(data.customer);
+    let line_items = await stripe.checkout.sessions.listLineItems(
+      event.data.object.id
+    );
 
-    // createOrder(customer, data, res);
-    console.log("Customer details", session);
-    console.log("Data", data);
+    createOrder(session, line_items, data, res);
   }
-  // Return a 200 res to acknowledge receipt of the event
   res.send().end();
 });
-// const createOrder = async (customer, intent, res) => {
-//   // Extract cart items from line_items
-//   const cartItems = intent.display_items.map((item) => ({
-//     name: item.custom.name,
-//     price: item.amount, // Convert from cents to dollars
-//     quantity: item.quantity,
-//     product_id: item.custom.id,
-//     image: item.custom.images[0], // Assuming there's always at least one image
-//   }));
+const createOrder = async (customer, lineItems, intent, res) => {
+  // Extract cart items from line_items
+  const orderItems = await getCartItems(lineItems);
+  try {
+    const orderId = Date.now();
+    const data = {
+      intentId: intent.id,
+      orderId: orderId,
+      amount: intent.amount_total / 100,
+      created: intent.created,
+      payment_method_types: intent.payment_method_types,
+      status: intent.payment_status,
+      customer: intent.customer_details,
+      shipping_details: intent.shipping_details,
+      userId: customer.metadata.user_id,
+      items: orderItems,
+      total: customer.metadata.total,
+      sts: "preparing",
+    };
+    await db.collection("orders").doc(`/${orderId}/`).set(data);
 
-//   try {
-//     const orderId = Date.now();
-//     const data = {
-//       intentId: intent.id,
-//       orderId: orderId,
-//       amount: intent.amount_total,
-//       created: intent.created,
-//       payment_method_types: intent.payment_method_types,
-//       status: intent.payment_status,
-//       customer: intent.customer_details,
-//       shipping_details: intent.shipping_details,
-//       userId: customer.metadata.user_id,
-//       items: JSON.parse(cartItems),
-//       total: customer.metadata.total,
-//       sts: "preparing",
-//     };
-//     await db.collection("orders").doc(`/${orderId}/`).set(data);
-
-//     return res.status(200).send({ success: true });
-//   } catch (err) {
-//     console.log(err);
-//     res
-//       .status(400)
-//       .send(`there is problem with create an order ${err.message}`);
-//   }
-// };
+    res.status(201).send({ success: true });
+  } catch (err) {
+    console.log(err);
+    res
+      .status(400)
+      .send(`there is problem with create an order ${err.message}`);
+  }
+};
+async function getCartItems(lineItems) {
+  return new Promise((resolve, reject) => {
+    let cartItems = [];
+    lineItems?.data?.forEach(async (item) => {
+      const product = await stripe.products.retrieve(item.price.product);
+      const productId = product.metadata.id;
+      console.log(product);
+      cartItems.push({
+        product: productId,
+        name: product.name,
+        price: item.price.unit_amount / 100, // Convert from cents to dollars
+        quantity: product.quantity,
+        image: product.images[0],
+        category: product.metadata.category,
+      });
+      if (cartItems.length === lineItems?.data.length) {
+        resolve(cartItems);
+      }
+    });
+  });
+}
 module.exports = router;

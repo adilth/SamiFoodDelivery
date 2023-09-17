@@ -26,6 +26,11 @@ const productRoute = require("./routes/products");
 app.use("/api/products", productRoute);
 // app.use("/api/products", webHooks);
 
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ error: "Something went wrong!" });
+});
 const PORT = process.env.PORT || 8001;
 
 app.listen(PORT, () => console.log(`Server started on PORT ${PORT}`));
