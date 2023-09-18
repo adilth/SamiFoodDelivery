@@ -24,7 +24,7 @@ router.post("/create-checkout-session", async (req, res, next) => {
               category: item.category,
             },
           },
-          unit_amount: item.price * 100,
+          unit_amount: Number(item.price * 100).toFixed(),
         },
         quantity: item.qty,
       };
@@ -86,10 +86,9 @@ router.post("/webhook", async (req, res) => {
     let line_items = await stripe.checkout.sessions.listLineItems(
       event.data.object.id
     );
-
     createOrder(session, line_items, data, res);
   }
-  res.send().end();
+  res.status(201).send({ success: true }).end();
 });
 const createOrder = async (customer, lineItems, intent, res) => {
   // Extract cart items from line_items
@@ -111,8 +110,6 @@ const createOrder = async (customer, lineItems, intent, res) => {
       sts: "preparing",
     };
     await db.collection("orders").doc(`/${orderId}/`).set(data);
-
-    res.status(201).send({ success: true });
   } catch (err) {
     console.log(err);
     res
@@ -131,7 +128,7 @@ async function getCartItems(lineItems) {
         product: productId,
         name: product.name,
         price: item.price.unit_amount / 100, // Convert from cents to dollars
-        quantity: product.quantity,
+        quantity: item.quantity,
         image: product.images[0],
         category: product.metadata.category,
       });
