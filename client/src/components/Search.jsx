@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { useStateValue } from "../context/stateProvider";
 import FoodRows from "./FoodRows";
@@ -8,6 +8,7 @@ function Search() {
   const [input, setInput] = useState("");
   const [{ foodItems }, dispatch] = useStateValue();
   const [foodFields, setFoodFields] = useState("default");
+  const dataItems = useMemo(() => foodItems, []);
   const handleSelectFields = (data) => {
     if (foodFields == "ascending") {
       return data.sort((a, b) => a.title.localeCompare(b.title));
@@ -17,6 +18,8 @@ function Search() {
       return data.sort((a, b) => a.price - b.price);
     } else if (foodFields == "low-price") {
       return data.sort((a, b) => b.price - a.price);
+    } else {
+      return data;
     }
   };
   const submitHandler = (data) => {
@@ -32,7 +35,7 @@ function Search() {
     });
   };
   useEffect(() => {
-    handleSelectFields(foodItems);
+    handleSelectFields(dataItems);
   }, [foodFields]);
   return (
     <>
@@ -58,7 +61,7 @@ function Search() {
         <p className="text-2xl font-semibold capitalize relative text-headingColor before:absolute before:rounded-lg before:content before:w-32 before:h-1 before:-bottom-2 before:left-0 before:bg-gradient-to-tr from-orange-400 to-orange-600 transition-all ease-in-out duration-100">
           Our Menu
         </p>
-        <FoodRows flag={false} data={submitHandler(foodItems)} splide={false} />
+        <FoodRows flag={false} data={submitHandler(dataItems)} splide={false} />
       </div>
     </>
   );
