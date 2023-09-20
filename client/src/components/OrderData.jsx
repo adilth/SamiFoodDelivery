@@ -1,15 +1,11 @@
 import { motion } from "framer-motion";
 import { HiCurrencyRupee } from "react-icons/hi";
 import { buttonTap, staggerFadeInOut } from "../animations/motion";
-import { listenToOrders, updateCartSts } from "../utils/firebaseFunc";
+import { updateCartSts } from "../utils/firebaseFunc";
 import { useEffect, useState } from "react";
-import { useStateValue } from "../context/stateProvider";
-import { actionTypes } from "../context/reducer";
 
 const OrderData = ({ index, data, admin }) => {
-  //   const [{ orders }, dispatch] = useStateValue();
   const [updateSts, setUpdateSts] = useState(data?.sts);
-  //   const [orders, setOrders] = useState([]);
   const handleClick = async (orderId, sts) => {
     await updateCartSts(orderId, sts);
     setUpdateSts(sts);
