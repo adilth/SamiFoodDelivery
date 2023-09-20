@@ -19,7 +19,7 @@ function DebounceSearch({ value: initValue, onChange }) {
         onChange={(e) => setValue(e.target.value)}
         type="text"
         placeholder="Search..."
-        className="p-4 rounded-xl border border-gray-400"
+        className="p-3 rounded-xl border border-gray-400"
         value={value}
       />
       <FaSearch className="absolute top-[50%] right-7 translate-x-full -translate-y-1/2 text-lg" />
