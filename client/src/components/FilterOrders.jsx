@@ -1,28 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import DebounceSearch from "./DebounceSearch";
-import { useStateValue } from "../context/stateProvider";
 
-function FilterOrders({ input, setInput, orders }) {
-  const [foodFields, setFoodFields] = useState("preparing");
+function FilterOrders({ input, setInput, setUserOrders, orders }) {
+  const [foodFields, setFoodFields] = useState("all");
+  const dataItems = useMemo(() => {}, [orders]);
   const handleSelectFields = (data) => {
-    if (foodFields == "preparing") {
-      return data.filter((item) => item.sts === "preparing");
-    } else if (foodFields == "cancelled") {
-      return data.filter((item) => item.sts === "cancelled");
-    } else if (foodFields == "delivered") {
-      return data.filter((item) => item.sts === "delivered");
-    } else {
-      return data;
+    let filteredData = data; // Start with the unfiltered data
+    //?TODO: remember to remove user that login that not effect the dashboard orders
+    if (foodFields === "preparing") {
+      filteredData = filteredData.filter((item) => item?.sts === "preparing");
+    } else if (foodFields === "cancelled") {
+      filteredData = filteredData.filter((item) => item?.sts === "cancelled");
+    } else if (foodFields === "delivered") {
+      filteredData = filteredData.filter((item) => item?.sts === "delivered");
     }
+    // Return the filtered data
+    return filteredData;
   };
-
   useEffect(() => {
-    handleSelectFields(orders);
-  }, [foodFields]);
+    setUserOrders(handleSelectFields(orders));
+  }, [foodFields, dataItems]);
   return (
     <>
       <div className="flex justify-between w-full">
-        <div className="px-4 py-3 cursor-pointer text-end">
+        <div className="px-4 py-2 cursor-pointer text-end">
           <select
             className="w-50 px-4 py-3 rounded-sm "
             id="foodSearch"
@@ -30,8 +31,8 @@ function FilterOrders({ input, setInput, orders }) {
           >
             <option value="all">All</option>
             <option value="preparing">Preparing</option>
-            <option value="canceled">Canceled</option>
-            <option value="complete">delivered</option>
+            <option value="cancelled">Canceled</option>
+            <option value="delivered">delivered</option>
           </select>
         </div>
         <div className="relative flex justify-end mr-6 h-fit">
