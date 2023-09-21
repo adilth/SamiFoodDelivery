@@ -5,10 +5,12 @@ import { AnimatePresence } from "framer-motion";
 import getAllFoodData from "./utils/getAllData";
 import { useStateValue } from "./context/stateProvider";
 import { useAlertState } from "./context/alertProvider";
+const UserInfo = lazy(() => import("./pages/UserInfo"));
 const UsersOrder = lazy(() => import("./pages/UserOrder"));
 const HomeRoute = lazy(() => import("./pages/HomeRoute"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const Success = lazy(() => import("./pages/Success"));
+const ProductInfo = lazy(() => import("./pages/ProductInfo"));
 
 function App() {
   const location = useLocation();
@@ -57,6 +59,30 @@ function App() {
               user ? (
                 <Suspense fallback={<Loader />}>
                   <UsersOrder />
+                </Suspense>
+              ) : (
+                <Navigate to="/" replace />
+              )
+            }
+          />
+          <Route
+            path="/product"
+            element={
+              user ? (
+                <Suspense fallback={<Loader />}>
+                  <ProductInfo />
+                </Suspense>
+              ) : (
+                <Navigate to="/" replace />
+              )
+            }
+          />
+          <Route
+            path="/user"
+            element={
+              user ? (
+                <Suspense fallback={<Loader />}>
+                  <UserInfo />
                 </Suspense>
               ) : (
                 <Navigate to="/" replace />
