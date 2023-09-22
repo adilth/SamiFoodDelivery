@@ -27,14 +27,16 @@ function CardShopping() {
     }, 0);
     setTot(totalPrice);
   }, [foodCart]);
-
   const clearCart = () => {
     dispatch({
       type: actionTypes.SET_FOOD_CART,
       foodCart: [],
     });
-
     localStorage.setItem("food", JSON.stringify([]));
+    // foodCart.forEach(async (food) => {
+    //   //?Todo find a way to remove from database the foodCart that removed from cart with id
+    //   await deleteActivity();
+    // });
   };
   const handleCheckOut = () => {
     const data = {
@@ -115,14 +117,11 @@ function CardShopping() {
                 />
               </div>
               {/* <CardElement /> */}
-              <motion.button
-                {...buttonTap}
-                onClick={handleCheckOut}
-                type="button"
-                className="w-full p-2 rounded-full bg-gradient-to-tr from-orange-400 to-orange-600 text-gray-50 text-lg my-2 hover:shadow-lg"
-              >
-                Check Out
-              </motion.button>
+              {user ? (
+                <ButtonCheckOut onClick={handleCheckOut} text="Check Out" />
+              ) : (
+                <ButtonCheckOut text="Login to Check Out" />
+              )}
             </div>
           </div>
         ) : (
@@ -135,6 +134,18 @@ function CardShopping() {
         )}
       </motion.div>
     </div>
+  );
+}
+function ButtonCheckOut({ text, onClick }) {
+  return (
+    <motion.button
+      onClick={onClick}
+      {...buttonTap}
+      type="button"
+      className="w-full p-2 rounded-full bg-gradient-to-tr from-orange-400 to-orange-600 text-gray-50 text-lg my-2 hover:shadow-lg"
+    >
+      {text}
+    </motion.button>
   );
 }
 export default CardShopping;
