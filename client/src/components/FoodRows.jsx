@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import { Splide, SplideTrack, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
@@ -9,37 +9,52 @@ import { Link } from "react-router-dom";
 import NotFoundImg from "./NotFoundImg";
 import { buttonTap } from "../animations/motion";
 import { foodRowsSides } from "../animations/splides";
+import { activeProduct } from "../utils/firebaseFunc";
 
 function FoodRows({ flag, data, splide }) {
   const rowFood = useRef();
-  const [{ foodCart }, dispatch] = useStateValue();
-  const [dishFood, setDishFood] = useState([...foodCart]);
-  // const [loader, setLoader] = useState(true);
-  // setInterval(() => {
-  //   setLoader(false);
-  // }, 1000);
-  const addToCart = () => {
-    dispatch({
-      type: actionTypes.SET_FOOD_CART,
-      foodCart: dishFood,
-    });
-    localStorage.setItem("food", JSON.stringify(dishFood));
-  };
-
+  const [{ foodCart, user }, dispatch] = useStateValue();
   useEffect(() => {
-    addToCart();
-  }, [dishFood]);
+    const savedCart = JSON.parse(localStorage.getItem("food"));
+    if (savedCart) {
+      dispatch({
+        type: actionTypes.SET_FOOD_CART,
+        foodCart: savedCart,
+      });
+    }
+  }, [dispatch]);
+  const handleAddToCart = async (item) => {
+    // Check if the item is already in the cart
+    const exist = foodCart.find((el) => el.id === item.id);
 
-  const handleAddToCart = (item) => {
-    let exist = foodCart?.find((el) => el.id === item.id);
-    setDishFood((card) => {
-      if (exist == null) {
-        return [...foodCart, item];
-      } else {
-        item.qty += 1;
-        return [...foodCart];
-      }
-    });
+    if (exist) {
+      // If the item exists in the cart, update its quantity
+      exist.qty += 1;
+      dispatch({
+        type: actionTypes.SET_FOOD_CART,
+        foodCart: [...foodCart],
+      });
+      localStorage.setItem("food", JSON.stringify(foodCart));
+    } else {
+      // If the item is not in the cart, add it with a quantity of 1
+      item.qty = 1;
+      dispatch({
+        type: actionTypes.SET_FOOD_CART,
+        foodCart: [...foodCart, item],
+      });
+      //here needs to add new items to localStorage
+      localStorage.setItem("food", JSON.stringify([...foodCart, item]));
+    }
+    if (user && !exist) {
+      await activeProduct({
+        id: Date.now(),
+        text: `${user?.displayName} add ${item?.title} to cart`,
+        userName: user?.displayName,
+        productName: item?.title,
+        item: item,
+        time: new Date(),
+      });
+    }
   };
 
   let focusStart = `${data?.length > 2 ? "center" : "start"}`;
@@ -108,7 +123,7 @@ function FoodRows({ flag, data, splide }) {
                 <motion.div
                   whileTap={{ scale: 0.75 }}
                   className="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center cursor-pointer hover:shadow-md -mt-8"
-                  onClick={() => setDishFood([...dishFood, item])}
+                  onClick={() => handleAddToCart(item)}
                 >
                   <FaShoppingCart className="text-white" />
                 </motion.div>
