@@ -1,7 +1,9 @@
+import { Link } from "react-router-dom";
 import { useStateValue } from "../../context/stateProvider";
+import { getUserSpends } from "../../utils/singletData";
 
 function TopBox() {
-  const [{ users }, dispatch] = useStateValue();
+  const [{ users, orders }, dispatch] = useStateValue();
   return (
     <div>
       <h2 className="text-2xl mb-4">Top Users</h2>
@@ -11,7 +13,7 @@ function TopBox() {
             key={user.uid}
             className="flex items-center justify-between mb-8 "
           >
-            <div className="flex gap-4">
+            <Link to={`/dashboard/users/${user.uid}`} className="flex gap-4">
               <img
                 className="w-10 h-10 rounded-full object-cover"
                 src={user.photoURL}
@@ -21,8 +23,10 @@ function TopBox() {
                 <div className=" text-sm font-medium">{user.displayName}</div>
                 <div className=" text-[10px]">{user.email}</div>
               </div>
-            </div>
-            <span className="font-medium">$565</span>
+            </Link>
+            <span className="font-medium">
+              ${Math.round(getUserSpends(user.uid, orders))}
+            </span>
           </div>
         ))}
       </div>

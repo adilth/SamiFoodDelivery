@@ -1,5 +1,3 @@
-import React from "react";
-import NotFoundImg from "./NotFoundImg";
 import Header from "./Header";
 import EmptyCart from "../assets/img/emptyCart.svg";
 import { Link } from "react-router-dom";

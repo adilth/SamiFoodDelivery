@@ -7,6 +7,7 @@ import { useAlertState } from "../context/alertProvider";
 import { alertActionTypes } from "../context/alertReducer";
 import ModalUpdateItem from "./ModalUpdateItem";
 import { deleteItem } from "../utils/firebaseFunc";
+import { Link } from "react-router-dom";
 function DashboardItems() {
   const [{ foodItems }, dispatch] = useStateValue();
   const { setAlert } = useAlertState();
@@ -24,11 +25,13 @@ function DashboardItems() {
         header: "Image",
         accessorKey: "imgURL",
         cell: (info) => (
-          <img
-            src={info.getValue()}
-            alt="..."
-            className="w-32 h-16 object-contain rounded-md"
-          />
+          <Link to={`/dashboard/product/${info.row.original.id}`}>
+            <img
+              src={info.getValue()}
+              alt="..."
+              className="w-32 h-16 object-contain rounded-md"
+            />
+          </Link>
         ),
       },
       {

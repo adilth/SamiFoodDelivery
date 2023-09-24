@@ -3,7 +3,12 @@
     "browser": true,
     "es2021": true
   },
-  "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react/jsx-runtime",
+    "plugin:react-hooks/recommended"
+  ],
   "parserOptions": {
     "ecmaVersion": 12,
     "sourceType": "module",
@@ -11,10 +16,18 @@
       "jsx": true
     }
   },
-  "plugins": ["react"],
+  "plugins": ["react", "react-hooks", "react-refresh"],
   "rules": {
-    "plugin:react/jsx-runtime": "extends",
-    "import/no-extraneous-dependencies": ["error", { "devdependencies": true }],
+    "react-refresh/only-export-components": "warn",
+    "react/prop-types": 0,
+    "prettier/prettier": "off",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "no-empty": "warn",
+    "no-cond-assign": ["error", "always"],
+    "plugin:react/jsx-runtime": "off",
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
     "react/jsx-props-no-spreading": [
       "error",
       {

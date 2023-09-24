@@ -1,5 +1,5 @@
-import { BsFillBellFill, BsToggles2 } from "react-icons/bs";
-import { MdLogout, MdSearch } from "react-icons/md";
+import { BsFillBellFill } from "react-icons/bs";
+import { MdLogout } from "react-icons/md";
 import { useStateValue } from "../context/stateProvider";
 import Avatar from "../assets/img/avatar-icon.png";
 import { actionTypes } from "../context/reducer";
@@ -19,24 +19,14 @@ function DashboardHeader() {
   };
   return (
     <div className="w-full flex items-center justify-between gap-3">
-      <p className="text-2xl text-headingColor">
+      <p className="text-2xl text-headingColor hidden md:block ">
         Welcome to SamiFood
         {user?.displayName && (
           <span className="block text-base text-gray-500">{`Hello ${user?.displayName}...!`}</span>
         )}
       </p>
 
-      <div className=" flex items-center justify-center gap-4 ">
-        <div className=" flex items-center justify-center gap-3 px-4 py-2 bg-lightOverlay backdrop-blur-md rounded-md shadow-md">
-          <MdSearch className="text-gray-400 text-2xl" />
-          <input
-            type="text"
-            placeholder="Search Here..."
-            className="border-none outline-none bg-transparent w-32 text-base font-semibold text-textColor"
-          />
-          <BsToggles2 className="text-gray-400 text-2xl" />
-        </div>
-
+      <div className=" flex items-center justify-end gap-4 ">
         <motion.div
           {...buttonTap}
           className="w-10 h-10 rounded-md cursor-pointer bg-lightOverlay backdrop-blur-md shadow-md flex items-center justify-center"

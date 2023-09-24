@@ -1,8 +1,6 @@
-import React from "react";
 import Delivery from "../assets/png/pngkey.com-delivery-png-1145548.png";
 import HeroImg from "../assets/png/c983b457564097.59db4a734d0d5.gif";
 import { Link } from "react-router-dom";
-import { buttonTap } from "../animations/motion";
 
 function Hero() {
   return (

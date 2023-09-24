@@ -1,10 +1,11 @@
 import { useMemo, useState } from "react";
 import { useStateValue } from "../context/stateProvider";
 import DataTable from "./DataTable";
+import { Link } from "react-router-dom";
 
 function DashboardUsers() {
-  const [{ users }, dispatch] = useStateValue();
-  const [data, setData] = useState(useMemo(() => users, []));
+  const [{ users }] = useStateValue();
+  const [data] = useState(useMemo(() => users, [users]));
   const columns = useMemo(
     () => [
       {
@@ -17,11 +18,13 @@ function DashboardUsers() {
         accessorKey: "photoURL",
         cell: (info) => (
           // <div className="w-full rounded-full">
-          <img
-            src={info.getValue()}
-            alt="..."
-            className="w-16 h-16 rounded-full"
-          />
+          <Link to={`/dashboard/users/${info.row.original.uid}`}>
+            <img
+              src={info.getValue()}
+              alt="..."
+              className="w-16 h-16 rounded-full"
+            />
+          </Link>
           // </div>
         ),
       },
@@ -38,7 +41,7 @@ function DashboardUsers() {
         accessorKey: "createAt",
       },
     ],
-    [data]
+    []
   );
   return <DataTable columns={columns} data={data} />;
 }

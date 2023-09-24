@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { FaShoppingCart, FaSignOutAlt, FaThList } from "react-icons/fa";
 import { MdDashboardCustomize } from "react-icons/md";
 import { motion } from "framer-motion";
@@ -27,6 +27,7 @@ const Header = () => {
 
   const [{ user, foodCart }, dispatch] = useStateValue();
   const [isMenu, setMenu] = useState(false);
+
   const login = async () => {
     if (!user) {
       const {
@@ -36,7 +37,6 @@ const Header = () => {
         type: actionTypes.SET_USER,
         user: providerData[0],
       });
-      console.log(providerData[0].uid);
       await saveUser({ ...providerData[0], createAt: `${Date.now()}` });
       localStorage.setItem("user", JSON.stringify(providerData[0]));
     } else {
@@ -122,7 +122,7 @@ const Header = () => {
                       </p>
                     </Link>
                   )}
-                  <Link to={"userOrder"}>
+                  <Link to={"/userOrder"}>
                     <p className="px-4 py-2 flex items-center justify-between cursor-pointer hover:bg-slate-300 transition-colors duration-100 ease-in-out text-textColor text-base ">
                       Orders <FaThList />
                     </p>
@@ -171,39 +171,39 @@ const Header = () => {
                 className="w-40 bg-gray-50 shadow-xl rounded-lg flex flex-col absolute top-12 right-0"
               >
                 {user && user.email === "rajaadil19952019@gmail.com" && (
-                  <Link to={"/dashboard"}>
+                  <Link to={"/dashboard/home"}>
                     <p className="px-4 py-2 flex items-center justify-between gap-2 cursor-pointer hover:bg-slate-100 transition-all duration-100 ease-in-out text-textColor text-base">
                       Dashboard <MdDashboardCustomize />
                     </p>
                   </Link>
                 )}
                 <Link
-                  className=" hover:text-red-500 text-xl text-textColor"
+                  className=" hover:text-red-500 text-base text-textColor px-4 py-2 hover:bg-slate-100 transition-all duration-100 ease-in-out"
                   to={"/user-orders"}
                 >
                   Orders
                 </Link>
                 <ul className="flex flex-col ">
                   <li
-                    className="text-base text-textColor hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer hover:bg-slate-100 px-4 py-2"
+                    className="px-4 py-2 text-base text-textColor hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer hover:bg-slate-100 "
                     onClick={() => setMenu(false)}
                   >
                     <Link to={"/"}>Home</Link>
                   </li>
                   <li
-                    className="text-base text-textColor hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer hover:bg-slate-100 px-4 py-2"
+                    className="px-4 py-2 text-base text-textColor hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer hover:bg-slate-100"
                     onClick={() => setMenu(false)}
                   >
                     <Link to={"/menu"}> Menu</Link>
                   </li>
                   <li
-                    className="text-base text-textColor hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer hover:bg-slate-100 px-4 py-2"
+                    className="px-4 py-2 text-base text-textColor hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer hover:bg-slate-100"
                     onClick={() => setMenu(false)}
                   >
                     About Us
                   </li>
                   <li
-                    className="text-base text-textColor hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer hover:bg-slate-100 px-4 py-2"
+                    className="px-4 py-2 text-base text-textColor hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer hover:bg-slate-100"
                     onClick={() => setMenu(false)}
                   >
                     Service

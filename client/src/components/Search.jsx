@@ -1,27 +1,14 @@
 import { useEffect, useMemo, useState } from "react";
-import { FaSearch } from "react-icons/fa";
 import { useStateValue } from "../context/stateProvider";
 import FoodRows from "./FoodRows";
 import DebounceSearch from "./DebounceSearch";
 
 function Search() {
   const [input, setInput] = useState("");
-  const [{ foodItems }, dispatch] = useStateValue();
+  const [{ foodItems }] = useStateValue();
   const [foodFields, setFoodFields] = useState("default");
-  const dataItems = useMemo(() => foodItems, []);
-  const handleSelectFields = (data) => {
-    if (foodFields == "ascending") {
-      return data.sort((a, b) => a.title.localeCompare(b.title));
-    } else if (foodFields == "descending") {
-      return data.sort((a, b) => -a.title.localeCompare(b.title));
-    } else if (foodFields == "high-price") {
-      return data.sort((a, b) => a.price - b.price);
-    } else if (foodFields == "low-price") {
-      return data.sort((a, b) => b.price - a.price);
-    } else {
-      return data;
-    }
-  };
+  const dataItems = useMemo(() => foodItems, [foodItems]);
+
   const submitHandler = (data) => {
     return data.filter((item) => {
       if (
@@ -30,13 +17,26 @@ function Search() {
       ) {
         return item;
       } else {
-        return console.log("not found");
+        return;
       }
     });
   };
   useEffect(() => {
+    const handleSelectFields = (data) => {
+      if (foodFields == "ascending") {
+        return data.sort((a, b) => a.title.localeCompare(b.title));
+      } else if (foodFields == "descending") {
+        return data.sort((a, b) => -a.title.localeCompare(b.title));
+      } else if (foodFields == "high-price") {
+        return data.sort((a, b) => a.price - b.price);
+      } else if (foodFields == "low-price") {
+        return data.sort((a, b) => b.price - a.price);
+      } else {
+        return data;
+      }
+    };
     handleSelectFields(dataItems);
-  }, [foodFields]);
+  }, [foodFields, dataItems]);
   return (
     <>
       <div className="flex justify-between w-full">

@@ -12,9 +12,14 @@ import {
   where,
 } from "firebase/firestore";
 import { firestore } from "../firebase.config";
-import {} from "firebase/auth";
 export const saveItem = async (data) => {
   const docItems = doc(firestore, "foodItems", `${Date.now()}`);
+  await setDoc(docItems, data, {
+    merge: true,
+  });
+};
+export const activeProduct = async (data) => {
+  const docItems = doc(firestore, "activity", `${Date.now()}`);
   await setDoc(docItems, data, {
     merge: true,
   });
@@ -27,6 +32,12 @@ export const updateItem = async (data, newData) => {
 };
 export const deleteItem = async (id) => {
   const cityRef = await doc(firestore, "foodItems", id);
+  await deleteDoc(cityRef, {
+    capital: deleteField(),
+  });
+};
+export const deleteActivity = async (id) => {
+  const cityRef = await doc(firestore, "activity", id);
   await deleteDoc(cityRef, {
     capital: deleteField(),
   });
@@ -68,6 +79,16 @@ export const saveForm = async (data) => {
 export const fetchAllFood = async () => {
   try {
     const collectionBase = collection(firestore, "foodItems");
+    const queryBase = query(collectionBase, orderBy("id", "desc"));
+    const items = await getDocs(queryBase);
+    return items.docs.map((doc) => doc.data());
+  } catch (error) {
+    console.error("Error saving form data:", error);
+  }
+};
+export const getActivity = async () => {
+  try {
+    const collectionBase = collection(firestore, "activity");
     const queryBase = query(collectionBase, orderBy("id", "desc"));
     const items = await getDocs(queryBase);
     return items.docs.map((doc) => doc.data());

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { categories } from "../utils/data";
 import { IoFastFood } from "react-icons/io5";
@@ -9,7 +9,7 @@ import { splideMenu } from "../animations/splides";
 import { buttonTap } from "../animations/motion";
 
 function MenuSection() {
-  const [{ foodItems }, dispatch] = useStateValue();
+  const [{ foodItems }] = useStateValue();
   const [filterCategory, setFilterCategory] = useState("Chicken");
   return (
     <section className="w-full my-6" id="Menu">

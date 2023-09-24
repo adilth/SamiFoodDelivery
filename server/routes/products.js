@@ -9,6 +9,7 @@ router.post("/create-checkout-session", async (req, res, next) => {
     const customer = await stripe.customers.create({
       metadata: {
         user_id: req.body.data.user.uid.toString(),
+        userName: req.body.data.user.displayName,
         total: req.body.data.total,
       },
     });
@@ -63,6 +64,7 @@ router.post("/create-checkout-session", async (req, res, next) => {
     next(err);
   }
 });
+//stripe listen --forward-to localhost:3333/api/products/webhook    ///stripe trigger payment_intent.succeeded
 router.post("/webhook", async (req, res) => {
   const sig = req.headers["stripe-signature"];
 
@@ -109,6 +111,17 @@ const createOrder = async (customer, lineItems, intent, res) => {
       total: customer.metadata.total,
       sts: "preparing",
     };
+    orderItems.map(async (order) => {
+      let activity = {
+        id: orderId,
+        text: `${customer.metadata.userName} buy the ${order.name}`,
+        productName: order.name,
+        user: customer.metadata.user,
+        item: order,
+        time: new Date(),
+      };
+      await db.collection("activity").doc(`/${orderId}/`).set(activity);
+    });
     await db.collection("orders").doc(`/${orderId}/`).set(data);
   } catch (err) {
     console.log(err);
@@ -123,7 +136,6 @@ async function getCartItems(lineItems) {
     lineItems?.data?.forEach(async (item) => {
       const product = await stripe.products.retrieve(item.price.product);
       const productId = product.metadata.id;
-      console.log(product);
       cartItems.push({
         product: productId,
         name: product.name,

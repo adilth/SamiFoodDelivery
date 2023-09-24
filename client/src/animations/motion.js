@@ -38,6 +38,11 @@ export const fadeInOutWithTransition = {
   animate: { opacity: 1, x: 0 },
   exit: { opacity: 0, x: 200 },
 };
+export const slideInOutWithTransition = {
+  initial: { opacity: 0, x: 200 },
+  animate: { opacity: 1, x: 0 },
+  exit: { opacity: 0, x: 200 },
+};
 export const staggerFadeInOut = (i) => {
   return {
     initial: { opacity: 0, y: 50 },

@@ -1,8 +1,8 @@
 export const isActiveStyles =
-  " text-base text-red-700 font-semibold hover:text-red-700 px-4 py-2 duration-100 transition-all ease-in-out";
+  " text-base text-red-700 font-semibold hover:text-red-700 px-4 py-2 duration-100 transition-all ease-in-out flex gap-2 items-center";
 
 export const isNotActiveStyles =
-  " text-base text-textColor hover:text-red-700 duration-100 px-4 py-2 transition-all ease-in-out";
+  " text-base text-textColor hover:text-red-700 duration-100 px-4 py-2 transition-all ease-in-out flex gap-2 items-center";
 
 export const categories = [
   {

@@ -1,25 +1,28 @@
-import React, { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import DebounceSearch from "./DebounceSearch";
 
 function FilterOrders({ input, setInput, setUserOrders, orders }) {
   const [foodFields, setFoodFields] = useState("all");
-  const dataItems = useMemo(() => {}, [orders]);
-  const handleSelectFields = (data) => {
-    let filteredData = data; // Start with the unfiltered data
-    //?TODO: remember to remove user that login that not effect the dashboard orders
-    if (foodFields === "preparing") {
-      filteredData = filteredData.filter((item) => item?.sts === "preparing");
-    } else if (foodFields === "cancelled") {
-      filteredData = filteredData.filter((item) => item?.sts === "cancelled");
-    } else if (foodFields === "delivered") {
-      filteredData = filteredData.filter((item) => item?.sts === "delivered");
-    }
-    // Return the filtered data
-    return filteredData;
-  };
+  const handleSelectFields = useCallback(
+    (data) => {
+      let filteredData = data; // Start with the unfiltered data
+      //?TODO: remember to know how to change some behaver not get the right sts and some thing missing here
+      if (foodFields === "preparing") {
+        filteredData = filteredData.filter((item) => item?.sts === "preparing");
+      } else if (foodFields === "cancelled") {
+        filteredData = filteredData.filter((item) => item?.sts === "cancelled");
+      } else if (foodFields === "delivered") {
+        filteredData = filteredData.filter((item) => item?.sts === "delivered");
+      }
+      // Return the filtered data
+      return filteredData;
+    },
+    [foodFields]
+  );
+
   useEffect(() => {
     setUserOrders(handleSelectFields(orders));
-  }, [foodFields, dataItems]);
+  }, [handleSelectFields]);
   return (
     <>
       <div className="flex justify-between w-full">
