@@ -11,10 +11,10 @@ function DebounceSearch({ value: initValue, onChange }) {
       onChange(value);
     }, 500);
     return () => clearTimeout(timeout);
-  }, [value]);
+  }, [value, onChange]);
 
   return (
-    <>
+    <div className="relative">
       <input
         onChange={(e) => setValue(e.target.value)}
         type="text"
@@ -23,7 +23,7 @@ function DebounceSearch({ value: initValue, onChange }) {
         value={value}
       />
       <FaSearch className="absolute top-[50%] right-7 translate-x-full -translate-y-1/2 text-lg" />
-    </>
+    </div>
   );
 }
 
