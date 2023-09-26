@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import { Splide, SplideTrack, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
@@ -10,6 +10,7 @@ import NotFoundImg from "./NotFoundImg";
 import { buttonTap } from "../animations/motion";
 import { foodRowsSides } from "../animations/splides";
 import { activeProduct } from "../utils/firebaseFunc";
+import Rating from "./Rating";
 
 function FoodRows({ flag, data, splide }) {
   const rowFood = useRef();
@@ -151,7 +152,7 @@ function OtherDetails({ item }) {
           <span className="text-sm to-red-500">${item?.price}</span>
         </p>
       </div>
-      <p className=" bg-yellow-400"> ★★★★☆</p>
+      <Rating rating={4} size={"w-5 h5"} readOnly />
     </div>
   );
 }
