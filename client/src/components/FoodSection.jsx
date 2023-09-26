@@ -6,7 +6,7 @@ import Loader from "./Loader";
 import { fadeInOut } from "../animations/motion";
 
 function FoodSection() {
-  const [{ foodItems }, dispatch] = useStateValue();
+  const [{ foodItems }] = useStateValue();
   const [loader, setLoader] = useState(true);
   useEffect(() => {
     setInterval(() => {
@@ -30,9 +30,9 @@ function FoodSection() {
         </motion.div>
       ) : (
         <FoodRows
-          flag={true}
+          flag
           data={foodItems?.filter((n) => n.vegan == "vegan")}
-          splide={true}
+          splide
         />
       )}
     </section>
