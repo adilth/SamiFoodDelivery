@@ -1,4 +1,3 @@
-/* eslint-disable react/react-in-jsx-scope */
 import { useState } from "react";
 import {
   useReactTable,
@@ -11,7 +10,6 @@ import {
 import { FaChevronUp, FaChevronDown } from "react-icons/fa";
 import DebounceSearch from "./DebounceSearch";
 
-// eslint-disable-next-line react/prop-types
 const DataTable = ({ columns, data }) => {
   const [filter, setFilter] = useState("");
   const [sorting, setSorting] = useState([]);
@@ -32,7 +30,7 @@ const DataTable = ({ columns, data }) => {
 
   return (
     <div className="flex flex-col items-center justify-self-center gap-4 pt-10 w-full">
-      <div className="relative w-full flex justify-end mr-6">
+      <div className="relative w-full flex lg:justify-end lg:mr-6">
         <DebounceSearch
           value={filter}
           onChange={(value) => setFilter(String(value))}
@@ -49,12 +47,12 @@ const DataTable = ({ columns, data }) => {
                   className="text-white bg-slate-700 py-3"
                 >
                   <div
-                    {...{
-                      className: header.column.getCanSort()
+                    className={`${
+                      header.column.getCanSort()
                         ? "flex items-center justify-between gap-1 px-4 cursor-pointer select-none"
-                        : "",
-                      onClick: header.column.getToggleSortingHandler(),
-                    }}
+                        : ""
+                    } `}
+                    onClick={header.column.getToggleSortingHandler()}
                   >
                     {flexRender(
                       header.column.columnDef.header,
