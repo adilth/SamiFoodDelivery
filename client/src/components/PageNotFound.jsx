@@ -10,7 +10,9 @@ function PageNotFound() {
         <div className="flex">
           <div>
             <h1 className=" text-cartNumBg text-9xl ">404 </h1>
-            <p className="text-lg text-gray-600 mb-6">page not found</p>
+            <p className="text-lg text-gray-600 dark:text-gray-400 mb-6">
+              page not found
+            </p>
             <Link
               to="/"
               className="text-lg border border-cartNumBg p-3 rounded-lg text-cartNumBg font-bold"
