@@ -1,6 +1,6 @@
 {
   "name": "sami-food",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Delivery website for food that you need ",
   "main": "server.js",
   "keywords": [
@@ -8,7 +8,9 @@
     "express",
     "mongodb",
     "node",
-    "mern"
+    "mern",
+    "firebase",
+    "tailwind"
   ],
   "scripts": {
     "dev:client": "cd client && pnpm dev:client",
@@ -18,17 +20,7 @@
   },
   "author": "Adil Tahiri",
   "license": "MIT",
-  "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "cookie-parser": "^1.4.6",
-    "dotenv": "^16.0.3",
-    "express": "^4.18.2",
-    "express-async-handler": "^1.2.0",
-    "jsonwebtoken": "^9.0.0",
-    "mongoose": "^7.1.0"
-  },
   "devDependencies": {
-    "concurrently": "^8.0.1",
-    "nodemon": "^2.0.22"
+    "concurrently": "^8.0.1"
   }
 }
