@@ -18,19 +18,19 @@ function Hero() {
             />
           </div>
         </div>
-        <p className="text-[2.5rem] md:text-[3.5rem] lg:text-[4rem] font-bold tracking-wide text-headingColor">
+        <p className="text-[2.5rem] md:text-[3.5rem] lg:text-[4rem] font-bold tracking-wide text-headingColor dark:text-darkHeadingColor">
           the Fastest Delivery in{" "}
           <span className="text-orange-600 text-[3rem] md:text-[3.75rem] lg:text-[4.7rem]">
             Your City
           </span>
         </p>
-        <p className="text-base text-textColor text-center md:text-left md:w-[80%]">
+        <p className="text-base text-textColor dark:text-darkTextColor text-center md:text-left md:w-[80%]">
           Discover local, on-demand delivery or Pickup from restaurants, nearby
           grocery and convenience stores, and more.
         </p>
         <Link
           to={"/menu"}
-          className="bg-gradient-to-br font-bold from-orange-400 to-orange-500 px-7 py-3 rounded-lg hover:shadow-lg transition-all ease-in-out duration-100 text-white mx-auto sm:mx-0"
+          className="bg-gradient-to-br font-bold from-orange-400 to-orange-500 px-7 py-3 rounded-lg hover:shadow-lg transition-all ease-in-out duration-100 text-white  mx-auto sm:mx-0"
         >
           Order Now
         </Link>
