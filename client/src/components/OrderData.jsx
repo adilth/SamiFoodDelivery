@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
-import { HiCurrencyRupee } from "react-icons/hi";
 import { buttonTap, staggerFadeInOut } from "../animations/motion";
 import { updateCartSts } from "../utils/firebaseFunc";
 import { useEffect, useState } from "react";
+import { FaDollarSign } from "react-icons/fa";
 
 const OrderData = ({ index, data, admin }) => {
   const [updateSts, setUpdateSts] = useState(data?.sts);
@@ -15,16 +15,21 @@ const OrderData = ({ index, data, admin }) => {
   return (
     <motion.div
       {...staggerFadeInOut(index)}
-      className="w-full flex flex-col items-start justify-start px-3 py-2 border relative border-gray-300 bg-lightOverlay drop-shadow-md rounded-md gap-4"
+      className="w-full flex flex-col items-start justify-start px-3 py-2 border relative border-gray-300 dark:border-gray-700 bg-lightOverlay drop-shadow-md rounded-md gap-4"
     >
-      <div className="w-full flex items-center justify-between">
-        <h1 className="text-xl text-headingColor font-semibold">Orders</h1>
+      <div className="w-full flex items-center justify-center gap-3 md:justify-between flex-wrap">
+        <h1 className="text-xl text-headingColor dark:text-darkHeadingColor font-semibold ">
+          Orders
+        </h1>
 
-        <div className=" flex items-center gap-4">
-          <p className="flex items-center gap-1 text-textColor">
-            Total : <HiCurrencyRupee className="text-lg text-red-500" />{" "}
-            <span className="text-headingColor font-bold">{data?.total}</span>
-          </p>
+        <div className=" flex items-center xs:justify-center gap-4 flex-wrap sm:flex-nowrap">
+          <div className="flex items-center gap-1 flex-wrap text-textColor dark:text-darkTextColor">
+            <p>Total : </p>
+            <span className="text-headingColor dark:text-darkHeadingColor font-bold flex items-center">
+              <FaDollarSign className="text-lg text-red-500" />
+              {data?.total}
+            </span>
+          </div>
 
           <p className="px-2 py-[2px] text-sm text-headingColor font-semibold capitalize  rounded-md bg-emerald-400 drop-shadow-md">
             {data?.status}
@@ -41,8 +46,10 @@ const OrderData = ({ index, data, admin }) => {
           </p>
 
           {admin && (
-            <div className="flex items-center justify-center gap-2">
-              <p className="text-lg font-semibold text-headingColor">Mark As</p>
+            <div className="flex flex-wrap sm:flex-row items-center sm:justify-center md:justify-start gap-2">
+              <p className="text-lg font-semibold text-headingColor dark:text-darkTextColor">
+                Mark As
+              </p>
 
               <motion.p
                 {...buttonTap}
@@ -51,7 +58,6 @@ const OrderData = ({ index, data, admin }) => {
               >
                 Preparing
               </motion.p>
-
               <motion.p
                 {...buttonTap}
                 onClick={() => handleClick(data.orderId, "cancelled")}
@@ -59,7 +65,6 @@ const OrderData = ({ index, data, admin }) => {
               >
                 Cancelled
               </motion.p>
-
               <motion.p
                 {...buttonTap}
                 onClick={() => handleClick(data.orderId, "delivered")}
@@ -72,8 +77,8 @@ const OrderData = ({ index, data, admin }) => {
         </div>
       </div>
 
-      <div className="flex items-center justify-start flex-wrap w-full">
-        <div className="flex items-center justify-center gap-4">
+      <div className="flex items-center justify-start xs:flex-nowrap flex-wrap w-full">
+        <div className="flex items-center justify-center gap-4 flex-wrap lg:flex-nowrap">
           {data?.items &&
             data.items.map((item, j) => (
               <motion.div
@@ -88,16 +93,16 @@ const OrderData = ({ index, data, admin }) => {
                 />
 
                 <div className="flex items-start flex-col">
-                  <p className="text-base font-semibold text-headingColor">
+                  <p className="text-base font-semibold text-headingColor dark:text-darkTextColor">
                     {item.name}
                   </p>
                   <div className="flex items-start gap-2">
-                    <p className="text-sm text-textColor">
+                    <p className="text-sm text-textColor dark:text-darkTextColor">
                       {" "}
                       Qty : {item.quantity}
                     </p>
-                    <p className="flex items-center gap-1 text-textColor">
-                      <HiCurrencyRupee className="text-base text-red-500" />
+                    <p className="flex items-center gap-1 text-textColor dark:text-darkTextColor">
+                      <FaDollarSign className="text-base text-red-500" />
                       {parseFloat(item.price).toFixed(2)}
                     </p>
                   </div>
@@ -107,15 +112,15 @@ const OrderData = ({ index, data, admin }) => {
         </div>
 
         <div className="flex items-start justify-start flex-col gap-2 px-6 ml-auto w-full md:w-460">
-          <h1 className="text-lg text-headingColor font-semibold">
+          <h1 className="text-lg text-headingColor dark:text-darkTextColor font-semibold">
             {data.shipping_details.name}
           </h1>
 
-          <p className="text-base text-headingColor -mt-2">
+          <p className="text-base text-headingColor dark:text-darkTextColor -mt-2">
             {data.customer.email} {data.customer.phone}
           </p>
 
-          <p className="text-base text-textColor -mt-2">
+          <p className="text-base text-textColor dark:text-darkTextColor -mt-2">
             {data.shipping_details.address.line1},
             {data.shipping_details.address.line2}{" "}
             {data.shipping_details.address.country},
