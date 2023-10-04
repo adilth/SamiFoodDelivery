@@ -1,6 +1,10 @@
-const Loader = () => {
+const Loader = ({ inside }) => {
   return (
-    <div className="fixed z-50 bg-card backdrop-blur-md inset-0 h-full flex justify-center items-center">
+    <div
+      className={` bg-card dark:bg-darkPrimary backdrop-blur-md ${
+        !inside ? "fixed inset-0  z-50 " : ""
+      } h-full flex justify-center items-center`}
+    >
       <svg
         role="status"
         className="inline mr-2 w-8 h-8 md:h-12 md:w-12 text-gray-200 animate-spin dark:text-gray-300 fill-emerald-500"
