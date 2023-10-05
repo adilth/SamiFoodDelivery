@@ -1,49 +1,41 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { BiPlus, BiMinus } from "react-icons/bi";
+import React, { useState } from "react";
+import { BiPlus } from "@react-icons/all-files/bi/BiPlus";
+import { BiMinus } from "@react-icons/all-files/bi/BiMinus";
 import { motion } from "framer-motion";
 import { useStateValue } from "../context/stateProvider";
 import { actionTypes } from "../context/reducer";
 import { buttonTap } from "../animations/motion";
 
-function CardItems({ item, setFlag, flag }) {
+function CardItems({ item, flag, setFlag }) {
   const [{ foodCart }, dispatch] = useStateValue();
-  const [updatedCart, setUpdatedCart] = useState([...foodCart]);
   const [qty, setQty] = useState(item.qty);
-  const cartDispatch = () => {
+
+  const updateQty = (action) => {
+    let updatedCart = [...foodCart];
+    const updatedItem = updatedCart.find((cartItem) => cartItem.id === item.id);
+    if (action === "add") {
+      setQty((prevQty) => prevQty + 1);
+      if (updatedItem) {
+        updatedItem.qty += 1;
+      }
+    } else if (action === "remove") {
+      if (qty === 1) {
+        // Remove the item from the cart
+        updatedCart = updatedCart.filter((cartItem) => cartItem.id !== item.id);
+      } else {
+        setQty((prevQty) => prevQty - 1);
+        // Update the quantity of the item in updatedCart
+        if (updatedItem) {
+          updatedItem.qty -= 1;
+        }
+      }
+    }
+    // Update the cart state
     localStorage.setItem("food", JSON.stringify(updatedCart));
     dispatch({
       type: actionTypes.SET_FOOD_CART,
       foodCart: updatedCart,
     });
-  };
-
-  const updateQty = (action, id) => {
-    if (action === "add") {
-      setQty((prev) => prev + 1);
-      foodCart.map((item) => {
-        if (item.id === id) {
-          item.qty += 1;
-          setFlag(flag + 1);
-        }
-      });
-      cartDispatch();
-    } else {
-      if (qty === 1) {
-        setUpdatedCart(updatedCart.filter((item) => item.id !== id));
-        setFlag(flag + 1);
-        cartDispatch();
-      } else {
-        setQty((prev) => prev - 1);
-        foodCart.map((item) => {
-          if (item.id === id) {
-            item.qty -= 1;
-            setFlag(flag + 1);
-          }
-        });
-        cartDispatch();
-      }
-    }
-
     setFlag(flag + 1);
   };
 
