@@ -3,22 +3,23 @@ import { motion } from "framer-motion";
 import { buttonTap } from "../animations/motion";
 import IMGSUCC from "../assets/img/bill.jpg";
 import { NavLink } from "react-router-dom";
-import { FaArrowLeft } from "react-icons/fa";
+import { FaArrowLeft } from "@react-icons/all-files/fa/FaArrowLeft";
 import { useStateValue } from "../context/stateProvider";
 import { actionTypes } from "../context/reducer";
 import { useEffect } from "react";
 
 function Success() {
-  const [{ foodCart }, dispatch] = useStateValue();
-  const clearCart = () => {
-    dispatch({
-      type: actionTypes.SET_FOOD_CART,
-      foodCart: [],
-    });
+  const [, dispatch] = useStateValue();
 
-    localStorage.setItem("food", JSON.stringify([]));
-  };
   useEffect(() => {
+    const clearCart = () => {
+      dispatch({
+        type: actionTypes.SET_FOOD_CART,
+        foodCart: [],
+      });
+
+      localStorage.setItem("food", JSON.stringify([]));
+    };
     let timeOut = setTimeout(() => {
       clearCart();
     }, 1);
@@ -34,17 +35,17 @@ function Success() {
           alt="image of success payment"
         />
 
-        <h1 className="text-[50px] text-headingColor font-bold">
+        <h1 className="text-[50px] text-headingColor dark:text-darkHeadingColor font-bold">
           Amount paid Successfully
         </h1>
 
         <motion.div {...buttonTap}>
           <NavLink
             to={"/"}
-            className="flex items-center justify-center gap-4 cursor-pointer text-2xl text-textColor font-semibold px-4 py-2 rounded-md border border-gray-300 hover:shadow-md"
+            className="flex items-center justify-center gap-4 cursor-pointer text-2xl text-textColor dark:text-darkHeadingColor font-semibold px-4 py-2 rounded-md border border-gray-300 hover:shadow-md"
           >
-            <FaArrowLeft className="text-3xl text-textColor " /> Get back to
-            Home
+            <FaArrowLeft className="text-3xl text-textColor dark:text-darkTextColor" />{" "}
+            Get back to Home
           </NavLink>
         </motion.div>
       </div>
