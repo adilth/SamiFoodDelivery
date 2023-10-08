@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { fadeInOut } from "../animations/motion";
-import { BsExclamationTriangleFill } from "react-icons/bs";
-import { FaCheck } from "react-icons/fa";
+import { BsExclamationTriangleFill } from "@react-icons/all-files/bs/BsExclamationTriangleFill";
+import { FaCheck } from "@react-icons/all-files/fa/FaCheck";
 const Alert = ({ type, message }) => {
   if (type === "success") {
     return (
