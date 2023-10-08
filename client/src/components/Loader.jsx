@@ -1,8 +1,8 @@
 const Loader = ({ inside }) => {
   return (
     <div
-      className={` bg-card dark:bg-darkPrimary backdrop-blur-md ${
-        !inside ? "fixed inset-0  z-50 " : ""
+      className={` backdrop-blur-md ${
+        !inside ? "fixed inset-0  z-50 bg-card" : ""
       } h-full flex justify-center items-center`}
     >
       <svg
