@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
 import Logo from "../assets/png/logo-color-removebg-preview-min.png";
 import { motion } from "framer-motion";
-import { FaFacebook, FaInstagram, FaTwitter, FaTiktok } from "react-icons/fa";
+import { FaFacebook } from "@react-icons/all-files/fa/FaFacebook";
+import { FaInstagram } from "@react-icons/all-files/fa/FaInstagram";
+import { FaTwitter } from "@react-icons/all-files/fa/FaTwitter";
+import { IoLogoTiktok } from "@react-icons/all-files/io5/IoLogoTiktok";
 import { fadeInOutWithTransition } from "../animations/motion";
 
 function Footer() {
@@ -46,7 +49,7 @@ function Footer() {
             <FaInstagram />
           </SocialLink>
           <SocialLink link={"#"}>
-            <FaTiktok />
+            <IoLogoTiktok />
           </SocialLink>
           <SocialLink link={"#"}>
             <FaTwitter />
