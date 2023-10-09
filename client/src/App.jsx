@@ -1,27 +1,26 @@
-import { Suspense, lazy, useEffect } from "react";
+import { Suspense, lazy } from "react";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { Alert, Loader, PageNotFound } from "./components";
 import { AnimatePresence } from "framer-motion";
-import getAllFoodData from "./utils/getAllData";
+// import getAllFoodData from "./utils/getAllData";
 import { useStateValue } from "./context/stateProvider";
 import { useAlertState } from "./context/alertProvider";
 
-const UsersOrder = lazy(() => import("./pages/UserOrder"));
 const HomeRoute = lazy(() => import("./pages/HomeRoute"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const Success = lazy(() => import("./pages/Success"));
 
 function App() {
   const location = useLocation();
-  const [{ foodItem, user }, dispatch] = useStateValue();
+  const [{ user }] = useStateValue();
   const { alertState } = useAlertState();
-  const fetchData = getAllFoodData();
-  useEffect(() => {
-    fetchData();
-  }, [foodItem]);
+  // const fetchData = getAllFoodData();
+  // useMemo(() => {
+  //   fetchData();
+  // }, []);
   return (
     <AnimatePresence mode="wait">
-      <div className="w-full h-auto flex flex-col bg-primary">
+      <div className="w-full h-auto flex flex-col bg-primary dark:bg-darkPrimary dark:text-darkHeadingColor">
         <Routes location={location} key={location.pathname}>
           <Route
             path="/*"
@@ -31,17 +30,16 @@ function App() {
               </Suspense>
             }
           />
-
           <Route
             path="/dashboard/*"
             element={
-              user && user.email === "rajaadil19952019@gmail.com" ? (
-                <Suspense fallback={<Loader />}>
+              <Suspense fallback={<Loader />}>
+                {user && user.email === "rajaadil19952019@gmail.com" ? (
                   <Dashboard />
-                </Suspense>
-              ) : (
-                <Navigate to="/" replace />
-              )
+                ) : (
+                  <Navigate to="/" replace />
+                )}
+              </Suspense>
             }
           />
           <Route
@@ -50,18 +48,6 @@ function App() {
               <Suspense fallback={<Loader />}>
                 <Success />
               </Suspense>
-            }
-          />
-          <Route
-            path="/userOrder"
-            element={
-              user ? (
-                <Suspense fallback={<Loader />}>
-                  <UsersOrder />
-                </Suspense>
-              ) : (
-                <Navigate to="/" replace />
-              )
             }
           />
           <Route path="/404" element={<PageNotFound />} />
