@@ -24,20 +24,32 @@ export const activeProduct = async (data) => {
     merge: true,
   });
 };
+export const saveCommentToFirebase = async (data) => {
+  const docItems = doc(firestore, "comment", `${Date.now()}`);
+  await setDoc(docItems, data, {
+    merge: true,
+  });
+};
 export const updateItem = async (data, newData) => {
-  const cityRef = await doc(firestore, "foodItems", data.id);
+  const cityRef = await doc(firestore, "foodItems", String(data.id));
   await updateDoc(cityRef, newData, {
     merge: true,
   });
 };
 export const deleteItem = async (id) => {
-  const cityRef = await doc(firestore, "foodItems", id);
+  const cityRef = await doc(firestore, "foodItems", String(id));
+  await deleteDoc(cityRef, {
+    capital: deleteField(),
+  });
+};
+export const deleteComment = async (id) => {
+  const cityRef = await doc(firestore, "comment", String(id));
   await deleteDoc(cityRef, {
     capital: deleteField(),
   });
 };
 export const deleteActivity = async (id) => {
-  const cityRef = await doc(firestore, "activity", id);
+  const cityRef = await doc(firestore, "activity", String(id));
   await deleteDoc(cityRef, {
     capital: deleteField(),
   });
@@ -74,7 +86,19 @@ export const saveForm = async (data) => {
     console.error("Error saving item:", error);
   }
 };
-
+// get base on id or something
+export const getCommentOnId = async (id) => {
+  try {
+    const snap = await query(
+      collection(firestore, "comment"),
+      where("productId", "==", String(id))
+    );
+    const items = await getDocs(snap);
+    return items.docs.map((doc) => doc.data());
+  } catch (error) {
+    console.error("Error saving item:", error);
+  }
+};
 //fetch all food items
 export const fetchAllFood = async () => {
   try {
@@ -96,6 +120,17 @@ export const getActivity = async () => {
     console.error("Error saving form data:", error);
   }
 };
+// export const getAllComment = async () => {
+//   try {
+//     const collectionBase = collection(firestore, "comment");
+//     const queryBase = query(collectionBase, orderBy("id", "desc"));
+//     const items = await getDocs(queryBase);
+//     return items.docs.map((doc) => doc.data());
+//   } catch (error) {
+//     console.error("Error saving form data:", error);
+//     throw error;
+//   }
+// };
 export const getAllOrders = async () => {
   try {
     const collectionBase = await collection(firestore, "orders");
@@ -104,6 +139,7 @@ export const getAllOrders = async () => {
     return items.docs.map((doc) => doc.data());
   } catch (error) {
     console.error("Error saving form data:", error);
+    throw error;
   }
 };
 
