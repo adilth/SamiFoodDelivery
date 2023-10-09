@@ -18,12 +18,12 @@ function Hero() {
             />
           </div>
         </div>
-        <p className="text-[2.5rem] md:text-[3.5rem] lg:text-[4rem] font-bold tracking-wide text-headingColor dark:text-darkHeadingColor">
+        <h1 className="text-[2.5rem] md:text-[3rem] lg:text-[4rem] font-bold tracking-wide text-headingColor dark:text-darkHeadingColor">
           the Fastest Delivery in{" "}
-          <span className="text-orange-600 text-[3rem] md:text-[3.75rem] lg:text-[4.7rem]">
+          <span className="text-orange-600 text-[3rem] md:text-[3.25rem] lg:text-[4.7rem]">
             Your City
           </span>
-        </p>
+        </h1>
         <p className="text-base text-textColor dark:text-darkTextColor text-center md:text-left md:w-[80%]">
           Discover local, on-demand delivery or Pickup from restaurants, nearby
           grocery and convenience stores, and more.
@@ -36,11 +36,11 @@ function Hero() {
         </Link>
       </div>
       <div className="sm:py-6 pb-6 pt-0 px-4 md:px-1 flex justify-center relative">
-        <div className="ms:w-full w-[80%] flex justify-end">
+        <div className="ms:w-full sm:w-[80%] sm:h-[80%] xl:h-full flex justify-end">
           <img
             src={HeroImg}
             alt="hero image"
-            className="lg:h-full w-full lg:w-auto rounded-full"
+            className="lg:h-full w-full lg:w-auto aspect-square rounded-full object-cover"
           />
         </div>
       </div>
