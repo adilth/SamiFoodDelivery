@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
-import { useStateValue } from "../../context/stateProvider";
 import { getUserSpends } from "../../utils/singletData";
+import { useDataValue } from "../../context/DataProvider";
 
 function TopBox() {
-  const [{ users, orders }, dispatch] = useStateValue();
+  const [{ users, orders }] = useDataValue();
   return (
     <div>
       <h2 className="text-2xl mb-4">Top Users</h2>
       <div>
-        {users.map((user) => (
+        {users?.map((user) => (
           <div
             key={user.uid}
             className="flex items-center justify-between mb-8 "
