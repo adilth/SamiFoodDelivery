@@ -1,70 +1,85 @@
-import { useEffect, useState } from "react";
+import { Suspense, lazy, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useStateValue } from "../context/stateProvider";
 import { motion } from "framer-motion";
-import { FaShoppingCart } from "react-icons/fa";
-import NotFound from "../assets/img/NotFound.svg";
-import { Link } from "react-router-dom";
+import { FaShoppingCart } from "@react-icons/all-files/fa/FaShoppingCart";
 import { actionTypes } from "../context/reducer";
-import { Comments, FoodRows, Loader } from "../components";
-
+import { Loader } from "../components";
+import { getCommentOnId } from "../utils/firebaseFunc";
+import RatingReviews from "../components/foodDetails/RatingReviews";
+const Comments = lazy(() => import("../components/foodDetails/Comments"));
+const FoodRows = lazy(() => import("../components/FoodRows"));
 function FoodDetails() {
   const { nameId } = useParams();
-  console.log(nameId);
+
   const [{ foodItems, foodCart }, dispatch] = useStateValue();
   const [dishFood, setDishFood] = useState(foodCart);
   const [details, setDetails] = useState({});
   const [isLoading, setIsLoading] = useState(true);
-  const addToCart = () => {
-    dispatch({
-      type: actionTypes.SET_FOOD_CART,
-      foodCart: dishFood,
+  const [comments, setComments] = useState([]);
+  useEffect(() => {
+    // Fetch comments for the specific dishFood
+    getCommentOnId(details.id).then((commentsData) => {
+      setComments(commentsData);
     });
-    localStorage.setItem("food", JSON.stringify(dishFood));
-  };
-  const getFoodDetails = () => {
-    const detailsFood = foodItems.find((item) => item.id == nameId);
+  }, [details.id]);
 
-    setDetails(detailsFood);
-    setIsLoading(false);
-  };
   useEffect(() => {
+    const getFoodDetails = () => {
+      const detailsFood = foodItems.find((item) => item.id == nameId);
+
+      setDetails(detailsFood);
+      setIsLoading(false);
+    };
     getFoodDetails();
-  }, [nameId]);
+  }, [nameId, foodItems]);
 
   useEffect(() => {
+    const addToCart = () => {
+      dispatch({
+        type: actionTypes.SET_FOOD_CART,
+        foodCart: dishFood,
+      });
+      localStorage.setItem("food", JSON.stringify(dishFood));
+    };
     addToCart();
-  }, [dishFood]);
+  }, [dishFood, dispatch]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [dishFood]);
 
   return (
-    <section id="food-Details" className="p-4 flex flex-col justify-center ">
-      <div className="grid grid-cols-2 gap-8 mb-10">
+    <section
+      id="food-Details"
+      className="p-2 sm:p-4 mt-3 flex flex-col justify-center "
+    >
+      <div className="grid grid-cols-2 gap-2 sm:gap-4 md:gap-8 mb-10">
         {isLoading && <Loader />}
-        <div className="w-full">
+        <div className="w-full flex md:justify-center">
           <img
             src={details?.imgURL}
             alt={details?.title}
-            className="object-contain w-5/6"
+            className="object-contain w-5/6 md:w-3/6"
           />
         </div>
         <div className="flex flex-col mt-2 gap-3">
-          <p className="text-textColor font-semibold text-lg md:text-2xl ">
+          <p className="text-textColor dark:text-darkHeadingColor font-semibold text-lg md:text-2xl ">
             {details?.title}
           </p>
-          <p className="text-lg text-gray-500"> {details?.calories} Calory</p>
+          <p className="text-base md:text-lg text-gray-500">
+            {" "}
+            {details?.calories} Calory
+          </p>
           <div className="flex items-center gap-8">
-            <p className="text-2xl text-headingColor font-semibold">
+            <p className="text-lg md:text-3xl text-headingColor dark:text-darkHeadingColor font-semibold">
               <span className="to-red-500">${details?.price}</span>
             </p>
           </div>
-          <p className=" bg-yellow-400 w-fit"> ★★★★☆</p>
+          <RatingReviews comments={comments} size={"w-6 h6"} />
           <motion.div
             whileTap={{ scale: 0.75 }}
-            className="w-12 h-12 rounded-full bg-red-600 flex items-center justify-center cursor-pointer hover:shadow-md "
+            className="md:w-14 md:h-14 w-12 aspect-square rounded-full bg-red-600 flex items-center justify-center cursor-pointer hover:shadow-md "
             onClick={() =>
               setDishFood((prev) => {
                 let exist = prev?.find((food) => food.id == details.id);
@@ -82,16 +97,25 @@ function FoodDetails() {
           </motion.div>
         </div>
       </div>
-      <Comments />
+      <Suspense fallback={<Loader />}>
+        <Comments
+          dishFood={details}
+          comments={comments}
+          setComments={setComments}
+        />
+      </Suspense>
+
       <div className="w-full">
-        <h2 className="text-2xl font-semibold capitalize relative text-headingColor before:absolute before:rounded-lg before:content before:w-32 before:h-1 before:-bottom-2 before:left-0 before:bg-gradient-to-tr from-orange-400 to-orange-600 transition-all ease-in-out duration-100">
+        <h2 className="text-2xl font-semibold capitalize relative text-headingColor dark:text-darkHeadingColor  before:absolute before:rounded-lg before:content before:w-32 before:h-1 before:-bottom-2 before:left-0 before:bg-gradient-to-tr from-orange-400 to-orange-600 transition-all ease-in-out duration-100">
           you may also like
         </h2>
-        <FoodRows
-          flag={false}
-          data={foodItems?.filter((n) => n.category == details.category)}
-          splide={false}
-        />
+        <Suspense fallback={<Loader />}>
+          <FoodRows
+            flag={false}
+            data={foodItems?.filter((n) => n.category == details.category)}
+            splide={false}
+          />
+        </Suspense>
       </div>
     </section>
   );
