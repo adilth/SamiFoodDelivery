@@ -1,44 +1,25 @@
 import { useEffect, useState } from "react";
-import { FilterOrders, Header, OrderData } from "../components";
+import { FilterOrders, OrderData } from "../components";
 import { useStateValue } from "../context/stateProvider";
-import { actionTypes } from "../context/reducer";
+import { useDataValue } from "../context/DataProvider";
 
 const UsersOrder = () => {
-  const [{ user, orders }, dispatch] = useStateValue();
+  const [{ user }] = useStateValue();
+  const [{ orders }] = useDataValue();
   const [input, setInput] = useState("");
   const [userOrders, setUserOrders] = useState(null);
-  // useEffect(() => {
-  //   if (!orders) {
-  //     dispatch({
-  //       type: actionTypes.GET_ALL_ORDERS,
-  //       orders: setUserOrders(data?.filter((item) => item.userId === user.uid)),
-  //     });
-  //   } else {
-  //     setUserOrders(orders?.filter((data) => data.userId === user.uid));
-  //   }
-  // }, [orders, user.uid]);
-  // useEffect(() => {
-  //   console.log(user, orders);
-  //   if (user?.uid) {
-  //     // Filter orders based on the user's ID
-  //     const userFilteredOrders = orders?.filter(
-  //       (order) => order.userId === user.uid
-  //     );
-  //     setUserOrders(userFilteredOrders);
-  //   }
-  // }, [user, orders]);
-  let orderFilters = orders.filter((item) => item.userId === user.uid);
-
+  let orderFilters = orders?.filter((item) => item.userId === user.uid);
+  console.log(orders);
   useEffect(() => {
     if (orders) {
-      const filteredOrders = orders.filter((order) => {
+      const filteredOrders = orders?.filter((order) => {
         // Check if the order belongs to the current user
-        if (order.userId !== user?.uid) {
+        if (order?.userId !== user?.uid) {
           return false;
         }
         // Check the search criteria within the order's items
         if (order?.items) {
-          return order.items.some((item) => {
+          return order?.items.some((item) => {
             const itemName = item?.name?.toLowerCase() || "";
             const itemCategory = item?.category?.toLowerCase() || "";
             const inputLower = input?.toLowerCase() || "";
@@ -56,9 +37,8 @@ const UsersOrder = () => {
   }, [input, orders, user]);
 
   return (
-    <main className="w-screen min-h-screen flex items-center justify-start flex-col bg-primary">
-      <Header />
-      <div className="w-full flex flex-col items-start justify-center mt-24 px-6 md:px-16 2xl:px-52 gap-7 pb-20">
+    <main className="w-screen min-h-screen flex items-center justify-start flex-col bg-primary dark:bg-darkPrimary">
+      <div className="w-full flex flex-col items-start justify-center mt-4 px-6 md:px-16 2xl:px-52 gap-7 pb-20">
         <FilterOrders
           input={input}
           setInput={setInput}
@@ -68,12 +48,19 @@ const UsersOrder = () => {
         {userOrders && userOrders?.length > 0 ? (
           <>
             {userOrders?.map((item, i) => (
-              <OrderData key={i} index={i} data={item} admin={false} />
+              <OrderData
+                key={item.orderId}
+                index={i}
+                data={item}
+                admin={false}
+              />
             ))}
           </>
         ) : (
           <>
-            <h1 className="text-[72px] text-headingColor font-bold">No Data</h1>
+            <h1 className="text-[72px] text-headingColor dark:text-darkTextColor font-bold">
+              No Data
+            </h1>
           </>
         )}
       </div>
