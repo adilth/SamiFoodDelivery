@@ -1,6 +1,6 @@
 // AlertStateProvider.js
 import { createContext, useContext, useReducer } from "react";
-import { alertReducer, alertActionTypes } from "./alertReducer";
+import { alertReducer } from "./alertReducer";
 
 const AlertContext = createContext();
 
