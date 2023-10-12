@@ -1,17 +1,19 @@
 import { motion } from "framer-motion";
-import { FaShoppingCart } from "react-icons/fa";
+import { FaShoppingCart } from "@react-icons/all-files/fa/FaShoppingCart";
 import { Link } from "react-router-dom";
-import Rating from "./Rating";
 import { buttonTap } from "../animations/motion";
+import { useEffect, useState } from "react";
+import { getCommentOnId } from "../utils/firebaseFunc";
+import RatingReviews from "./foodDetails/RatingReviews";
 
 function FoodItem({ item, handleAddToCart }) {
   return (
-    <div className="py-2 h-full bg-cardOverlay gap-3 dark:bg-darkCardBody rounded-lg hover:drop-shadow-lg flex flex-col justify-evenly relative backdrop-blur-lg">
+    <div className="py-4 h-full bg-cardOverlay gap-3 dark:bg-darkCardOverlay rounded-lg hover:drop-shadow-lg flex flex-col justify-evenly relative backdrop-blur-lg">
       <div className="w-full flex items-center cursor-pointer justify-evenly">
         <ImgLink item={item} />
         <motion.div
           {...buttonTap}
-          className="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center cursor-pointer hover:shadow-md -mt-8"
+          className="w-10 h-10 rounded-full bg-red-600 flex items-center justify-center cursor-pointer hover:shadow-md -mt-8"
           onClick={() => handleAddToCart(item)}
         >
           <FaShoppingCart className="text-white" />
@@ -22,8 +24,15 @@ function FoodItem({ item, handleAddToCart }) {
   );
 }
 function OtherDetails({ item }) {
+  const [comments, setComments] = useState([]);
+  useEffect(() => {
+    // Fetch comments for the specific dishFood
+    getCommentOnId(item.id).then((commentsData) => {
+      setComments(commentsData);
+    });
+  }, [item.id]);
   return (
-    <div className="flex flex-col items-end justify-end mt-2 pr-4">
+    <div className="flex flex-col items-end justify-end mt-3 pr-4">
       <p className="text-textColor dark:text-darkTextColor font-semibold text-base md:text-lg">
         {item?.title}
       </p>
@@ -36,21 +45,21 @@ function OtherDetails({ item }) {
           <span className="text-sm to-red-500">${item?.price}</span>
         </p>
       </div>
-      <Rating rating={4} size={"w-5 h5"} readOnly />
+      <RatingReviews comments={comments} size={"w-4 h-4"} />
     </div>
   );
 }
-export function ImgLink({ item }) {
+function ImgLink({ item }) {
   return (
     <Link
       to={`/food/${item?.id}`}
-      className="w-[66%] h-[70%] drop-shadow-2xl rounded-full"
+      className="w-[70%] h-[71%] drop-shadow-2xl rounded-full"
     >
       <motion.div whileHover={{ scale: 1.1 }}>
         <img
           src={item?.imgURL}
           alt={item?.title}
-          className="w-full aspect-[8/9] object-contain rounded-full"
+          className="w-full aspect-square object-contain rounded-full scale-95"
         />
       </motion.div>
     </Link>
