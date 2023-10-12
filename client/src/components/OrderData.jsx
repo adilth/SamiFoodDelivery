@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { buttonTap, staggerFadeInOut } from "../animations/motion";
 import { updateCartSts } from "../utils/firebaseFunc";
 import { useEffect, useState } from "react";
-import { FaDollarSign } from "react-icons/fa";
+import { FaDollarSign } from "@react-icons/all-files/fa/FaDollarSign";
 
 const OrderData = ({ index, data, admin }) => {
   const [updateSts, setUpdateSts] = useState(data?.sts);
@@ -89,7 +89,7 @@ const OrderData = ({ index, data, admin }) => {
                 <img
                   src={item.image}
                   className="w-10 h-10 object-contain"
-                  alt=""
+                  alt={`imgage of ${item.name}`}
                 />
 
                 <div className="flex items-start flex-col">
