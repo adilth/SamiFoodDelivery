@@ -1,19 +1,19 @@
 import { motion } from "framer-motion";
 import { FaMoon } from "@react-icons/all-files/fa/FaMoon";
 import { IoSunnySharp } from "@react-icons/all-files/io5/IoSunnySharp";
-import { buttonTap } from "../animations/motion";
+import { buttonTapSoft } from "../animations/motion";
 
 function ThemeButton({ theme, handleDarkAndLight }) {
   return (
-    <motion.div className="w-3" {...buttonTap}>
+    <motion.div className="" {...buttonTapSoft}>
       {theme === "dark" ? (
-        <FaMoon
-          className=" cursor-pointer text-lg"
+        <IoSunnySharp
+          className=" cursor-pointer text-2xl"
           onClick={handleDarkAndLight}
         />
       ) : (
-        <IoSunnySharp
-          className=" cursor-pointer text-2xl dark:text-darkTextColor"
+        <FaMoon
+          className=" cursor-pointer text-lg dark:text-darkTextColor"
           onClick={handleDarkAndLight}
         />
       )}
