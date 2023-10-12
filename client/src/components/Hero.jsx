@@ -1,12 +1,14 @@
 import Delivery from "../assets/png/pngkey.com-delivery-png-1145548.png";
-import HeroImg from "../assets/png/c983b457564097.59db4a734d0d5.gif";
 import { Link } from "react-router-dom";
-
+import videoHero from "../assets/png/heroVideo.mp4";
 function Hero() {
   return (
     <section className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full" id="hero">
       <div className="py-4 flex-1 flex flex-col items-start justify-center gap-6">
-        <div className="flex items-start gap-2 justify-center bg-orange-100 px-4 py-1 rounded-full">
+        <div
+          className="flex items-start gap-2 justify-center bg-orange-100 px-4 py-1 rounded-full"
+          aria-hidden="true"
+        >
           <p className="text-base text-orange-500 font-semibolb">
             Bike Delivery
           </p>
@@ -14,11 +16,15 @@ function Hero() {
             <img
               src={Delivery}
               alt="bike delivery img"
+              rel="preload"
               className="w-full h-full object-contain"
             />
           </div>
         </div>
-        <h1 className="text-[2.5rem] md:text-[3rem] lg:text-[4rem] font-bold tracking-wide text-headingColor dark:text-darkHeadingColor">
+        <h1
+          className="text-[2.5rem] md:text-[3rem] lg:text-[4rem] font-bold tracking-wide text-headingColor dark:text-darkHeadingColor"
+          aria-labelledby="hero title"
+        >
           the Fastest Delivery in{" "}
           <span className="text-orange-600 text-[3rem] md:text-[3.25rem] lg:text-[4.7rem]">
             Your City
@@ -29,6 +35,7 @@ function Hero() {
           grocery and convenience stores, and more.
         </p>
         <Link
+          aria-label="link to menu page"
           to={"/menu"}
           className="bg-gradient-to-br font-bold from-orange-500 to-orange-600 px-7 py-3 rounded-lg hover:shadow-lg transition-all ease-in-out duration-100 text-white  mx-auto sm:mx-0"
         >
@@ -37,11 +44,14 @@ function Hero() {
       </div>
       <div className="sm:py-6 pb-6 pt-0 px-4 md:px-1 flex justify-center relative">
         <div className="ms:w-full sm:w-[80%] sm:h-[80%] xl:h-full flex justify-end">
-          <img
-            src={HeroImg}
-            alt="hero image"
+          <video
+            muted
+            autoPlay
+            loop
             className="lg:h-full w-full lg:w-auto aspect-square rounded-full object-cover"
-          />
+          >
+            <source src={videoHero} type="video/webm" />
+          </video>
         </div>
       </div>
     </section>
