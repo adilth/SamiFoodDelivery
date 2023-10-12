@@ -15,10 +15,12 @@ function ModalUpdateItem({ setOpen, item }) {
   return (
     <div
       ref={modal}
-      aria-hidden
+      aria-modal="true"
+      aria-labelledby="dialog_label"
+      role="dialog"
       className="fixed z-50 bg-slate-50 dark:bg-darkCardBody backdrop-blur-md top-12 left-1 sm:left-8 md:left-2/4 md:-translate-x-1/2  flex  sm:max-w-lg  justify-center items-center w-full shadow-lg"
     >
-      <div className="md:px-8 md:py-6 p-4  w-full">
+      <div className="md:px-8 md:py-6 p-4  w-full" id="dialog_label">
         <div className="flex justify-between">
           <h2 className="text-xl font-bold mb-3">Update Food Item</h2>
           <span

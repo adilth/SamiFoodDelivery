@@ -78,7 +78,7 @@ function DashboardLeftSection() {
         initial={{ x: showMenu ? -250 : 0 }}
         animate={menu ? "open" : "closed"}
         variants={variants}
-        className={` h-screen overflow-hidden md:relative fixed inset-0 z-[999] bg-card dark:bg-darkCardBody backdrop-blur-md shadow-md max-w-[16rem] w-52`}
+        className={` h-screen overflow-hidden md:relative fixed inset-0 z-[999] bg-card dark:bg-darkCardBody drop-shadow-xl backdrop-blur-md shadow-md max-w-[16rem] w-52`}
       >
         <div className="py-10 flex flex-col gap-5 ">
           {menu ? (
