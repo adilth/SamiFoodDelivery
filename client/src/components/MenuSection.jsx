@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { categories } from "../utils/data";
-import { IoFastFood } from "react-icons/io5";
+import { IoFastFood } from "@react-icons/all-files/io5/IoFastFood";
 import { useStateValue } from "../context/stateProvider";
 import FoodRows from "./FoodRows";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
@@ -14,9 +14,9 @@ function MenuSection() {
   return (
     <section className="w-full my-6" id="Menu">
       <div className="w-full flex flex-col items-center justify-center">
-        <p className="text-2xl font-semibold capitalize relative text-headingColor before:absolute before:rounded-lg before:content before:w-16 before:h-1 before:-bottom-2 before:left-0 before:bg-gradient-to-tr from-orange-400 to-orange-600 transition-all ease-in-out duration-100 mr-auto">
+        <h2 className="text-2xl font-semibold capitalize relative text-headingColor dark:text-darkHeadingColor before:absolute before:rounded-lg before:content before:w-16 before:h-1 before:-bottom-2 before:left-0 before:bg-gradient-to-tr from-orange-400 to-orange-600 transition-all ease-in-out duration-100 mr-auto">
           Our Popular Dishes
-        </p>
+        </h2>
 
         <div className="w-full">
           <MenuFilterCategory
@@ -46,8 +46,8 @@ function MenuFilterCategory({ filterCategory, setFilterCategory }) {
             className={`group ${
               filterCategory == category.URLSearchParams
                 ? "bg-cartNumBg"
-                : "bg-card"
-            } w-24 min-w-[94px] h-28 cursor-pointer rounded-lg drop-shadow-xl flex flex-col gap-3 items-center justify-center hover:bg-cartNumBg `}
+                : "bg-card dark:bg-darkCardOverlay"
+            } w-24 min-w-[94px] h-28 cursor-pointer rounded-lg drop-shadow-xl dark:drop-shadow-2xl flex flex-col gap-3 items-center justify-center hover:bg-cartNumBg transition-colors duration-200 ease-in-out`}
             onClick={() => setFilterCategory(category.URLSearchParams)}
           >
             <motion.div
@@ -59,12 +59,12 @@ function MenuFilterCategory({ filterCategory, setFilterCategory }) {
                   filterCategory === category.URLSearchParams
                     ? "bg-white"
                     : "bg-cartNumBg"
-                } group-hover:bg-white flex items-center justify-center`}
+                } group-hover:bg-white flex items-center justify-center transition-colors duration-150 ease-in`}
               >
                 <IoFastFood
                   className={`${
                     filterCategory === category.URLSearchParams
-                      ? "text-textColor"
+                      ? "text-textColor "
                       : "text-white"
                   } group-hover:text-textColor text-lg`}
                 />
@@ -73,7 +73,7 @@ function MenuFilterCategory({ filterCategory, setFilterCategory }) {
                 className={`text-sm ${
                   filterCategory === category.URLSearchParams
                     ? "text-white"
-                    : "text-textColor"
+                    : "text-textColor dark:text-darkTextColor"
                 } group-hover:text-white`}
               >
                 {category.name}
