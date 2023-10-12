@@ -22,13 +22,13 @@ function FilterOrders({ input, setInput, setUserOrders, orders }) {
 
   useEffect(() => {
     setUserOrders(handleSelectFields(orders));
-  }, [handleSelectFields]);
+  }, [handleSelectFields, setUserOrders]);
   return (
     <>
-      <div className="flex justify-between w-full">
+      <div className="flex justify-between items-center flex-wrap w-full">
         <div className="px-4 py-2 cursor-pointer text-end">
           <select
-            className="w-50 px-4 py-3 rounded-sm "
+            className="w-50 px-4 py-3 rounded-sm dark:bg-darkCardBody"
             id="foodSearch"
             onChange={(e) => setFoodFields(e.target.value)}
           >
@@ -39,12 +39,12 @@ function FilterOrders({ input, setInput, setUserOrders, orders }) {
           </select>
         </div>
         <div className="relative flex justify-end mr-6 h-fit">
-          <DebounceSearch value={input} onChange={(value) => setInput(value)} />
+          <DebounceSearch input={input} onChange={(value) => setInput(value)} />
         </div>
       </div>
-      <div className="w-full mt-3">
-        <p className="text-2xl font-semibold capitalize relative text-headingColor before:absolute before:rounded-lg before:content before:w-32 before:h-1 before:-bottom-2 before:left-0 before:bg-gradient-to-tr from-orange-400 to-orange-600 transition-all ease-in-out duration-100">
-          Our Menu
+      <div className="w-full my-3">
+        <p className="text-2xl font-semibold capitalize relative text-headingColor dark:text-darkHeadingColor before:absolute before:rounded-lg before:content before:w-32 before:h-1 before:-bottom-2 before:left-0 before:bg-gradient-to-tr from-orange-400 to-orange-600 transition-all ease-in-out duration-100">
+          Orders
         </p>
       </div>
     </>
