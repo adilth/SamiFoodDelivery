@@ -10,13 +10,20 @@ import { fadeInOutWithTransition } from "../animations/motion";
 function Footer() {
   let year = new Date().getFullYear();
   return (
-    <footer id="footer" className="bg-cartBg py-8 md:py-10 px-6 md:px-16 ">
-      <footer className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-10 ">
-        <div className="self-start">
+    <footer
+      id="footer"
+      className=" bg-[#00333E] text-white p-4 py-8 md:py-10 sm:px-6 md:px-16 "
+    >
+      <footer className="grid grid-cols-menu_auto_fit md:grid-cols-4 gap-3 md:gap-10 ">
+        <div className="self-start w-full h-full">
           <Link to={"/"} className="">
-            <img src={Logo} className="w-36 object-cover" alt="logo" />
+            <img
+              src={Logo}
+              className="w-36 h-12 object-cover invert brightness-0"
+              alt="logo"
+            />
           </Link>
-          <p className=" text-card text-sm pt-3">
+          <p className=" text-sm pt-3">
             just one click and we there fullfil what you need fast, fresh and
             good quality are our number ONE
           </p>
@@ -26,22 +33,22 @@ function Footer() {
             {...fadeInOutWithTransition}
             className="flex flex-col item-center text-center gap-4 "
           >
-            <li className="text-base text-card underline decoration-red-600 underline-offset-2 hover:text-primary duration-100 transition-all ease-in-out cursor-pointer">
+            <li className="text-base underline decoration-red-600 underline-offset-4 hover:text-primary duration-100 transition-all ease-in-out cursor-pointer">
               <Link to={"/"}>Home</Link>
             </li>
-            <li className="text-base text-card underline decoration-red-600 underline-offset-2 hover:text-primary duration-100 transition-all ease-in-out cursor-pointer">
+            <li className="text-base underline decoration-red-600 underline-offset-4 hover:text-primary duration-100 transition-all ease-in-out cursor-pointer">
               <Link to={"/menu"}> Menu</Link>
             </li>
-            <li className="text-base text-card underline decoration-red-600 underline-offset-2 hover:text-primary duration-100 transition-all ease-in-out cursor-pointer">
+            <li className="text-base  underline decoration-red-600 underline-offset-4 hover:text-primary duration-100 transition-all ease-in-out cursor-pointer">
               About Us
             </li>
-            <li className="text-base text-card underline decoration-red-600 underline-offset-2 hover:text-primary duration-100 transition-all ease-in-out cursor-pointer">
+            <li className="text-base  underline decoration-red-600 underline-offset-4 hover:text-primary duration-100 transition-all ease-in-out cursor-pointer">
               Service
             </li>
           </motion.ul>
         </nav>
 
-        <div className="flex flex-wrap self-start gap-2 text-card pt-1">
+        <div className="flex flex-wrap self-start gap-2 pt-1">
           <SocialLink link={"#"}>
             <FaFacebook />
           </SocialLink>
@@ -80,6 +87,8 @@ function SocialLink({ link, children }) {
   return (
     <motion.a
       href={link}
+      aria-hidden="true"
+      aria-label="social media link"
       whileHover={{ scale: 1.1 }}
       className="cursor-pointer border-[1px] p-1 text-2xl rounded-full hover:text-red-600"
     >
