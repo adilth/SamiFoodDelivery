@@ -7,13 +7,12 @@ function Search() {
   const [input, setInput] = useState("");
   const [{ foodItems }] = useStateValue();
   const [foodFields, setFoodFields] = useState("default");
-  const dataItems = useMemo(() => foodItems, [foodItems]);
-
+  const dataItems = useMemo(() => foodItems, []);
   const submitHandler = (data) => {
-    return data.filter((item) => {
+    return data?.filter((item) => {
       if (
-        item.title.toLowerCase().includes(input.toLowerCase()) ||
-        item.category.toLowerCase().includes(input.toLowerCase())
+        item?.title.toLowerCase().includes(input.toLowerCase()) ||
+        item?.category.toLowerCase().includes(input.toLowerCase())
       ) {
         return item;
       } else {
@@ -39,12 +38,13 @@ function Search() {
   }, [foodFields, dataItems]);
   return (
     <>
-      <div className="flex justify-between w-full">
+      <div className="flex flex-wrap sm:justify-between justify-center items-center w-full">
         <div className="px-4 py-3 cursor-pointer text-end">
           <select
-            className="w-50 px-4 py-3 rounded-sm "
+            className="w-50 px-4 py-3 rounded-sm dark:bg-darkCardBody"
             id="foodSearch"
             onChange={(e) => setFoodFields(e.target.value)}
+            aria-label="select the ranking based on options"
           >
             <option value="default">Default</option>
             <option value="ascending">Alphabetically, A-Z</option>
@@ -53,12 +53,12 @@ function Search() {
             <option value="low-price">Low Price</option>
           </select>
         </div>
-        <div className="relative flex justify-end mr-6 h-fit">
-          <DebounceSearch value={input} onChange={(value) => setInput(value)} />
+        <div className="relative flex justify-end sm:mr-6 h-fit">
+          <DebounceSearch val={input} onChange={(value) => setInput(value)} />
         </div>
       </div>
       <div className="w-full mt-3">
-        <p className="text-2xl font-semibold capitalize relative text-headingColor before:absolute before:rounded-lg before:content before:w-32 before:h-1 before:-bottom-2 before:left-0 before:bg-gradient-to-tr from-orange-400 to-orange-600 transition-all ease-in-out duration-100">
+        <p className="text-2xl font-semibold capitalize relative text-headingColor dark:text-darkHeadingColor before:absolute before:rounded-lg before:content before:w-32 before:h-1 before:-bottom-2 before:left-0 before:bg-gradient-to-tr from-orange-400 to-orange-600 transition-all ease-in-out duration-100">
           Our Menu
         </p>
         <FoodRows flag={false} data={submitHandler(dataItems)} splide={false} />
