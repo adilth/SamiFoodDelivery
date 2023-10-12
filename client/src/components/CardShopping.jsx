@@ -1,25 +1,29 @@
-import { useEffect, useState } from "react";
-import { MdOutlineKeyboardBackspace } from "react-icons/md";
-import { RiRefreshFill } from "react-icons/ri";
+import { useCallback, useEffect, useState } from "react";
+import { BsArrowLeft } from "@react-icons/all-files/bs/BsArrowLeft";
+import { RiRefreshFill } from "@react-icons/all-files/ri/RiRefreshFill";
 import { motion } from "framer-motion";
 import { useStateValue } from "../context/stateProvider";
 import CardItems from "./CardItems";
 import { actionTypes } from "../context/reducer";
 import EmptyCart from "../assets/img/emptyCart.svg";
-import { showMenuCart } from "../utils/getAllData";
+import { useShowCard } from "../utils/getAllData";
 import {
   buttonTap,
   buttonTapSoft,
   fadeInOutWithTransition,
 } from "../animations/motion";
-import axios from "axios";
+import { useRef } from "react";
+import { useAlertState } from "../context/alertProvider";
+import { alertActionTypes } from "../context/alertReducer";
 
 const baseURL = "http://localhost:3333";
 function CardShopping() {
   const [{ foodCart, user }, dispatch] = useStateValue();
+  const { setAlert } = useAlertState();
   const [flag, setFlag] = useState(1);
   const [tot, setTot] = useState(0);
-  const showCart = showMenuCart();
+  const showCart = useShowCard();
+  const cardMenu = useRef();
 
   useEffect(() => {
     let totalPrice = foodCart?.reduce((acc, item) => {
@@ -38,34 +42,47 @@ function CardShopping() {
     //   await deleteActivity();
     // });
   };
-  const handleCheckOut = () => {
+  const handleCheckOut = useCallback(() => {
     const data = {
       user: user,
       cart: foodCart,
       total: tot,
     };
-    axios
-      .post(`${baseURL}/api/products/create-checkout-session`, { data })
+    fetch(`${baseURL}/api/products/create-checkout-session`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ data }),
+    })
+      .then((response) => response.json())
       .then((res) => {
-        if (res.data.url) {
-          window.location.href = res.data.url;
+        if (res.url) {
+          window.location.href = res.url;
         }
       })
-      .catch((err) => console.log(err));
-  };
+      .catch((err) => {
+        console.log(err);
+        setAlert(alertActionTypes.SET_DANGER, "something went wrong");
+        setTimeout(() => {
+          setAlert(alertActionTypes.SET_ALERT_NULL, "");
+        }, 3000);
+      });
+  }, [foodCart, tot, user, setAlert]);
 
   return (
-    <div className="fixed top-0 right-0 left-0 bottom-0 w-full h-screen bg-cardOverlayCart z-[233]">
-      <motion.div
-        className="absolute top-0 right-0 w-full md:w-275 lg:w-300 h-screen bg-white drop-shadow-md flex flex-col z-[333]"
-        {...fadeInOutWithTransition}
-      >
+    <motion.div
+      {...fadeInOutWithTransition}
+      ref={cardMenu}
+      className="fixed top-0 right-0 left-0 bottom-0 w-full h-screen bg-cardOverlayCart z-[233]"
+    >
+      <div className="absolute top-0 right-0 w-full md:w-275 lg:w-300 h-screen bg-white dark:bg-darkPrimary drop-shadow-md flex flex-col z-[333]">
         <div
           className="w-full flex items-center justify-between p-4 cursor-pointer"
           onClick={showCart}
         >
           <motion.div {...buttonTap}>
-            <MdOutlineKeyboardBackspace className="text-textColor text-3xl" />
+            <BsArrowLeft className="text-textColor dark:text-darkTextColor text-3xl rotate-180" />
           </motion.div>
           <div className="text-textColor text-lg font-semibold">Cart</div>
           <motion.p
@@ -79,7 +96,7 @@ function CardShopping() {
 
         {/* items Section */}
         {foodCart && foodCart?.length > 0 ? (
-          <div className="w-full h-full bg-cartBg rounded-t-[2rem] flex flex-col">
+          <div className="w-full h-full bg-cartBg dark:bg-darkCardOverlay rounded-t-[2rem] flex flex-col">
             <div className="w-full h-340 md:h-42 px-3 md:px-5 py-4 md:py-8 flex flex-col gap-3 overflow-y-scroll scrollbar-none">
               {/* cart Item */}
               {foodCart &&
@@ -94,7 +111,7 @@ function CardShopping() {
                 ))}
             </div>
             {/* cart total section */}
-            <div className="w-full flex-1 bg-cartTotal rounded-t-[2rem] flex flex-col items-center justify-evenly px-8 py-2">
+            <div className="w-full flex-1 bg-cartTotal dark:bg-darkPrimary rounded-t-[2rem] flex flex-col items-center justify-evenly px-8 py-2">
               <div className="w-full flex items-center justify-between">
                 <p className="text-gray-400 text-lg">Sub Total</p>
                 <p className="text-gray-400 text-lg">$ {tot.toFixed(2)}</p>
@@ -104,7 +121,7 @@ function CardShopping() {
                 <p className="text-red-500 text-lg">$ 2.5</p>
               </div>
 
-              <div className="w-full border-b border-gray-600 my-2"></div>
+              <div className="w-full border-b border-gray-600 my-2" />
 
               <div className="w-full flex items-center justify-between">
                 <p className="text-gray-200 text-xl font-semibold">Total:</p>
@@ -112,7 +129,7 @@ function CardShopping() {
                   value={Number(tot + 2.5).toFixed(2)}
                   readOnly
                   name="total"
-                  className="text-gray-200 text-xl font-semibold border-none bg-cartTotal ml-2 w-min"
+                  className="text-gray-200 text-xl font-semibold border-none bg-cartTotal dark:bg-darkCardOverlay ml-2 w-min"
                   disabled
                 />
               </div>
@@ -132,8 +149,8 @@ function CardShopping() {
             </p>
           </div>
         )}
-      </motion.div>
-    </div>
+      </div>
+    </motion.div>
   );
 }
 function ButtonCheckOut({ text, onClick }) {
