@@ -1,7 +1,7 @@
 {
   "env": {
     "browser": true,
-    "es2021": true
+    "es2022": true
   },
   "extends": [
     "eslint:recommended",
@@ -13,7 +13,8 @@
     "ecmaVersion": 12,
     "sourceType": "module",
     "ecmaFeatures": {
-      "jsx": true
+      "jsx": true,
+      "js": true
     }
   },
   "plugins": ["react", "react-hooks", "react-refresh"],
@@ -24,14 +25,68 @@
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "no-empty": "warn",
+    "indent": ["error", 2, { "SwitchCase": 1 }],
+    "semi": ["error", "always"],
+    "react/jsx-indent": ["error", 2],
+    "react/self-closing-comp": "error",
+    "react/no-unescaped-entities": "warn",
     "no-cond-assign": ["error", "always"],
     "plugin:react/jsx-runtime": "off",
-    "react/jsx-uses-react": "off",
+    // "react/jsx-uses-react": "off",
     "react/react-in-jsx-scope": "off",
     "react/jsx-props-no-spreading": [
       "error",
       {
         "custom": "ignore"
+      }
+    ],
+    "react/boolean-prop-naming": [
+      "error",
+      { "rule": "^(is|has|should|can)[A-Z]([A-Za-z0-9]?)+" }
+    ],
+    "react/no-array-index-key": "error",
+    "react/no-danger": "error",
+    "react/no-deprecated": "error",
+    "react/no-direct-mutation-state": "error",
+    "react/no-find-dom-node": "error",
+    "react/no-is-mounted": "error",
+    "react/no-render-return-value": "error",
+    "react/no-string-refs": "error",
+    "react/no-this-in-sfc": "error",
+    "react/no-typos": "error",
+    "react/no-unknown-property": "error",
+    "react/prefer-es6-class": "error",
+    "react/require-render-return": "error",
+    "react/jsx-boolean-value": "error",
+    "react/jsx-closing-bracket-location": ["error", "line-aligned"],
+    "react/jsx-curly-spacing": ["error", "never"],
+    "react/jsx-equals-spacing": ["error", "never"],
+    "react/jsx-filename-extension": [
+      "error",
+      { "extensions": [".js", ".jsx"] }
+    ],
+    "react/jsx-first-prop-new-line": ["error", "multiline"],
+    "react/jsx-indent-props": ["error", 2],
+    "react/jsx-max-props-per-line": [
+      "error",
+      { "maximum": 1, "when": "multiline" }
+    ],
+    "react/jsx-no-comment-textnodes": "error",
+    "react/jsx-no-duplicate-props": "error",
+    "react/jsx-no-literals": "off",
+    "react/jsx-no-undef": "error",
+    "react/jsx-pascal-case": "error",
+    "react/jsx-props-no-multi-spaces": "error",
+    "react/jsx-tag-spacing": ["error", { "beforeSelfClosing": "always" }],
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error",
+    "react/jsx-wrap-multilines": [
+      "error",
+      {
+        "return": "parens-new-line",
+        "declaration": "parens-new-line",
+        "assignment": "parens-new-line",
+        "arrow": "parens-new-line"
       }
     ]
   }
