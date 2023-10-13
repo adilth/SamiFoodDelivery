@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { Splide, SplideTrack, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
 import { useStateValue } from "../context/stateProvider";
@@ -11,13 +11,6 @@ import FoodItem from "./FoodItem";
 function FoodRows({ flag, data, splide }) {
   const rowFood = useRef();
   const [{ foodCart, user }, dispatch] = useStateValue();
-  const updateCartAndLocalStorage = (newCart) => {
-    dispatch({
-      type: actionTypes.SET_FOOD_CART,
-      foodCart: newCart,
-    });
-    localStorage.setItem("food", JSON.stringify(newCart));
-  };
 
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem("food"));
@@ -29,32 +22,42 @@ function FoodRows({ flag, data, splide }) {
     }
   }, [dispatch]);
   console.log("here");
-  const handleAddToCart = async (item) => {
-    // Check if the item is already in the cart
-    const exist = foodCart.find((el) => el.id === item.id);
-    let updatedCart;
-    if (exist) {
-      // If the item exists in the cart, update its quantity
-      exist.qty += 1;
-      updatedCart = [...foodCart];
-    } else {
-      // If the item is not in the cart, add it with a quantity of 1
-      item.qty = 1;
-      updatedCart = [...foodCart, item];
-    }
-    updateCartAndLocalStorage(updatedCart);
+  const handleAddToCart = useCallback(
+    async (item) => {
+      const updateCartAndLocalStorage = (newCart) => {
+        dispatch({
+          type: actionTypes.SET_FOOD_CART,
+          foodCart: newCart,
+        });
+        localStorage.setItem("food", JSON.stringify(newCart));
+      };
+      // Check if the item is already in the cart
+      const exist = foodCart.find((el) => el.id === item.id);
+      let updatedCart;
+      if (exist) {
+        // If the item exists in the cart, update its quantity
+        exist.qty += 1;
+        updatedCart = [...foodCart];
+      } else {
+        // If the item is not in the cart, add it with a quantity of 1
+        item.qty = 1;
+        updatedCart = [...foodCart, item];
+      }
+      updateCartAndLocalStorage(updatedCart);
 
-    if (user && !exist) {
-      await activeProduct({
-        id: Date.now(),
-        text: `${user?.displayName} add ${item?.title} to cart`,
-        userName: user?.displayName,
-        productName: item?.title,
-        item: item,
-        time: new Date(),
-      });
-    }
-  };
+      if (user && !exist) {
+        await activeProduct({
+          id: Date.now(),
+          text: `${user?.displayName} add ${item?.title} to cart`,
+          userName: user?.displayName,
+          productName: item?.title,
+          item: item,
+          time: new Date(),
+        });
+      }
+    },
+    [foodCart, user, dispatch]
+  );
 
   let focusStart = `${data?.length > 2 ? "center" : "start"}`;
   const updatedFoodRowsSides = {
@@ -69,6 +72,7 @@ function FoodRows({ flag, data, splide }) {
         ref={rowFood}
         {...updatedFoodRowsSides}
         hasTrack={false}
+        aria-label="product food that can delivered"
         className={`food_item w-full my-12 flex items-center justify-start scroll-smooth ${
           flag
             ? "overflow-x-scroll scrollbar-none"
