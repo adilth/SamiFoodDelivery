@@ -1,11 +1,12 @@
 import { Suspense, lazy } from "react";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
-import { Alert, Loader, PageNotFound } from "./components";
+import { Loader, PageNotFound } from "./components";
 import { AnimatePresence } from "framer-motion";
 // import getAllFoodData from "./utils/getAllData";
 import { useStateValue } from "./context/stateProvider";
 import { useAlertState } from "./context/alertProvider";
 
+const Alert = lazy(() => import("./components/Alert"));
 const HomeRoute = lazy(() => import("./pages/HomeRoute"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const Success = lazy(() => import("./pages/Success"));
@@ -54,7 +55,9 @@ function App() {
           <Route path="*" element={<Navigate to="/404" />} />
         </Routes>
         {alertState?.type && (
-          <Alert type={alertState?.type} message={alertState?.message} />
+          <Suspense>
+            <Alert type={alertState?.type} message={alertState?.message} />
+          </Suspense>
         )}
       </div>
     </AnimatePresence>
