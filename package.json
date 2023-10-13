@@ -15,8 +15,9 @@
   "scripts": {
     "dev:client": "cd client && pnpm dev:client",
     "dev:server": "cd server && npm run dev",
-    "build:client": "cd client && npm run build:client",
-    "client": "npm run dev --prefix client"
+    "build": "cd server && npm install && cd ../client && pnpm run build",
+    "client": "pnpm run dev --prefix client",
+    "start": "cd ./server && node index.js"
   },
   "author": "Adil Tahiri",
   "license": "MIT",
