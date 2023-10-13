@@ -16,7 +16,7 @@ import { useRef } from "react";
 import { useAlertState } from "../context/alertProvider";
 import { alertActionTypes } from "../context/alertReducer";
 
-const baseURL = "http://localhost:3333";
+const baseURL = import.meta.env.VITE_BASED_URL || "http://localhost:3333";
 function CardShopping() {
   const [{ foodCart, user }, dispatch] = useStateValue();
   const { setAlert } = useAlertState();
