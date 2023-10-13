@@ -2,6 +2,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  darkMode: "class",
   theme: {
     extend: {
       gridTemplateColumns: {
@@ -43,7 +44,8 @@ module.exports = {
         620: "620px",
       },
       screens: {
-        sm: "640px",
+        xs: "410px",
+        sm: "620px",
         md: "768px",
         lg: "1024px",
         xl: "1280px",
@@ -61,8 +63,23 @@ module.exports = {
         cartBg: "#282a2c",
         cartItem: "#2e3033",
         cartTotal: "#343739",
+        // Dark mode colors
+        darkHeadingColor: "#f5f3f3",
+        darkTextColor: "#dedbd2",
+        darkCardBg: "#2e2e2e",
+        darkCardOverlay: "rgba(20, 20, 50,0.55)",
+        darkCardBody: "#284855",
+        darkCardBodyHover: "#516a75",
+        darkPrimary: "#14142A",
       },
     },
   },
   plugins: [require("tailwind-scrollbar")],
+  variants: {
+    extend: {
+      backgroundColor: ["dark"], // Enable dark mode background color variants
+      borderColor: ["dark"], // Enable dark mode border color variants
+      textColor: ["dark"], // Enable dark mode text color variants
+    },
+  },
 };
