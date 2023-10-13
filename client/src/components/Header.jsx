@@ -60,11 +60,10 @@ const Header = () => {
       user: null,
     });
   };
-  //call shopping cart action from getAllData
   const showCart = useShowCard();
   return (
     <header
-      className="fixed bg-primary dark:bg-darkCardBody z-50 w-full p-3 px-4 md:py-4 md:px-10 lg:px-12"
+      className="fixed bg-primary dark:bg-darkPrimary z-50 w-full p-3 sm:p-3.5 md:px-10 lg:px-12 drop-shadow-lg"
       onMouseEnter={() => setMenu(false)}
     >
       {/* screen */}
@@ -122,7 +121,7 @@ const Header = () => {
             <ShoppingCart onClick={showCart} foodCart={foodCart} />
             {user ? (
               <div className="relative">
-                <div className="flex flex-col items-end">
+                <div className="flex items-center gap-0.5">
                   <motion.img
                     {...buttonTap}
                     src={user ? user.photoURL : Avatar}
@@ -132,7 +131,7 @@ const Header = () => {
                     className="w-10 min-[40px] h-10 min-h-[40px] drop-shadow-xl rounded-full cursor-pointer "
                   />
                   <FaChevronDown
-                    className="text-sm font-bold -mt-2.5 -mr-2 z-10"
+                    className="text-sm font-bold -mt-3 z-10"
                     onMouseEnter={() => setMenu(true)}
                   />
                 </div>
@@ -176,21 +175,27 @@ const Header = () => {
               alt="logo"
             />
           </Link>
-          <nav className="flex gap-5 items-center">
+          <nav className="flex gap-4 items-center">
             <ThemeButton
               theme={theme}
               handleDarkAndLight={handleDarkAndLight}
             />
             <ShoppingCart onClick={showCart} foodCart={foodCart} />
             <div className="relative">
-              <motion.img
-                {...buttonTapFar}
-                src={user ? user.photoURL : Avatar}
-                className="w-10 min-w-[40px] h-10 min-h-[40px] drop-shadow-xl cursor-pointer rounded-full"
-                alt="userprofile"
-                onClick={login}
-                onMouseEnter={() => setMenu(true)}
-              />
+              <div className="flex items-center gap-0.5">
+                <motion.img
+                  {...buttonTapFar}
+                  src={user ? user.photoURL : Avatar}
+                  className="w-10 min-w-[40px] h-10 min-h-[40px] drop-shadow-xl cursor-pointer rounded-full"
+                  alt="userprofile"
+                  onClick={login}
+                  onMouseEnter={() => setMenu(true)}
+                />
+                <FaChevronDown
+                  className="text-sm font-bold z-10 -mt-3"
+                  onMouseEnter={() => setMenu(true)}
+                />
+              </div>
               {isMenu && (
                 <motion.div
                   {...fadeInOutWithScale}
@@ -198,7 +203,7 @@ const Header = () => {
                   className="w-40 bg-gray-50 dark:bg-gray-700 shadow-xl rounded-lg flex flex-col absolute top-12 right-0"
                 >
                   <SubMenu user={user} />
-                  <ul className="flex flex-col ">
+                  <ul className="flex flex-col list-none">
                     <li
                       className="px-4 py-2 text-base text-textColor dark:text-darkTextColor dark:hover:bg-darkCardBodyHover hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer hover:bg-slate-100 "
                       onClick={() => setMenu(false)}
@@ -224,13 +229,14 @@ const Header = () => {
                       Service
                     </li>
                   </ul>
-
-                  <p
-                    className="m-2 p-2 rounded-md shadow-md flex items-center justify-center bg-gray-200 dark:bg-darkPrimary gap-3 cursor-pointer hover:bg-gray-300 transition-all duration-100 ease-in-out text-textColor dark:text-darkTextColor text-base"
-                    onClick={logOut}
-                  >
-                    Logout <FaShoppingCart />
-                  </p>
+                  {user && (
+                    <p
+                      className="m-2 p-2 rounded-md shadow-md flex items-center justify-center bg-gray-200 dark:bg-darkPrimary gap-3 cursor-pointer hover:bg-gray-300 transition-all duration-100 ease-in-out text-textColor dark:text-darkTextColor text-base"
+                      onClick={logOut}
+                    >
+                      Logout <FaShoppingCart />
+                    </p>
+                  )}
                 </motion.div>
               )}
             </div>
@@ -248,9 +254,9 @@ function ShoppingCart({ onClick, foodCart }) {
       className="relative flex items-center justify-center"
       onClick={onClick}
     >
-      <FaShoppingCart className="text-textColor dark:text-darkTextColor text-2xl md:ml-8 cursor-pointer" />
+      <FaShoppingCart className="text-textColor dark:text-darkTextColor text-2xl cursor-pointer" />
       {foodCart && foodCart?.length > 0 && (
-        <div className="absolute -top-0 md:-top-3 -right-1 w-5 h-5 rounded-full bg-cartNumBg flex items-center justify-center">
+        <div className="absolute -top-3 -right-1 w-5 h-5  rounded-full bg-cartNumBg flex items-center justify-center">
           <p className="text-xs text-white font-demibold">{foodCart?.length}</p>
         </div>
       )}
@@ -260,19 +266,23 @@ function ShoppingCart({ onClick, foodCart }) {
 function SubMenu({ user }) {
   return (
     <>
-      {user && user.email === "rajaadil19952019@gmail.com" && (
-        <Link to={"/dashboard/home"}>
-          <p className="px-4 py-2 flex items-center justify-between gap-2 cursor-pointer hover:bg-slate-100 dark:hover:bg-darkCardBodyHover transition-all duration-100 ease-in-out text-textColor dark:text-darkTextColor text-base">
-            Dashboard <RiDashboardFill />
-          </p>
-        </Link>
+      {user && (
+        <>
+          {user.email === "rajaadil19952019@gmail.com" && (
+            <Link to={"/dashboard/home"}>
+              <p className="px-4 py-2 flex items-center justify-between gap-2 cursor-pointer hover:bg-slate-100 dark:hover:bg-darkCardBodyHover transition-all duration-100 ease-in-out text-textColor dark:text-darkTextColor text-base">
+                Dashboard <RiDashboardFill />
+              </p>
+            </Link>
+          )}
+          <Link
+            className=" hover:text-red-500 text-base text-textColor flex items-center justify-between cursor dark:text-darkTextColor px-4 py-2 hover:bg-slate-100 dark:hover:bg-darkCardBodyHover transition-all duration-100 ease-in-out"
+            to={"/userOrder"}
+          >
+            Orders <FaThList />
+          </Link>
+        </>
       )}
-      <Link
-        className=" hover:text-red-500 text-base text-textColor flex items-center justify-between cursor dark:text-darkTextColor px-4 py-2 hover:bg-slate-100 dark:hover:bg-darkCardBodyHover transition-all duration-100 ease-in-out"
-        to={"/userOrder"}
-      >
-        Orders <FaThList />
-      </Link>
     </>
   );
 }
