@@ -72,7 +72,7 @@ function Footer() {
               href="http://www.latrattoriamarrakech.com/"
               className=" font-semibold text-red-600 underline"
             >
-              Here
+              Latrattoria Restaurant
             </a>
           </p>
         </div>
@@ -87,7 +87,6 @@ function SocialLink({ link, children }) {
   return (
     <motion.a
       href={link}
-      aria-hidden="true"
       aria-label="social media link"
       whileHover={{ scale: 1.1 }}
       className="cursor-pointer border-[1px] p-1 text-2xl rounded-full hover:text-red-600"
