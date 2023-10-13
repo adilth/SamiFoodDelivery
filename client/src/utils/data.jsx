@@ -13,42 +13,42 @@ export const categories = [
   {
     id: 3,
     name: "Icecreams",
-    URLSearchParams: "icecreams",
+    URLSearchParams: "Icecreams",
   },
   {
     id: 4,
     name: "Fish",
-    URLSearchParams: "fish",
+    URLSearchParams: "Fish",
   },
   {
     id: 5,
     name: "Pizza",
-    URLSearchParams: "pizza",
+    URLSearchParams: "Pizza",
   },
   {
     id: 6,
     name: "Fruit",
-    URLSearchParams: "fruit",
+    URLSearchParams: "Fruit",
   },
   {
     id: 7,
     name: "Curry",
-    URLSearchParams: "curry",
+    URLSearchParams: "Curry",
   },
   {
     id: 8,
     name: "Rice",
-    URLSearchParams: "rice",
+    URLSearchParams: "Rice",
   },
   {
     id: 9,
     name: "soft Drinks",
-    URLSearchParams: "drinks",
+    URLSearchParams: "Drinks",
   },
   {
     id: 10,
     name: "Salad",
-    URLSearchParams: "salad",
+    URLSearchParams: "Salad",
   },
 ];
 

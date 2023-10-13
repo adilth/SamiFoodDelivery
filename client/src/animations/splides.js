@@ -1,6 +1,7 @@
 export const foodRowsSides = {
   options: {
     perPage: 4.4,
+    pagination: false,
     breakpoints: {
       1000: {
         perPage: 3.2,
@@ -23,6 +24,7 @@ export const foodRowsSides = {
 export const splideMenu = {
   options: {
     arrows: false,
+    pagination: false,
     drag: true,
     perPage: 8,
     focus: "center",
