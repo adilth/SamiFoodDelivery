@@ -36,52 +36,52 @@ const DataTable = ({ columns, data }) => {
           onChange={(value) => setFilter(String(value))}
         />
       </div>
-      {/* <div className=" rounded-xl px-2.5 pb-2.5 overflow-auto w-full max-w-full shadow"> */}
-      <table className="border-collapse w-full table-auto">
-        <thead className=" bg-slate-700 dark:bg-darkCardBody rounded-md">
-          {table?.getHeaderGroups().map((group) => (
-            <tr key={group.id}>
-              {group.headers.map((header) => (
-                <th
-                  key={header.id}
-                  colSpan={header.colSpan}
-                  className="text-white dark:text-slate-300 py-3 px-1"
-                >
-                  <div
-                    className={`${
-                      header.column.getCanSort()
-                        ? "flex items-center justify-between gap-1 px-4 cursor-pointer select-none"
-                        : ""
-                    } `}
-                    onClick={header.column.getToggleSortingHandler()}
+      <div className=" rounded-xl px-2.5 pb-2.5 overflow-auto w-full max-w-full shadow">
+        <table className="border-collapse w-full table-auto">
+          <thead className=" bg-slate-700 dark:bg-darkCardBody rounded-md">
+            {table?.getHeaderGroups().map((group) => (
+              <tr key={group.id}>
+                {group.headers.map((header) => (
+                  <th
+                    key={header.id}
+                    colSpan={header.colSpan}
+                    className="text-white dark:text-slate-300 py-3 px-1"
                   >
-                    {flexRender(
-                      header.column.columnDef.header,
-                      header.getContext()
-                    )}
+                    <div
+                      className={`${
+                        header.column.getCanSort()
+                          ? "flex items-center justify-between gap-1 px-4 cursor-pointer select-none"
+                          : ""
+                      } `}
+                      onClick={header.column.getToggleSortingHandler()}
+                    >
+                      {flexRender(
+                        header.column.columnDef.header,
+                        header.getContext()
+                      )}
 
-                    {{ asc: <FaChevronUp />, desc: <FaChevronDown /> }[
-                      header.column.getIsSorted()
-                    ] ?? null}
-                  </div>
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody className="[&>*:nth-child(odd)]:bg-white dark:[&>*:nth-child(odd)]:bg-darkCardOverlay ">
-          {table?.getRowModel().rows.map((row) => (
-            <tr key={row.id}>
-              {row?.getVisibleCells().map((cell) => (
-                <td key={cell.id} className="px-4 whitespace-nowrap">
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      {/* </div> */}
+                      {{ asc: <FaChevronUp />, desc: <FaChevronDown /> }[
+                        header.column.getIsSorted()
+                      ] ?? null}
+                    </div>
+                  </th>
+                ))}
+              </tr>
+            ))}
+          </thead>
+          <tbody className="[&>*:nth-child(odd)]:bg-white dark:[&>*:nth-child(odd)]:bg-darkCardOverlay ">
+            {table?.getRowModel().rows.map((row) => (
+              <tr key={row.id}>
+                {row?.getVisibleCells().map((cell) => (
+                  <td key={cell.id} className="px-4 whitespace-nowrap">
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       <div className="flex md:flex-row sm:items-center sm:justify-end justify-start flex-wrap items-start mt-2 gap-3">
         <span className=" flex items-center gap-2">
           Go to page

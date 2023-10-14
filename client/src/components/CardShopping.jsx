@@ -15,6 +15,7 @@ import {
 import { useRef } from "react";
 import { useAlertState } from "../context/alertProvider";
 import { alertActionTypes } from "../context/alertReducer";
+import Loader from "./Loader";
 
 const baseURL = import.meta.env.VITE_BASED_URL || "http://localhost:3333";
 function CardShopping() {
@@ -22,6 +23,7 @@ function CardShopping() {
   const { setAlert } = useAlertState();
   const [flag, setFlag] = useState(1);
   const [tot, setTot] = useState(0);
+  const [loading, setLoading] = useState(false);
   const showCart = useShowCard();
   const cardMenu = useRef();
 
@@ -43,6 +45,7 @@ function CardShopping() {
     // });
   };
   const handleCheckOut = useCallback(() => {
+    setLoading(true);
     const data = {
       user: user,
       cart: foodCart,
@@ -58,6 +61,7 @@ function CardShopping() {
       .then((response) => response.json())
       .then((res) => {
         if (res.url) {
+          setLoading(false);
           window.location.href = res.url;
         }
       })
@@ -135,9 +139,11 @@ function CardShopping() {
               </div>
               {/* <CardElement /> */}
               {user ? (
-                <ButtonCheckOut onClick={handleCheckOut} text="Check Out" />
+                <ButtonCheckOut onClick={handleCheckOut}>
+                  Check Out {loading && <Loader inside />}
+                </ButtonCheckOut>
               ) : (
-                <ButtonCheckOut text="Login to Check Out" />
+                <ButtonCheckOut>Login to Check Out</ButtonCheckOut>
               )}
             </div>
           </div>
@@ -153,15 +159,15 @@ function CardShopping() {
     </motion.div>
   );
 }
-function ButtonCheckOut({ text, onClick }) {
+function ButtonCheckOut({ children, onClick }) {
   return (
     <motion.button
       onClick={onClick}
       {...buttonTap}
       type="button"
-      className="w-full p-2 rounded-full bg-gradient-to-tr from-orange-400 to-orange-600 text-gray-50 text-lg my-2 hover:shadow-lg"
+      className="w-full flex justify-center p-2 rounded-full bg-gradient-to-tr from-orange-400 to-orange-600 text-gray-50 text-lg my-2 hover:shadow-lg"
     >
-      {text}
+      {children}
     </motion.button>
   );
 }

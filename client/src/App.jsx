@@ -25,6 +25,7 @@ function App() {
         <Routes location={location} key={location.pathname}>
           <Route
             path="/*"
+            exact
             element={
               <Suspense fallback={<Loader />}>
                 <HomeRoute />
