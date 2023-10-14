@@ -43,14 +43,7 @@ function App() {
               </Suspense>
             }
           />
-          <Route
-            path="/checkout-success"
-            element={
-              <Suspense fallback={<Loader />}>
-                <Success />
-              </Suspense>
-            }
-          />
+          <Route path="/checkout-success" element={<Success />} />
           <Route path="/404" element={<PageNotFound />} />
           <Route path="*" element={<Navigate to="/404" />} />
         </Routes>
