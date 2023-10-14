@@ -10,7 +10,7 @@ import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { Link, NavLink } from "react-router-dom";
 import { app } from "../firebase.config";
 import Logo from "../assets/png/logo-color-removebg-preview-min.png";
-import { useStateValue } from "../context/stateProvider";
+import { useStateValue } from "../context/StateProvider";
 import { actionTypes } from "../context/reducer";
 import { useShowCard } from "../utils/getAllData";
 import {

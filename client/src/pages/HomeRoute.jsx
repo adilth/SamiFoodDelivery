@@ -10,7 +10,7 @@ import {
   Loader,
   PageNotFound,
 } from "../components";
-import { useStateValue } from "../context/stateProvider";
+import { useStateValue } from "../context/StateProvider";
 const UsersOrder = lazy(() => import("./UserOrder"));
 const AboutUs = lazy(() => import("./AboutUs"));
 

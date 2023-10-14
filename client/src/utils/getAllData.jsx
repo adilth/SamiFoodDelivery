@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { actionTypes } from "../context/reducer";
-import { useStateValue } from "../context/stateProvider";
+import { useStateValue } from "../context/StateProvider";
 import { fetchAllFood } from "./firebaseFunc";
 function getAllFoodData() {
   const [, dispatch] = useStateValue();

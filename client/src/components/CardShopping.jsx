@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { BsArrowLeft } from "@react-icons/all-files/bs/BsArrowLeft";
 import { RiRefreshFill } from "@react-icons/all-files/ri/RiRefreshFill";
 import { motion } from "framer-motion";
-import { useStateValue } from "../context/stateProvider";
+import { useStateValue } from "../context/StateProvider";
 import CardItems from "./CardItems";
 import { actionTypes } from "../context/reducer";
 import EmptyCart from "../assets/img/emptyCart.svg";

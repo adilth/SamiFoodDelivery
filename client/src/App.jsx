@@ -3,7 +3,7 @@ import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { Loader, PageNotFound } from "./components";
 import { AnimatePresence } from "framer-motion";
 // import getAllFoodData from "./utils/getAllData";
-import { useStateValue } from "./context/stateProvider";
+import { useStateValue } from "./context/StateProvider";
 import { useAlertState } from "./context/alertProvider";
 
 const Alert = lazy(() => import("./components/Alert"));

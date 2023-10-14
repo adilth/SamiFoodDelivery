@@ -1,6 +1,6 @@
 import { FaEdit } from "@react-icons/all-files/fa/FaEdit";
 import { RiDeleteBin6Fill } from "@react-icons/all-files/ri/RiDeleteBin6Fill";
-import { useStateValue } from "../../context/stateProvider";
+import { useStateValue } from "../../context/StateProvider";
 import { useMemo, useState } from "react";
 import DataTable from "./DataTable";
 import { useAlertState } from "../../context/alertProvider";

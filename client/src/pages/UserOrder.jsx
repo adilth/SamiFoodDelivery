@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { FilterOrders, OrderData } from "../components";
-import { useStateValue } from "../context/stateProvider";
+import { useStateValue } from "../context/StateProvider";
 import { useDataValue } from "../context/DataProvider";
 
 const UsersOrder = () => {

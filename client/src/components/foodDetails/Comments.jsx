@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { useStateValue } from "../../context/stateProvider";
+import { useStateValue } from "../../context/StateProvider";
 import {
   activeProduct,
   deleteComment,

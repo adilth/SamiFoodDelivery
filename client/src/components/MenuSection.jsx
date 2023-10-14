@@ -2,7 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { categories } from "../utils/data";
 import { IoFastFood } from "@react-icons/all-files/io5/IoFastFood";
-import { useStateValue } from "../context/stateProvider";
+import { useStateValue } from "../context/StateProvider";
 import FoodRows from "./FoodRows";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import { splideMenu } from "../animations/splides";

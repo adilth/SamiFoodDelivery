@@ -4,7 +4,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App";
 import { initialState } from "./context/initialState";
 import { reducer } from "./context/reducer";
-import StateProvider from "./context/stateProvider";
+import StateProvider from "./context/StateProvider";
 import "./index.css";
 import { AlertStateProvider } from "./context/alertProvider";
 import DataProvider from "./context/DataProvider";

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { useStateValue } from "../context/stateProvider";
+import { useStateValue } from "../context/StateProvider";
 import FoodRows from "./FoodRows";
 import DebounceSearch from "./DebounceSearch";
 

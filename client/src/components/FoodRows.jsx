@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef } from "react";
 import { Splide, SplideTrack, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
-import { useStateValue } from "../context/stateProvider";
+import { useStateValue } from "../context/StateProvider";
 import { actionTypes } from "../context/reducer";
 import NotFoundImg from "./NotFoundImg";
 import { foodRowsSides } from "../animations/splides";

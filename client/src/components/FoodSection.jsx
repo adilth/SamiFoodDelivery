@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import FoodRows from "./FoodRows";
-import { useStateValue } from "../context/stateProvider";
+import { useStateValue } from "../context/StateProvider";
 import Loader from "./Loader";
 import { fadeInOut } from "../animations/motion";
 

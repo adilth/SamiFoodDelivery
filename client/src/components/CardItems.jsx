@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { BiPlus } from "@react-icons/all-files/bi/BiPlus";
 import { BiMinus } from "@react-icons/all-files/bi/BiMinus";
 import { motion } from "framer-motion";
-import { useStateValue } from "../context/stateProvider";
+import { useStateValue } from "../context/StateProvider";
 import { actionTypes } from "../context/reducer";
 import { buttonTap } from "../animations/motion";
 

@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useStateValue } from "../context/stateProvider";
+import { useStateValue } from "../context/StateProvider";
 function generateDistinctColors(numColors) {
   const colors = [];
   for (let i = 0; i < numColors; i++) {

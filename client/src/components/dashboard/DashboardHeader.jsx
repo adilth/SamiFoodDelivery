@@ -1,6 +1,6 @@
 import { BsFillBellFill } from "@react-icons/all-files/bs/BsFillBellFill";
 import { IoLogOutOutline } from "@react-icons/all-files/io5/IoLogOutOutline";
-import { useStateValue } from "../../context/stateProvider";
+import { useStateValue } from "../../context/StateProvider";
 import Avatar from "../../assets/img/avatar-icon.png";
 import { actionTypes } from "../../context/reducer";
 import { motion } from "framer-motion";

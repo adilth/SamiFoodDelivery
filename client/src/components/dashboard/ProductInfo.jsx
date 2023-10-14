@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { productData } from "../../utils/singletData";
-import { useStateValue } from "../../context/stateProvider";
+import { useStateValue } from "../../context/StateProvider";
 import Single from "./Single";
 import { useParams } from "react-router-dom";
 

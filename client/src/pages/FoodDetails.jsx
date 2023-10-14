@@ -1,6 +1,6 @@
 import { Suspense, lazy, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useStateValue } from "../context/stateProvider";
+import { useStateValue } from "../context/StateProvider";
 import { motion } from "framer-motion";
 import { FaShoppingCart } from "@react-icons/all-files/fa/FaShoppingCart";
 import { actionTypes } from "../context/reducer";
