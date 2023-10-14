@@ -24,6 +24,9 @@ admin.initializeApp({
 const productRoute = require("./routes/products");
 // const webHooks = require("./routes/webHooks");
 app.use("/api/products", productRoute);
+app.get("/", (req, res) => {
+  res.send("hello world it work for you");
+});
 // app.use("/api/products", webHooks);
 
 // Error handling middleware
