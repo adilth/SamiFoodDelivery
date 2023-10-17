@@ -2,7 +2,6 @@ import { Suspense, lazy } from "react";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { Loader, PageNotFound } from "./components";
 import { AnimatePresence } from "framer-motion";
-// import getAllFoodData from "./utils/getAllData";
 import { useStateValue } from "./context/StateProvider";
 import { useAlertState } from "./context/alertProvider";
 
@@ -15,17 +14,12 @@ function App() {
   const location = useLocation();
   const [{ user }] = useStateValue();
   const { alertState } = useAlertState();
-  // const fetchData = getAllFoodData();
-  // useMemo(() => {
-  //   fetchData();
-  // }, []);
   return (
     <AnimatePresence mode="wait">
       <div className="w-full h-auto flex flex-col bg-primary dark:bg-darkPrimary dark:text-darkHeadingColor">
         <Routes location={location} key={location.pathname}>
           <Route
             path="/*"
-            exact
             element={
               <Suspense fallback={<Loader />}>
                 <HomeRoute />
@@ -44,7 +38,7 @@ function App() {
               </Suspense>
             }
           />
-          <Route path="/checkout-success" element={<Success />} />
+          <Route exact path="/checkout-success" element={<Success />} />
           <Route path="/404" element={<PageNotFound />} />
           <Route path="*" element={<Navigate to="/404" />} />
         </Routes>
