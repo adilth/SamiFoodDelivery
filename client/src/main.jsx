@@ -1,6 +1,7 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
-import { HashRouter as Router } from "react-router-dom";
+// import ReactDOM from "react-dom/client";
+import { createRoot } from "react-dom/client";
+import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App";
 import { initialState } from "./context/initialState";
 import { reducer } from "./context/reducer";
@@ -10,8 +11,9 @@ import { AlertStateProvider } from "./context/alertProvider";
 import DataProvider from "./context/DataProvider";
 import { DataInitialState } from "./context/dataInitialState";
 import { DataReducer } from "./context/dataReducer";
-
-ReactDOM.createRoot(document.getElementById("root")).render(
+const rootElement = document.getElementById("root");
+const root = createRoot(rootElement);
+root.render(
   <React.StrictMode>
     <Router>
       <StateProvider initialState={initialState} reducer={reducer}>

@@ -6,5 +6,7 @@ export default defineConfig({
   plugins: [react()],
   build: {
     target: "esnext", // or "es2019",
+    emptyOutDir: true,
+    manifest: true,
   },
 });
