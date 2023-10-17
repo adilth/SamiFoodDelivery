@@ -1,4 +1,3 @@
-import React from "react";
 import { buttonTapSoft } from "../../animations/motion";
 import { motion } from "framer-motion";
 import Rating from "./Rating";

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { BiPlus } from "@react-icons/all-files/bi/BiPlus";
 import { BiMinus } from "@react-icons/all-files/bi/BiMinus";
 import { motion } from "framer-motion";

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { FaShoppingCart } from "@react-icons/all-files/fa/FaShoppingCart";
 import { FaSignOutAlt } from "@react-icons/all-files/fa/FaSignOutAlt";
 import { FaThList } from "@react-icons/all-files/fa/FaThList";
@@ -26,6 +26,7 @@ import { saveUser } from "../utils/firebaseFunc";
 import ThemeButton from "./ThemeButton";
 import useTheme from "../hooks/useTheme";
 import { useMediaQuery } from "react-responsive";
+import useClickOutside from "../hooks/useClickOutside";
 const Header = () => {
   const firebaseAuth = getAuth(app);
   const provider = new GoogleAuthProvider();
@@ -33,6 +34,10 @@ const Header = () => {
   const [{ user, foodCart }, dispatch] = useStateValue();
   const [isMenu, setMenu] = useState(false);
   const [theme, setTheme] = useTheme();
+  const sidebarRef = useRef();
+  useClickOutside(sidebarRef, () => {
+    setMenu(false);
+  });
 
   function handleDarkAndLight() {
     setTheme((prev) => (prev === "light" ? "dark" : "light"));
@@ -63,7 +68,7 @@ const Header = () => {
   const showCart = useShowCard();
   return (
     <header
-      className="fixed bg-primary dark:bg-darkPrimary z-50 w-full p-3 sm:p-3.5 md:px-10 lg:px-12 drop-shadow-lg"
+      className="fixed bg-primary dark:bg-darkPrimary z-50 w-full p-3.5 md:px-10 lg:px-12 drop-shadow-lg"
       onMouseEnter={() => setMenu(false)}
     >
       {/* screen */}
@@ -106,12 +111,12 @@ const Header = () => {
                 About Us
               </NavLink>
               <NavLink
-                to={"/services"}
+                to={"/#services"}
                 className={({ isActive }) =>
                   isActive ? isActiveStyles : isNotActiveStyles
                 }
               >
-                Service
+                Services
               </NavLink>
             </motion.ul>
             <ThemeButton
@@ -126,6 +131,7 @@ const Header = () => {
                     {...buttonTap}
                     src={user ? user.photoURL : Avatar}
                     onMouseEnter={() => setMenu(true)}
+                    ref={sidebarRef}
                     alt="avatar image"
                     referrerPolicy="no-referrer"
                     className="w-10 min-[40px] h-10 min-h-[40px] drop-shadow-xl rounded-full cursor-pointer "
@@ -167,7 +173,10 @@ const Header = () => {
           </nav>
         </div>
       ) : (
-        <div className="flex justify-between items-center w-full h-full">
+        <div
+          className="flex justify-between items-center w-full h-full"
+          onMouseLeave={() => setMenu(false)}
+        >
           <Link to={"/"} className="flex items-center gap-2">
             <img
               src={Logo}
@@ -182,13 +191,16 @@ const Header = () => {
             />
             <ShoppingCart onClick={showCart} foodCart={foodCart} />
             <div className="relative">
-              <div className="flex items-center gap-0.5">
+              <div className="flex items-center gap-1">
                 <motion.img
                   {...buttonTapFar}
                   src={user ? user.photoURL : Avatar}
-                  className="w-10 min-w-[40px] h-10 min-h-[40px] drop-shadow-xl cursor-pointer rounded-full"
-                  alt="userprofile"
+                  className={`w-10 min-w-[40px] h-10 min-h-[40px] drop-shadow-xl cursor-pointer rounded-full ${
+                    !user && "dark:invert dark:brightness-100"
+                  }`}
+                  alt="user profile"
                   onClick={login}
+                  ref={sidebarRef}
                   onMouseEnter={() => setMenu(true)}
                 />
                 <FaChevronDown
@@ -200,7 +212,7 @@ const Header = () => {
                 <motion.div
                   {...fadeInOutWithScale}
                   onMouseLeave={() => setMenu(false)}
-                  className="w-40 bg-gray-50 dark:bg-gray-700 shadow-xl rounded-lg flex flex-col absolute top-12 right-0"
+                  className="w-40 bg-gray-50 dark:bg-gray-700 shadow-xl rounded-lg flex flex-col absolute top-10 right-0"
                 >
                   <SubMenu user={user} />
                   <ul className="flex flex-col list-none">
@@ -215,6 +227,12 @@ const Header = () => {
                       onClick={() => setMenu(false)}
                     >
                       <Link to={"/menu"}> Menu</Link>
+                    </li>
+                    <li
+                      className="px-4 py-2 text-base text-textColor dark:text-darkTextColor dark:hover:bg-darkCardBodyHover hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer hover:bg-slate-100"
+                      onClick={() => setMenu(false)}
+                    >
+                      <Link to={"/#services"}> Services</Link>
                     </li>
                     <li
                       className="px-4 py-2 text-base text-textColor dark:text-darkTextColor dark:hover:bg-darkCardBodyHover hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer hover:bg-slate-100"
