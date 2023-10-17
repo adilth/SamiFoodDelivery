@@ -9,6 +9,7 @@ import {
   Header,
   Loader,
   PageNotFound,
+  Services,
 } from "../components";
 import { useStateValue } from "../context/StateProvider";
 const UsersOrder = lazy(() => import("./UserOrder"));
@@ -32,6 +33,7 @@ function HomeRoute() {
           />
           <Route
             path="/menu"
+            exact
             element={
               <Suspense fallback={<Loader />}>
                 <Menu />
@@ -62,6 +64,7 @@ function HomeRoute() {
               </Suspense>
             }
           />
+          <Route path="/#services" element={<Services />} />
           <Route path="/404" element={<PageNotFound />} />
           <Route path="/*" element={<Navigate to="/404" />} />
         </Routes>
