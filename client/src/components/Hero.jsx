@@ -9,7 +9,7 @@ function Hero() {
           className="flex items-start gap-2 justify-center bg-orange-100 px-4 py-1 rounded-full"
           aria-hidden="true"
         >
-          <p className="text-base text-orange-500 font-semibolb">
+          <p className="text-base text-orange-500 font-semibold ">
             Bike Delivery
           </p>
           <div className="w-8 h-8 bg-white rounded-full overlay-hidden">
@@ -22,11 +22,11 @@ function Hero() {
           </div>
         </div>
         <h1
-          className="text-[2.5rem] md:text-[3rem] lg:text-[4rem] font-bold tracking-wide text-headingColor dark:text-darkHeadingColor"
+          className=" text-4xl sm:text-[2.5rem] md:text-[3rem] lg:text-[4rem] font-bold tracking-wide text-headingColor dark:text-darkHeadingColor"
           aria-labelledby="hero title"
         >
           the Fastest Delivery in{" "}
-          <span className="text-orange-600 text-[3rem] md:text-[3.25rem] lg:text-[4.7rem]">
+          <span className="text-orange-600 sm:text-5xl text-[2.75rem] md:text-[3.25rem] lg:text-[4.7rem]">
             Your City
           </span>
         </h1>
@@ -37,7 +37,7 @@ function Hero() {
         <Link
           aria-label="link to menu page"
           to={"/menu"}
-          className="bg-gradient-to-br font-bold from-orange-500 to-orange-600 px-7 py-3 rounded-lg hover:shadow-lg transition-all ease-in-out duration-100 text-white  mx-auto sm:mx-0"
+          className="bg-gradient-to-br font-bold from-orange-500 to-orange-600 px-7 py-3 rounded-lg hover:shadow-lg transition-all ease-in-out duration-100 text-white  mx-auto sm:mx-0 whitespace-nowrap"
         >
           Order Now
         </Link>
