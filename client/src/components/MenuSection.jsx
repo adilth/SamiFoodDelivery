@@ -47,7 +47,7 @@ function MenuFilterCategory({ filterCategory, setFilterCategory }) {
               filterCategory == category.URLSearchParams
                 ? "bg-cartNumBg"
                 : "bg-card dark:bg-darkCardOverlay"
-            } w-24 min-w-[94px] h-28 cursor-pointer rounded-lg drop-shadow-xl dark:drop-shadow-2xl flex flex-col gap-3 items-center justify-center hover:bg-cartNumBg transition-colors duration-200 ease-in-out`}
+            } w-24 min-w-[94px] h-28 cursor-pointer rounded-lg drop-shadow-lg dark:drop-shadow-2xl flex flex-col gap-3 items-center justify-center hover:bg-cartNumBg transition-colors duration-200 ease-in-out`}
             onClick={() => setFilterCategory(category.URLSearchParams)}
           >
             <motion.div
