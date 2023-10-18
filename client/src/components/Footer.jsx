@@ -12,7 +12,7 @@ function Footer() {
   return (
     <footer
       id="footer"
-      className=" bg-[#00333E] text-white p-4 py-8 md:py-10 sm:px-6 md:px-16 "
+      className=" bg-[#0f3038] text-white p-4 py-8 md:py-10 sm:px-6 md:px-16 "
     >
       <footer className="grid grid-cols-menu_auto_fit md:grid-cols-4 gap-3 md:gap-10 ">
         <div className="self-start w-full h-full">
@@ -31,7 +31,7 @@ function Footer() {
         <nav aria-labelledby="secondary navbar">
           <motion.ul
             {...fadeInOutWithTransition}
-            className="flex flex-col item-center text-center gap-4 "
+            className="flex flex-row sm:flex-col item-center text-center gap-4 "
           >
             <li className="text-base underline decoration-red-600 underline-offset-4 hover:text-primary duration-100 transition-all ease-in-out cursor-pointer">
               <Link to={"/"}>Home</Link>
@@ -48,7 +48,7 @@ function Footer() {
           </motion.ul>
         </nav>
 
-        <div className="flex flex-wrap self-start gap-2 pt-1">
+        <div className="flex flex-wrap self-center sm:self-start gap-2 pt-1">
           <SocialLink link={"#"}>
             <FaFacebook />
           </SocialLink>
