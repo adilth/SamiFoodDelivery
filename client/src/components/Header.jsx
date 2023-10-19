@@ -77,11 +77,11 @@ const Header = () => {
           <Link to={"/"} className="flex items-center gap-2">
             <img
               src={Logo}
-              className="w-36 object-cover dark:invert dark:brightness-0"
+              className="w-32 md:w-36 object-cover dark:invert dark:brightness-0"
               alt="logo"
             />
           </Link>
-          <nav className="flex items-center gap-3 md:gap-6">
+          <nav className="flex items-center gap-2 md:gap-6">
             <motion.ul
               {...fadeInOutWithTransition}
               className="flex items-center gap-2 md:gap-6 ml-auto"
@@ -111,12 +111,12 @@ const Header = () => {
                 About Us
               </NavLink>
               <NavLink
-                to={"/#services"}
+                to={"/contact"}
                 className={({ isActive }) =>
                   isActive ? isActiveStyles : isNotActiveStyles
                 }
               >
-                Services
+                Contact Us
               </NavLink>
             </motion.ul>
             <ThemeButton
@@ -244,7 +244,7 @@ const Header = () => {
                       className="px-4 py-2 text-base text-textColor dark:text-darkTextColor dark:hover:bg-darkCardBodyHover hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer hover:bg-slate-100"
                       onClick={() => setMenu(false)}
                     >
-                      Service
+                      <Link to={"/contact"}>About Us</Link>
                     </li>
                   </ul>
                   {user && (
