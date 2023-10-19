@@ -37,7 +37,7 @@ function MenuFilterCategory({ filterCategory, setFilterCategory }) {
   return (
     <Splide
       {...splideMenu}
-      className="w-full flex items-center justify-start lg:justify-center gap-8 py-6 overflow-x-scroll scrollbar-none"
+      className="w-full flex items-center  justify-start lg:justify-center gap-8 py-6"
     >
       {categories &&
         categories.map((category) => (
@@ -47,7 +47,7 @@ function MenuFilterCategory({ filterCategory, setFilterCategory }) {
               filterCategory == category.URLSearchParams
                 ? "bg-cartNumBg"
                 : "bg-card dark:bg-darkCardOverlay"
-            } w-24 min-w-[94px] h-28 cursor-pointer rounded-lg drop-shadow-lg dark:drop-shadow-2xl flex flex-col gap-3 items-center justify-center hover:bg-cartNumBg transition-colors duration-200 ease-in-out`}
+            } w-24 min-w-[94px] h-28 cursor-pointer relative rounded-lg flex flex-col gap-3 items-center justify-center hover:bg-cartNumBg transition-colors duration-200 ease-in-out before:absolute before:content-[''] before:w-34 before:h-28 before:rounded-lg before:-left-2 before:-right-2 before:bg-opacity-10  before:bg-gray-300 dark:before:bg-neutral-800 dark:before:bg-opacity-20  before:-z-10`}
             onClick={() => setFilterCategory(category.URLSearchParams)}
           >
             <motion.div
