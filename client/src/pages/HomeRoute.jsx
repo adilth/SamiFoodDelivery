@@ -9,11 +9,11 @@ import {
   Header,
   Loader,
   PageNotFound,
-  Services,
 } from "../components";
 import { useStateValue } from "../context/StateProvider";
 const UsersOrder = lazy(() => import("./UserOrder"));
 const AboutUs = lazy(() => import("./AboutUs"));
+const Contact = lazy(() => import("./Contact.jsx"));
 
 function HomeRoute() {
   const location = useLocation();
@@ -64,7 +64,14 @@ function HomeRoute() {
               </Suspense>
             }
           />
-          <Route path="/#services" element={<Services />} />
+          <Route
+            path="/contact"
+            element={
+              <Suspense fallback={<Loader />}>
+                <Contact />
+              </Suspense>
+            }
+          />
           <Route path="/404" element={<PageNotFound />} />
           <Route path="/*" element={<Navigate to="/404" />} />
         </Routes>
