@@ -8,12 +8,12 @@ import RatingReviews from "./foodDetails/RatingReviews";
 
 function FoodItem({ item, handleAddToCart }) {
   return (
-    <div className="py-4 h-full bg-cardOverlay gap-3 dark:bg-darkCardOverlay rounded-lg hover:drop-shadow-lg flex flex-col justify-evenly relative backdrop-blur-lg">
+    <div className="py-4 px-2 h-full bg-cardOverlay gap-3 dark:bg-darkCardOverlay rounded-lg hover:drop-shadow-lg flex flex-col justify-evenly relative backdrop-blur-lg">
       <div className="w-full flex items-center cursor-pointer justify-evenly">
         <ImgLink item={item} />
         <motion.div
           {...buttonTap}
-          className="w-10 h-10 rounded-full bg-red-600 flex items-center justify-center cursor-pointer hover:shadow-md -mt-8"
+          className="w-10 h-10 xs:w-8 xs:h-8 rounded-full bg-red-600 flex items-center justify-center cursor-pointer hover:shadow-md -mt-8"
           onClick={() => handleAddToCart(item)}
         >
           <FaShoppingCart className="text-white" />
@@ -33,7 +33,7 @@ function OtherDetails({ item }) {
   }, [item.id]);
   return (
     <div className="flex flex-col items-end justify-end mt-3 pr-4">
-      <p className="text-textColor dark:text-darkTextColor font-semibold text-base md:text-lg">
+      <p className="text-textColor dark:text-darkTextColor font-semibold xs:text-sm text-base md:text-lg">
         {item?.title}
       </p>
       <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
