@@ -37,8 +37,8 @@ const UsersOrder = () => {
   }, [input, orders, user]);
 
   return (
-    <main className="w-screen min-h-screen flex items-center justify-start flex-col bg-primary dark:bg-darkPrimary">
-      <div className="w-full flex flex-col items-start justify-center mt-4 px-6 md:px-16 2xl:px-52 gap-7 pb-20">
+    <main className="w-full md:w-screen min-h-screen flex items-center justify-start flex-col bg-primary dark:bg-darkPrimary">
+      <div className="w-full flex flex-col items-start justify-center mt-4 px-2 sm:px-6 md:px-16 2xl:px-52 gap-7 pb-20">
         <FilterOrders
           input={input}
           setInput={setInput}
