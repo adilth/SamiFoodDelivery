@@ -1,8 +1,8 @@
 {
   "name": "samifood",
-  "private": true,
   "version": "1.0.0",
   "type": "module",
+  "homepage": "https://samifood.onrender.com",
   "scripts": {
     "dev:client": "vite",
     "build": "vite build",
