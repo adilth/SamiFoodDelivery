@@ -32,6 +32,7 @@
     "postcss": "^8.4.19",
     "tailwind-scrollbar": "^2.0.1",
     "tailwindcss": "^3.2.4",
+    "terser": "^5.22.0",
     "vite": "^4.4.11"
   }
 }
