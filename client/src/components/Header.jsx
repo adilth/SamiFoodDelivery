@@ -232,19 +232,13 @@ const Header = () => {
                       className="px-4 py-2 text-base text-textColor dark:text-darkTextColor dark:hover:bg-darkCardBodyHover hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer hover:bg-slate-100"
                       onClick={() => setMenu(false)}
                     >
-                      <Link to={"/#services"}> Services</Link>
-                    </li>
-                    <li
-                      className="px-4 py-2 text-base text-textColor dark:text-darkTextColor dark:hover:bg-darkCardBodyHover hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer hover:bg-slate-100"
-                      onClick={() => setMenu(false)}
-                    >
                       <Link to={"/aboutUs"}>About Us</Link>
                     </li>
                     <li
                       className="px-4 py-2 text-base text-textColor dark:text-darkTextColor dark:hover:bg-darkCardBodyHover hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer hover:bg-slate-100"
                       onClick={() => setMenu(false)}
                     >
-                      <Link to={"/contact"}>About Us</Link>
+                      <Link to={"/contact"}>Contact Us</Link>
                     </li>
                   </ul>
                   {user && (
