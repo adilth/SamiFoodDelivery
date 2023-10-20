@@ -34,7 +34,7 @@ function CommentForm({
 
       <button
         type="submit"
-        className="bg-gradient-to-br from-orange-400 to-orange-500 w-full md:w-auto px-4 py-2 rounded-lg hover:shadow-lg transition-all ease-in-out duration-100 text-white"
+        className="bg-gradient-to-br from-orange-700 to-orange-600 w-full md:w-auto px-4 py-2 rounded-lg hover:shadow-lg transition-all ease-in-out duration-100 text-white"
       >
         Submit
       </button>

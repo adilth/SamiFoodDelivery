@@ -40,7 +40,7 @@ function Footer() {
               <Link to={"/menu"}> Menu</Link>
             </li>
             <li className="text-base  underline decoration-red-600 underline-offset-4 hover:text-primary duration-100 transition-all ease-in-out cursor-pointer">
-              About Us
+              <Link to={"/aboutus"}> About Us</Link>
             </li>
             <li className="text-base  underline decoration-red-600 underline-offset-4 hover:text-primary duration-100 transition-all ease-in-out cursor-pointer">
               Service
