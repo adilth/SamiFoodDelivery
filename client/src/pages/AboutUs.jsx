@@ -6,7 +6,7 @@ function AboutUs() {
     <div className="about-us">
       <div className="p-2 w-full h-full">
         <div
-          className="px-4 text-center p-10"
+          className="px-4 text-center p-10 "
           style={{
             background: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)) , url(${image})`,
             backgroundPosition: "center",
@@ -16,7 +16,7 @@ function AboutUs() {
         >
           {/* Background image */}
           <div className="intro-content">
-            <h1 className="text-[2.5rem] md:text-[3rem] lg:text-[4rem] font-bold tracking-wide text-darkHeadingColor">
+            <h1 className="text-[2.25rem] md:text-[3rem] lg:text-[4rem] font-bold tracking-wide text-darkHeadingColor">
               Welcome to SamiFood
             </h1>
             <p className="mb-9 mt-2 text-darkHeadingColor md:w-[65ch] mx-auto">
@@ -25,7 +25,7 @@ function AboutUs() {
             </p>
             <a
               href="/"
-              className="bg-gradient-to-br font-bold from-orange-500 to-orange-600 px-7 py-3 rounded-lg hover:shadow-lg transition-all ease-in-out duration-100 text-white mx-auto sm:mx-0"
+              className="bg-gradient-to-br font-bold from-orange-700 to-orange-600 px-7 py-3 rounded-lg hover:shadow-lg transition-all ease-in-out duration-100 text-white mx-auto sm:mx-0"
             >
               Learn More
             </a>
@@ -49,34 +49,34 @@ function AboutUs() {
         <h2 className="text-2xl font-semibold capitalize relative text-headingColor dark:text-darkHeadingColor before:absolute before:rounded-lg before:content before:w-16 before:h-1 before:-bottom-2 before:left-0 before:bg-gradient-to-tr from-orange-400 to-orange-600 transition-all ease-in-out duration-100 mr-auto mb-6">
           What they say about us
         </h2>
-        <div id="testimonial" className=" flex gap-6">
-          <div className="p-3 md:p-6 bg-card dark:bg-darkCardOverlay">
-            <p className="mb-4">
+        <div id="testimonial" className=" flex gap-6 sm:flex-row flex-col">
+          <div className="p-4 md:p-6 bg-card dark:bg-darkCardOverlay flex-1">
+            <p className="mb-4 ">
               &ldquo;SamiFood has become my favorite go-to restaurant for food
               delivery. The quality and taste are exceptional!&ldquo;
             </p>
-            <p className=" text-sm dark:text-darkTextColor text-textColor">
+            <p className=" text-sm font-semibold dark:text-darkTextColor text-textColor">
               - John, a satisfied customer
             </p>
           </div>
-          <div className="p-3 md:p-6 bg-card dark:bg-darkCardOverlay">
-            <p className="mb-4">
+          <div className="p-4 md:p-6 bg-card dark:bg-darkCardOverlay flex-1">
+            <p className="mb-4 ">
               &ldquo;SamiFood is my go-to choice for food delivery. Their menu
               is diverse, and the quality of the food is always
               top-notch!&ldquo;
             </p>
-            <p className=" text-sm dark:text-darkTextColor text-textColor">
+            <p className=" text-sm font-semibold dark:text-darkTextColor text-textColor ">
               - Sarah, a satisfied customer
             </p>
           </div>
 
-          <div className="p-3 md:p-6 bg-card dark:bg-darkCardOverlay">
-            <p className="mb-4">
+          <div className="p-4 md:p-6 bg-card dark:bg-darkCardOverlay flex-1">
+            <p className="mb-4 ">
               &ldquo;I&#39;ve tried many food delivery services, but SamiFood
               stands out for its exceptional service and taste. Highly
               recommended!&ldquo;
             </p>
-            <p className=" text-sm dark:text-darkTextColor text-textColor">
+            <p className=" text-sm font-semibold dark:text-darkTextColor text-textColor">
               - Mark, a loyal customer
             </p>
           </div>
