@@ -4,7 +4,7 @@ import videoHero from "../assets/png/heroVideo.mp4";
 function Hero() {
   return (
     <section className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full" id="hero">
-      <div className="py-4 flex-1 flex flex-col items-start justify-center gap-6">
+      <div className="py-9 xs:py-4 flex-1 flex flex-col items-start justify-center gap-7 xs:gap-6">
         <div
           className="flex items-start gap-2 justify-center bg-orange-100 px-4 py-1 rounded-full"
           aria-hidden="true"
@@ -22,11 +22,11 @@ function Hero() {
           </div>
         </div>
         <h1
-          className=" text-4xl sm:text-[2.5rem] md:text-[3rem] lg:text-[4rem] font-bold tracking-wide text-headingColor dark:text-darkHeadingColor"
+          className=" text-4xl xs:text-[2.5rem] sm:text-[2.75rem] md:text-[3rem] lg:text-[4rem] leading-none font-bold tracking-wide text-headingColor dark:text-darkHeadingColor"
           aria-labelledby="hero title"
         >
           the Fastest Delivery in{" "}
-          <span className="text-orange-600 sm:text-5xl text-[2.75rem] md:text-[3.25rem] lg:text-[4.7rem]">
+          <span className="text-orange-700 sm:text-5xl text-[2.75rem] md:text-[3.25rem] lg:text-[4.7rem]">
             Your City
           </span>
         </h1>
@@ -42,13 +42,14 @@ function Hero() {
           Order Now
         </Link>
       </div>
-      <div className="sm:py-6 pb-6 pt-0 px-4 md:px-1 flex justify-center relative">
+      <div className="hidden sm:py-6 pb-6 pt-0 px-4 md:px-1 xs:flex justify-center relative">
         <div className="ms:w-full sm:w-[80%] sm:h-[80%] xl:h-full flex justify-end">
           <video
             muted
             autoPlay
             loop
             className="lg:h-full w-full lg:w-auto aspect-square rounded-full object-cover"
+            aria-label="video in main section"
           >
             <source src={videoHero} type="video/webm" />
           </video>
