@@ -1,6 +1,5 @@
 import { FaEdit } from "@react-icons/all-files/fa/FaEdit";
 import { RiDeleteBin6Fill } from "@react-icons/all-files/ri/RiDeleteBin6Fill";
-import { useStateValue } from "../../context/StateProvider";
 import { useMemo, useState } from "react";
 import DataTable from "./DataTable";
 import { useAlertState } from "../../context/alertProvider";
@@ -8,8 +7,9 @@ import { alertActionTypes } from "../../context/alertReducer";
 import ModalUpdateItem from "./ModalUpdateItem";
 import { deleteItem } from "../../utils/firebaseFunc";
 import { Link } from "react-router-dom";
+import { useFoodValue } from "../../context/FoodProvider";
 function DashboardItems() {
-  const [{ foodItems }] = useStateValue();
+  const [{ foodItems }] = useFoodValue();
   const { setAlert } = useAlertState();
   const [editItem, setEditItem] = useState(null);
   const [open, setOpen] = useState(false);
@@ -77,10 +77,10 @@ function DashboardItems() {
           <RiDeleteBin6Fill
             onClick={async () => {
               try {
-                deleteItem(info.row.original.id);
                 const dataCopy = [...data];
                 // It should not matter what you name tableProps. It made the most sense to me.
                 dataCopy.splice(info.row.index, 1);
+                deleteItem(info.row.original.id);
                 setData(dataCopy);
                 setAlert(
                   alertActionTypes.SET_SUCCESS,

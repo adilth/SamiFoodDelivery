@@ -14,7 +14,6 @@ import { buttonTapSoft } from "../../animations/motion";
 function Single(props) {
   const [editItem, setEditItem] = useState(null);
   const [open, setOpen] = useState(false);
-  console.log(props);
   const DAY_MILLISECONDS = 1000 * 60 * 60 * 24;
   function getRelativeTime(timestamp) {
     const rtf = new Intl.RelativeTimeFormat("en", {
@@ -27,7 +26,10 @@ function Single(props) {
     return rtf.format(daysDifference, "day");
   }
   return (
-    <div className="flex flex-col md:flex-row gap-3 mt-6" key={props.id}>
+    <div
+      className="flex flex-col md:flex-row gap-3 mt-6 flex-wrap"
+      key={props.id}
+    >
       <div className=" flex-1">
         <div className="info">
           <div className="flex w-full gap-4">

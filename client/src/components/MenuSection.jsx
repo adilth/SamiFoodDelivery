@@ -2,14 +2,14 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { categories } from "../utils/data";
 import { IoFastFood } from "@react-icons/all-files/io5/IoFastFood";
-import { useStateValue } from "../context/StateProvider";
 import FoodRows from "./FoodRows";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import { splideMenu } from "../animations/splides";
 import { buttonTap } from "../animations/motion";
+import { useFoodValue } from "../context/FoodProvider";
 
 function MenuSection() {
-  const [{ foodItems }] = useStateValue();
+  const [{ foodItems }] = useFoodValue();
   const [filterCategory, setFilterCategory] = useState("Chicken");
   return (
     <section className="w-full my-6" id="Menu">

@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import FoodRows from "./FoodRows";
-import { useStateValue } from "../context/StateProvider";
+import { useFoodValue } from "../context/FoodProvider";
 import Loader from "./Loader";
 import { fadeInOut } from "../animations/motion";
 
 function FoodSection() {
-  const [{ foodItems }] = useStateValue();
+  const [{ foodItems }] = useFoodValue();
   const [loader, setLoader] = useState(true);
   useEffect(() => {
     setInterval(() => {

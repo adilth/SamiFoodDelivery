@@ -50,7 +50,7 @@ const DataTable = ({ columns, data }) => {
                     <div
                       className={`${
                         header.column.getCanSort()
-                          ? "flex items-center justify-between gap-1 px-4 cursor-pointer select-none"
+                          ? "flex items-center justify-between gap-1 md:px-2 px-4 cursor-pointer select-none"
                           : ""
                       } `}
                       onClick={header.column.getToggleSortingHandler()}

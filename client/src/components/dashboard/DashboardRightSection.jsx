@@ -1,7 +1,7 @@
 import { Route, Routes, useLocation } from "react-router-dom";
-import DashboardHeader from "./DashboardHeader";
 import { Suspense, lazy } from "react";
 import Loader from "../Loader";
+const DashboardHeader = lazy(() => import("./DashboardHeader"));
 const DashboardHome = lazy(() => import("./DashboardHome"));
 const DashboardUsers = lazy(() => import("./DashboardUsers"));
 const CreateContainer = lazy(() => import("./CreateContainer"));
@@ -13,7 +13,9 @@ function DashboardRightSection() {
   const location = useLocation();
   return (
     <div className="flex flex-col pt-4 md:pt-6 px-4 sm:px-5 md:px-8 flex-1 h-full z-0 dark:bg-darkPrimary dark:text-darkTextColor w-full">
-      <DashboardHeader />
+      <Suspense fallback={<Loader />}>
+        <DashboardHeader />
+      </Suspense>
       <div className="flex flex-col flex-1 pb-9  overflow-y-scroll scrollbar-none w-full">
         <Routes location={location} key={location.pathname}>
           <Route

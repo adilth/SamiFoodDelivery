@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
-import { useStateValue } from "../context/StateProvider";
 import FoodRows from "./FoodRows";
 import DebounceSearch from "./DebounceSearch";
+import { useFoodValue } from "../context/FoodProvider";
 
 function Search() {
   const [input, setInput] = useState("");
-  const [{ foodItems }] = useStateValue();
+  const [{ foodItems }] = useFoodValue();
   const [foodFields, setFoodFields] = useState("default");
   const dataItems = useMemo(() => foodItems, []);
   const submitHandler = (data) => {

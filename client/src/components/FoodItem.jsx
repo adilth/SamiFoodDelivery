@@ -59,6 +59,7 @@ function ImgLink({ item }) {
         <img
           src={item?.imgURL}
           alt={item?.title}
+          rel="preload"
           className="w-full aspect-square object-contain rounded-full scale-95"
         />
       </motion.div>

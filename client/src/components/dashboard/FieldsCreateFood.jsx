@@ -9,7 +9,7 @@ import { categories } from "../../utils/data";
 import Loader from "../Loader";
 import { storage } from "../../firebase.config";
 import { saveItem, updateItem } from "../../utils/firebaseFunc";
-import getAllFoodData from "../../utils/getAllData";
+import useGetAllFoodData from "../../utils/getAllData";
 import { BiMessageSquareEdit } from "@react-icons/all-files/bi/BiMessageSquareEdit";
 import { MdCloudUpload } from "@react-icons/all-files/md/MdCloudUpload";
 import { MdDelete } from "@react-icons/all-files/md/MdDelete";
@@ -47,7 +47,7 @@ function FieldsCreateFood({
   const onOptionChange = (e) => {
     setTopping(e.target.value);
   };
-  const fetchData = getAllFoodData();
+  const fetchData = useGetAllFoodData();
   const uploadImage = (e) => {
     setIsLoading(true);
     const imgFile = e.target.files[0];

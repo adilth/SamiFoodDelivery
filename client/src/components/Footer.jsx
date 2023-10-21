@@ -12,7 +12,7 @@ function Footer() {
   return (
     <footer
       id="footer"
-      className=" bg-[#0f3038] text-white p-4 py-8 md:py-10 sm:px-6 md:px-16 "
+      className=" bg-[#0d0d0d] text-[#f6f6f6] p-4 py-8 md:py-10 sm:px-6 md:px-16 "
     >
       <footer className="grid grid-cols-menu_auto_fit md:grid-cols-4 gap-3 md:gap-10 ">
         <div className="self-start w-full h-full">
@@ -70,7 +70,7 @@ function Footer() {
             find our Restaurant{" "}
             <a
               href="http://www.latrattoriamarrakech.com/"
-              className=" font-semibold text-red-600 underline"
+              className=" font-semibold text-red-700 underline space-x-4"
             >
               Latrattoria Restaurant
             </a>
@@ -89,7 +89,7 @@ function SocialLink({ link, children }) {
       href={link}
       aria-label="social media link"
       whileHover={{ scale: 1.1 }}
-      className="cursor-pointer border-[1px] p-1 text-2xl rounded-full hover:text-red-600"
+      className="cursor-pointer border-[1px] p-1 text-2xl rounded-full hover:text-orange-700"
     >
       {children}
     </motion.a>

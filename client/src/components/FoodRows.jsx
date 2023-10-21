@@ -7,10 +7,12 @@ import NotFoundImg from "./NotFoundImg";
 import { foodRowsSides } from "../animations/splides";
 import { activeProduct } from "../utils/firebaseFunc";
 import FoodItem from "./FoodItem";
+import { useFoodValue } from "../context/FoodProvider";
 
 function FoodRows({ flag, data, splide }) {
   const rowFood = useRef();
-  const [{ foodCart, user }, dispatch] = useStateValue();
+  const [{ user }] = useStateValue();
+  const [{ foodCart }, dispatch] = useFoodValue();
 
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem("food"));
