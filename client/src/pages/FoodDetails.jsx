@@ -1,18 +1,18 @@
 import { Suspense, lazy, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useStateValue } from "../context/StateProvider";
 import { motion } from "framer-motion";
 import { FaShoppingCart } from "@react-icons/all-files/fa/FaShoppingCart";
 import { actionTypes } from "../context/reducer";
 import { Loader } from "../components";
 import { getCommentOnId } from "../utils/firebaseFunc";
 import RatingReviews from "../components/foodDetails/RatingReviews";
+import { useFoodValue } from "../context/FoodProvider";
 const Comments = lazy(() => import("../components/foodDetails/Comments"));
 const FoodRows = lazy(() => import("../components/FoodRows"));
 function FoodDetails() {
   const { nameId } = useParams();
 
-  const [{ foodItems, foodCart }, dispatch] = useStateValue();
+  const [{ foodItems, foodCart }, dispatch] = useFoodValue();
   const [dishFood, setDishFood] = useState(foodCart);
   const [details, setDetails] = useState({});
   const [isLoading, setIsLoading] = useState(true);

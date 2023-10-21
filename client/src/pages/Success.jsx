@@ -4,12 +4,12 @@ import { buttonTap } from "../animations/motion";
 import IMGSUCC from "../assets/img/bill.jpg";
 import { NavLink } from "react-router-dom";
 import { FaArrowLeft } from "@react-icons/all-files/fa/FaArrowLeft";
-import { useStateValue } from "../context/StateProvider";
 import { actionTypes } from "../context/reducer";
 import { useEffect } from "react";
+import { useFoodValue } from "../context/FoodProvider";
 
 function Success() {
-  const [, dispatch] = useStateValue();
+  const [, dispatch] = useFoodValue();
 
   useEffect(() => {
     const clearCart = () => {

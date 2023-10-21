@@ -1,19 +1,15 @@
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { Suspense, lazy } from "react";
+import { CardShopping, Header, Loader, PageNotFound } from "../components";
+import { useStateValue } from "../context/StateProvider";
+
 const Home = lazy(() => import("./Home"));
 const Menu = lazy(() => import("./Menu"));
 const FoodDetails = lazy(() => import("./FoodDetails"));
-import {
-  CardShopping,
-  Footer,
-  Header,
-  Loader,
-  PageNotFound,
-} from "../components";
-import { useStateValue } from "../context/StateProvider";
 const UsersOrder = lazy(() => import("./UserOrder"));
 const AboutUs = lazy(() => import("./AboutUs"));
 const Contact = lazy(() => import("./Contact.jsx"));
+const Footer = lazy(() => import("../components/Footer"));
 
 function HomeRoute() {
   const location = useLocation();
@@ -76,7 +72,9 @@ function HomeRoute() {
           <Route path="/*" element={<Navigate to="/404" />} />
         </Routes>
       </main>
-      <Footer />
+      <Suspense fallback={<Loader />}>
+        <Footer />
+      </Suspense>
       {cartShow && <CardShopping />}
     </>
   );
