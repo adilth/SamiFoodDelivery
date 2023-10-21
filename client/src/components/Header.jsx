@@ -11,7 +11,7 @@ import { Link, NavLink } from "react-router-dom";
 import { app } from "../firebase.config";
 import Logo from "../assets/png/logo-color-removebg-preview-min.png";
 import { useStateValue } from "../context/StateProvider";
-import { actionTypes } from "../context/reducer";
+import { actionTypesSet } from "../context/reducer";
 import { useShowCard } from "../utils/getAllData";
 import {
   buttonTap,
@@ -27,11 +27,13 @@ import ThemeButton from "./ThemeButton";
 import useTheme from "../hooks/useTheme";
 import { useMediaQuery } from "react-responsive";
 import useClickOutside from "../hooks/useClickOutside";
+import { useFoodValue } from "../context/FoodProvider";
 const Header = () => {
   const firebaseAuth = getAuth(app);
   const provider = new GoogleAuthProvider();
   let mobileNav = useMediaQuery({ query: "(max-width: 620px)" });
-  const [{ user, foodCart }, dispatch] = useStateValue();
+  const [{ user }, dispatch] = useStateValue();
+  const [{ foodCart }] = useFoodValue();
   const [isMenu, setMenu] = useState(false);
   const [theme, setTheme] = useTheme();
   const sidebarRef = useRef();
@@ -48,7 +50,7 @@ const Header = () => {
         user: { providerData },
       } = await signInWithPopup(firebaseAuth, provider);
       dispatch({
-        type: actionTypes.SET_USER,
+        type: actionTypesSet.SET_USER,
         user: providerData[0],
       });
       await saveUser({ ...providerData[0], createAt: `${Date.now()}` });
@@ -61,7 +63,7 @@ const Header = () => {
     setMenu(false);
     localStorage.clear();
     dispatch({
-      type: actionTypes.SET_USER,
+      type: actionTypesSet.SET_USER,
       user: null,
     });
   };
@@ -74,10 +76,10 @@ const Header = () => {
       {/* screen */}
       {!mobileNav ? (
         <div className=" sm:flex w-full h-full justify-between">
-          <Link to={"/"} className="flex items-center gap-2">
+          <Link to={"/"} className="flex items-center gap-2 ">
             <img
               src={Logo}
-              className="w-32 md:w-36 object-cover dark:invert dark:brightness-0"
+              className="w-32 h-12 lg:h-14 md:w-36 object-cover dark:invert dark:brightness-0"
               alt="logo"
             />
           </Link>
