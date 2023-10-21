@@ -6,10 +6,10 @@ function Hero() {
     <section className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full" id="hero">
       <div className="py-9 xs:py-4 flex-1 flex flex-col items-start justify-center gap-7 xs:gap-6">
         <div
-          className="flex items-start gap-2 justify-center bg-orange-100 px-4 py-1 rounded-full"
+          className="flex items-start gap-2 justify-center bg-orange-50 px-4 py-1 rounded-full"
           aria-hidden="true"
         >
-          <p className="text-base text-orange-500 font-semibold ">
+          <p className="text-base text-orange-700  font-semibold ">
             Bike Delivery
           </p>
           <div className="w-8 h-8 bg-white rounded-full overlay-hidden">
@@ -35,7 +35,7 @@ function Hero() {
           grocery and convenience stores, and more.
         </p>
         <Link
-          aria-label="link to menu page"
+          aria-labelledby="Go to the menu page for more"
           to={"/menu"}
           className="bg-gradient-to-br font-bold from-orange-500 to-orange-600 px-7 py-3 rounded-lg hover:shadow-lg transition-all ease-in-out duration-100 text-white  mx-auto sm:mx-0 whitespace-nowrap"
         >
@@ -50,6 +50,7 @@ function Hero() {
             loop
             className="lg:h-full w-full lg:w-auto aspect-square rounded-full object-cover"
             aria-label="video in main section"
+            rel="preload"
           >
             <source src={videoHero} type="video/webm" />
           </video>
