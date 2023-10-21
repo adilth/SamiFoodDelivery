@@ -16,10 +16,13 @@ import { useRef } from "react";
 import { useAlertState } from "../context/alertProvider";
 import { alertActionTypes } from "../context/alertReducer";
 import Loader from "./Loader";
+import { useFoodValue } from "../context/FoodProvider";
 
 const baseURL = import.meta.env.VITE_BASED_URL || "http://localhost:3333";
 function CardShopping() {
-  const [{ foodCart, user }, dispatch] = useStateValue();
+  const [{ foodCart }, dispatch] = useFoodValue();
+  const [{ user }] = useStateValue();
+
   const { setAlert } = useAlertState();
   const [flag, setFlag] = useState(1);
   const [tot, setTot] = useState(0);
@@ -52,6 +55,7 @@ function CardShopping() {
       total: tot,
     };
     fetch(`${baseURL}/api/products/create-checkout-session`, {
+      priority: "high",
       method: "POST",
       headers: {
         "Content-Type": "application/json",
