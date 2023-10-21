@@ -6,8 +6,10 @@ const cartInfo = fetchItemsCart();
 const data = await fetchAllFood();
 
 export const initialState = {
-  user: userInfo,
   foodItems: null || data,
-  cartShow: false,
   foodCart: cartInfo || [],
+};
+export const initialStateSet = {
+  user: userInfo,
+  cartShow: false,
 };
