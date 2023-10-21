@@ -2,12 +2,11 @@ import { useState } from "react";
 import { BiPlus } from "@react-icons/all-files/bi/BiPlus";
 import { BiMinus } from "@react-icons/all-files/bi/BiMinus";
 import { motion } from "framer-motion";
-import { useStateValue } from "../context/StateProvider";
 import { actionTypes } from "../context/reducer";
 import { buttonTap } from "../animations/motion";
-
+import { useFoodValue } from "../context/FoodProvider";
 function CardItems({ item, flag, setFlag }) {
-  const [{ foodCart }, dispatch] = useStateValue();
+  const [{ foodCart }, dispatch] = useFoodValue();
   const [qty, setQty] = useState(item.qty);
 
   const updateQty = (action) => {
