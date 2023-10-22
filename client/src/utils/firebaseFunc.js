@@ -120,17 +120,6 @@ export const getActivity = async () => {
     console.error("Error saving form data:", error);
   }
 };
-// export const getAllComment = async () => {
-//   try {
-//     const collectionBase = collection(firestore, "comment");
-//     const queryBase = query(collectionBase, orderBy("id", "desc"));
-//     const items = await getDocs(queryBase);
-//     return items.docs.map((doc) => doc.data());
-//   } catch (error) {
-//     console.error("Error saving form data:", error);
-//     throw error;
-//   }
-// };
 export const getAllOrders = async () => {
   try {
     const collectionBase = await collection(firestore, "orders");
