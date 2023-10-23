@@ -12,7 +12,7 @@ function Footer() {
   return (
     <footer
       id="footer"
-      className=" bg-[#0d0d0d] text-[#f6f6f6] p-4 py-8 md:py-10 sm:px-6 md:px-16 "
+      className=" bg-[#0d0d0d] text-[#f6f6f6] p-4 py-8 md:py-10 sm:px-6 md:px-16 font-rebo tracking-normal"
     >
       <footer className="grid grid-cols-menu_auto_fit md:grid-cols-4 gap-3 md:gap-10 ">
         <div className="self-start w-full h-full">
@@ -23,7 +23,7 @@ function Footer() {
               alt="logo"
             />
           </Link>
-          <p className=" text-sm pt-3">
+          <p className=" pt-3">
             just one click and we there fullfil what you need fast, fresh and
             good quality are our number ONE
           </p>
@@ -33,16 +33,16 @@ function Footer() {
             {...fadeInOutWithTransition}
             className="flex flex-row sm:flex-col item-center text-center gap-4 "
           >
-            <li className="text-base underline decoration-red-600 underline-offset-4 hover:text-primary duration-100 transition-all ease-in-out cursor-pointer">
+            <li className="underline decoration-red-600 underline-offset-4 hover:text-primary duration-100 transition-all ease-in-out cursor-pointer">
               <Link to={"/"}>Home</Link>
             </li>
-            <li className="text-base underline decoration-red-600 underline-offset-4 hover:text-primary duration-100 transition-all ease-in-out cursor-pointer">
+            <li className="underline decoration-red-600 underline-offset-4 hover:text-primary duration-100 transition-all ease-in-out cursor-pointer">
               <Link to={"/menu"}> Menu</Link>
             </li>
-            <li className="text-base  underline decoration-red-600 underline-offset-4 hover:text-primary duration-100 transition-all ease-in-out cursor-pointer">
+            <li className=" underline decoration-red-600 underline-offset-4 hover:text-primary duration-100 transition-all ease-in-out cursor-pointer">
               <Link to={"/aboutus"}> About Us</Link>
             </li>
-            <li className="text-base  underline decoration-red-600 underline-offset-4 hover:text-primary duration-100 transition-all ease-in-out cursor-pointer">
+            <li className=" underline decoration-red-600 underline-offset-4 hover:text-primary duration-100 transition-all ease-in-out cursor-pointer">
               Service
             </li>
           </motion.ul>
@@ -64,13 +64,13 @@ function Footer() {
         </div>
         <div className=" text-card flex flex-col gap-2">
           <h3 className="font-semibold">Contact</h3>
-          <p className="text-sm">179 Rue Mohammed el Beqal, Marrakech 40000</p>
-          <p className="text-sm">0524432641</p>
-          <p className="text-sm">
+          <p className="">179 Rue Mohammed el Beqal, Marrakech 40000</p>
+          <p className="">0524432641</p>
+          <p className="">
             find our Restaurant{" "}
             <a
               href="http://www.latrattoriamarrakech.com/"
-              className=" font-semibold text-red-700 underline space-x-4"
+              className=" font-semibold text-red-700 underline underline-offset-2"
             >
               Latrattoria Restaurant
             </a>
@@ -78,7 +78,8 @@ function Footer() {
         </div>
       </footer>
       <p className="pt-6 text-center text-white">
-        copyright &copy; {year} SamiFood Reserved
+        copyright &copy; {year} <span className="font-bold">SamiFood</span>{" "}
+        Reserved
       </p>
     </footer>
   );
