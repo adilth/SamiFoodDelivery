@@ -1,6 +1,6 @@
-import S1 from "../assets/png/s1.png";
-import S2 from "../assets/png/s2.png";
-import S3 from "../assets/png/s3.png";
+import S1 from "../assets/png/s1.webp";
+import S2 from "../assets/png/s2.webp";
+import S3 from "../assets/png/s3.webp";
 function Services() {
   return (
     <section className="w-full my-4" id="services">
@@ -37,6 +37,8 @@ function CardService({ img, title, text, heading }) {
       <img
         src={img}
         alt={title}
+        width="500"
+        height="500"
         className="lg:w-[65%] md:w-[80%]  h-[200px] bg-cover"
       />
       <h3 className="py-4 font-bold">{heading}</h3>
