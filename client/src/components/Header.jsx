@@ -9,7 +9,7 @@ import Avatar from "../assets/img/avatar-icon.png";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { Link, NavLink } from "react-router-dom";
 import { app } from "../firebase.config";
-import Logo from "../assets/png/logo-color-removebg-preview-min.png";
+import Logo from "../assets/png/logo-no-background.webp";
 import { useStateValue } from "../context/StateProvider";
 import { actionTypesSet } from "../context/reducer";
 import { useShowCard } from "../utils/getAllData";
@@ -79,47 +79,55 @@ const Header = () => {
           <Link to={"/"} className="flex items-center gap-2 ">
             <img
               src={Logo}
-              className="w-32 h-12 lg:h-14 md:w-36 object-cover dark:invert dark:brightness-0"
+              className="w-28 aspect-[16/5] md:w-32 object-cover dark:invert dark:brightness-0"
               alt="logo"
             />
           </Link>
           <nav className="flex items-center gap-2 md:gap-6">
             <motion.ul
               {...fadeInOutWithTransition}
-              className="flex items-center gap-2 md:gap-6 ml-auto"
+              className="flex items-center gap-2 md:gap-4 lg:gap-6 ml-auto"
             >
-              <NavLink
-                to={"/"}
-                className={({ isActive }) =>
-                  isActive ? isActiveStyles : isNotActiveStyles
-                }
-              >
-                Home
-              </NavLink>
-              <NavLink
-                to={"/menu"}
-                className={({ isActive }) =>
-                  isActive ? isActiveStyles : isNotActiveStyles
-                }
-              >
-                Menu
-              </NavLink>
-              <NavLink
-                to={"/aboutUs"}
-                className={({ isActive }) =>
-                  isActive ? isActiveStyles : isNotActiveStyles
-                }
-              >
-                About Us
-              </NavLink>
-              <NavLink
-                to={"/contact"}
-                className={({ isActive }) =>
-                  isActive ? isActiveStyles : isNotActiveStyles
-                }
-              >
-                Contact Us
-              </NavLink>
+              <li className="list-none">
+                <NavLink
+                  to={"/"}
+                  className={({ isActive }) =>
+                    isActive ? isActiveStyles : isNotActiveStyles
+                  }
+                >
+                  Home
+                </NavLink>
+              </li>
+              <li className="list-none">
+                <NavLink
+                  to={"/menu"}
+                  className={({ isActive }) =>
+                    isActive ? isActiveStyles : isNotActiveStyles
+                  }
+                >
+                  Menu
+                </NavLink>
+              </li>
+              <li className="list-none">
+                <NavLink
+                  to={"/aboutUs"}
+                  className={({ isActive }) =>
+                    isActive ? isActiveStyles : isNotActiveStyles
+                  }
+                >
+                  About Us
+                </NavLink>
+              </li>
+              <li className="list-none">
+                <NavLink
+                  to={"/contact"}
+                  className={({ isActive }) =>
+                    isActive ? isActiveStyles : isNotActiveStyles
+                  }
+                >
+                  Contact Us
+                </NavLink>
+              </li>
             </motion.ul>
             <ThemeButton
               theme={theme}
