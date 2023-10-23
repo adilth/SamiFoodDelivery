@@ -4,6 +4,9 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   darkMode: "class",
   theme: {
+    fontFamily: {
+      rebo: ["Roboto Condensed", "system-ui", "-apple-system", "sans-serif"],
+    },
     extend: {
       gridTemplateColumns: {
         menu_auto_fit: "repeat(auto-fit, minmax(14rem, 1fr))",
@@ -44,7 +47,7 @@ module.exports = {
         620: "620px",
       },
       screens: {
-        xs: "410px",
+        xs: "420px",
         sm: "620px",
         md: "768px",
         lg: "1024px",
