@@ -1,4 +1,4 @@
-import Delivery from "../assets/png/pngkey.com-delivery-png-1145548.png";
+import Delivery from "../assets/png/pngkey.com-delivery-png-1145548.webp";
 import { Link } from "react-router-dom";
 import videoHero from "../assets/png/heroVideo.mp4";
 function Hero() {
