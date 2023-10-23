@@ -79,7 +79,7 @@ const Header = () => {
           <Link to={"/"} className="flex items-center gap-2 ">
             <img
               src={Logo}
-              className="w-28 aspect-[16/5] md:w-32 object-cover dark:invert dark:brightness-0"
+              className="w-28 aspect-[16/5] md:w-32 object-contain dark:invert dark:brightness-0"
               alt="logo"
             />
           </Link>
