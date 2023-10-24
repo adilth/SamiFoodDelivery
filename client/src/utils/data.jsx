@@ -1,8 +1,8 @@
 export const isActiveStyles =
-  " text-lg text-red-700 font-semibold hover:text-red-700 px-1 lg:px-3 py-2 duration-100 transition-all ease-in-out flex gap-2 items-center";
+  "text-base md:text-lg text-red-700 font-semibold hover:text-red-700 px-1 lg:px-3 py-2 duration-100 transition-all ease-in-out flex gap-2 items-center";
 
 export const isNotActiveStyles =
-  " text-lg text-textColor dark:text-darkTextColor hover:text-red-700 dark:hover:text-red-700 duration-200 px-1 lg:px-3 py-2 transition-all ease-in-out flex gap-2 items-center";
+  "text-base md:text-lg text-textColor dark:text-darkTextColor hover:text-red-700 dark:hover:text-red-700 duration-200 px-1 lg:px-3 py-2 transition-all ease-in-out flex gap-2 items-center";
 
 export const categories = [
   {
