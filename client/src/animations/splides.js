@@ -1,24 +1,31 @@
 export const foodRowsSides = {
   options: {
+    // fixedHeight: 70,
+    cover: true,
+    // updateOnMove: true,
     perPage: 4.4,
     pagination: false,
+    focus: "center",
+    rewind: false,
+    arrows: false,
+    drag: true,
+    gap: "1.2rem",
     breakpoints: {
-      1000: {
+      402: {
+        perPage: 2,
+        gap: "1.2rem",
+      },
+      1024: {
         perPage: 3.2,
         gap: "1.5rem",
       },
-      702: {
+      746: {
+        fixedWidth: 160,
         perPage: 2.2,
         gap: "1.2rem",
+        focus: "start",
       },
     },
-    focus: "center",
-    rewind: true,
-    arrows: false,
-
-    omitEnd: true,
-    drag: "free",
-    gap: "1.2rem",
   },
 };
 export const splideMenu = {
