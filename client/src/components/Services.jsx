@@ -33,14 +33,11 @@ function Services() {
 
 function CardService({ img, title, text, heading }) {
   return (
-    <div className="w-full h-full flex flex-col justify-center items-center text-center p-4 sm:p-6 md:p-8">
-      <img
-        src={img}
-        alt={title}
-        width="500"
-        height="500"
-        className="lg:w-[65%] md:w-[80%]  h-[200px] bg-cover"
-      />
+    <div className="w-full h-full flex flex-col justify-center items-center text-center p-4 md:p-8">
+      <div className="lg:w-[65%] md:w-[80%] sm:w-[55%] w-[65%] h-[260px] sm:h-[180px]">
+        <img src={img} alt={title} className="w-full h-full object-contain" />
+      </div>
+
       <h3 className="py-4 font-bold">{heading}</h3>
       <p className=" text-textColor dark:text-darkTextColor text-[0.9rem]">
         {text}
