@@ -40,6 +40,14 @@ function DashboardItems() {
       {
         header: "Name",
         accessorKey: "title",
+        cell: (info) => (
+          <Link
+            to={`/dashboard/product/${info.row.original.id}`}
+            className="w-full rounded-full"
+          >
+            {info.getValue()}
+          </Link>
+        ),
       },
       {
         header: "Category",

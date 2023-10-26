@@ -131,7 +131,6 @@ function FieldsCreateFood({
       handleSuccess("Data uploading Successfully");
       clearFields();
     } catch (error) {
-      console.log(error);
       handleError("Error uploading file: please try again ");
     }
     fetchData();

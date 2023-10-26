@@ -40,7 +40,7 @@ function DashboardLeftSection() {
     ? {
         open: {
           x: 0,
-          width: "16rem",
+          width: "15rem",
           transition: {
             damping: 40,
           },
@@ -78,7 +78,7 @@ function DashboardLeftSection() {
         initial={{ x: showMenu ? -250 : 0 }}
         animate={menu ? "open" : "closed"}
         variants={variants}
-        className={` h-screen overflow-hidden md:relative fixed inset-0 z-[999] bg-card dark:bg-darkCardBody drop-shadow-xl backdrop-blur-md shadow-md max-w-[16rem] w-52`}
+        className={` h-screen overflow-hidden md:relative fixed inset-0 z-[999] bg-card dark:bg-darkCardBody drop-shadow-xl backdrop-blur-md shadow-md max-w-[15rem] w-52`}
       >
         <div className="py-10 flex flex-col gap-5 ">
           {menu ? (
@@ -112,7 +112,8 @@ function DashboardLeftSection() {
                   : isNotActiveStyles
               }
             >
-              <BsPieChartFill className="text-xl" /> {menu && <span>Home</span>}
+              <BsPieChartFill className="text-xl pl-1" />{" "}
+              {menu && <span>Home</span>}
             </NavLink>
             <NavLink
               to={"/dashboard/orders"}
@@ -122,7 +123,7 @@ function DashboardLeftSection() {
                   : isNotActiveStyles
               }
             >
-              <FaMotorcycle className=" text-3xl" />
+              <FaMotorcycle className=" text-3xl pl-1" />
               {menu && <span>Orders</span>}
             </NavLink>
             <NavLink
@@ -133,7 +134,8 @@ function DashboardLeftSection() {
                   : isNotActiveStyles
               }
             >
-              <BiListPlus className=" text-3xl" /> {menu && <span>Items</span>}
+              <BiListPlus className=" text-3xl pl-1" />{" "}
+              {menu && <span>Items</span>}
             </NavLink>
             <NavLink
               to={"/dashboard/newItem"}
@@ -143,7 +145,7 @@ function DashboardLeftSection() {
                   : isNotActiveStyles
               }
             >
-              <BiAddToQueue className=" text-2xl" />
+              <BiAddToQueue className=" text-2xl pl-1" />
               {menu && <span>Add New Item</span>}
             </NavLink>
             <NavLink
@@ -154,7 +156,8 @@ function DashboardLeftSection() {
                   : isNotActiveStyles
               }
             >
-              <FaUsers className=" text-2xl" /> {menu && <span>Users</span>}
+              <FaUsers className=" text-2xl pl-1" />{" "}
+              {menu && <span>Users</span>}
             </NavLink>
           </ul>
           {menu && (

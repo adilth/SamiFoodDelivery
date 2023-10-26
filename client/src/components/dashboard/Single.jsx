@@ -30,17 +30,17 @@ function Single(props) {
       className="flex flex-col md:flex-row gap-3 mt-6 flex-wrap"
       key={props.id}
     >
-      <div className=" flex-1">
+      <div className=" flex-[2] lg:flex-1">
         <div className="info">
-          <div className="flex w-full gap-4">
+          <div className="flex w-full lg:gap-4 gap-2">
             {props.img && (
               <img
-                className="w-[16rem]  rounded-2xl object-cover"
+                className="lg:w-[15rem] md:w-44 w-52 rounded-2xl object-cover"
                 src={props.img}
                 alt={`product ${props.name} image`}
               />
             )}
-            <div className="ml-4 h-full">
+            <div className="lg:ml-4 ml-1 h-full">
               <h2 className=" font-semibold mb-4">{props.name}</h2>
               {props?.info?.productId && (
                 <motion.button
@@ -106,7 +106,7 @@ function Single(props) {
                 key={activity.id}
                 className=" list-none relative w-[2px] pt-12 bg-[#f45b69] after:absolute after:content-[''] after:w-3 after:h-3 after:bg-[#f45b69] after:rounded-full after:-translate-x-1/2 after:left-1/2 after:bottom-0"
               >
-                <div className="md:min-w-[480px] min-w-[250px] p-4 bg-[#f45b682e] ml-4">
+                <div className="lg:min-w-[460px] min-w-[320px] sm:min-w-[240px] p-3 lg:p-4 bg-[#f45b682e] lg:ml-4 ml-3">
                   <p className="mt-1">{activity.text}</p>
                   <time className=" text-sm text-stone-400">
                     {getRelativeTime(

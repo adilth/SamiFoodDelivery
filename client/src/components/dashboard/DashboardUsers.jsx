@@ -22,7 +22,6 @@ function DashboardUsers() {
         header: "Image",
         accessorKey: "photoURL",
         cell: (info) => (
-          // <div className="w-full rounded-full">
           <Link to={`/dashboard/users/${info.row.original.uid}`}>
             <img
               src={info.getValue()}
@@ -30,12 +29,19 @@ function DashboardUsers() {
               className="w-16 h-16 rounded-full p-1"
             />
           </Link>
-          // </div>
         ),
       },
       {
         header: "Name",
         accessorKey: "displayName",
+        cell: (info) => (
+          <Link
+            to={`/dashboard/product/${info.row.original.id}`}
+            className="w-full rounded-full"
+          >
+            {info.getValue()}
+          </Link>
+        ),
       },
       {
         header: "email",
