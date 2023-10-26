@@ -39,9 +39,9 @@ function Search() {
   return (
     <>
       <div className="flex flex-wrap sm:justify-between justify-center items-center w-full">
-        <div className="px-4 py-3 cursor-pointer text-end">
+        <div className="px-4 py-3 cursor-pointer text-end ">
           <select
-            className="w-50 px-4 py-3 rounded-sm dark:bg-darkCardBody"
+            className="w-50 px-4 py-3 rounded-sm dark:bg-darkCardBody bg-white"
             id="foodSearch"
             onChange={(e) => setFoodFields(e.target.value)}
             aria-label="select the ranking based on options"

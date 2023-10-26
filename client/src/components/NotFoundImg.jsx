@@ -6,7 +6,7 @@ function NotFoundImg() {
     <div className="w-full flex flex-col items-center justify-center">
       <img
         src={NotFound}
-        className="h-340 aspect-auto"
+        className="h-340 min-w-[480px] object-cover"
         fetchpriority="high"
         alt="not found image that the category not found"
       />

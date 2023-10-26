@@ -13,7 +13,6 @@ function FoodSection() {
       setLoader(false);
     }, 300);
   }, []);
-  console.log("here");
   return (
     <section className="w-full my-4" id="FoodMenu">
       <div className="w-full flex items-center justify-between">

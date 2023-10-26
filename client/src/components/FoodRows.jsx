@@ -23,7 +23,6 @@ function FoodRows({ flag, data, splide }) {
       });
     }
   }, [dispatch]);
-  console.log("here");
   const handleAddToCart = useCallback(
     async (item) => {
       const updateCartAndLocalStorage = (newCart) => {
