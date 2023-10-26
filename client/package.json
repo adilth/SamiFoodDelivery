@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "type": "module",
   "homepage": "https://samifood.onrender.com",
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "dev:client": "vite",
     "build": "vite build",
