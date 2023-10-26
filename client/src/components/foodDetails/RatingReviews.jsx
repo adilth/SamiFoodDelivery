@@ -9,7 +9,7 @@ function RatingReviews({ comments, size }) {
     return isNaN(rating) ? 0 : rating;
   }
   return (
-    <div className="flex xs:items-center flex-col items-start xs:flex-row">
+    <div className="flex xs:items-center flex-col items-start sm:flex-row">
       <div className="flex">
         <p className="text-sm font-semibold">
           {ratingReviews() === 0 ? "" : ratingReviews()}

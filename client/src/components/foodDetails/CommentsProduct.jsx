@@ -8,7 +8,7 @@ function CommentsProduct({ comment, deleteUserComment }) {
       className="mb-1 bg-zinc-200 dark:bg-darkCardOverlay dark:border dark:border-blue-900 p-3 md:w-[60%] "
       key={comment.id}
     >
-      <div className="flex gap-2">
+      <div className="flex gap-2 flex-col xs:flex-row">
         <p className=" w-10 rounded-full">
           <img
             src={comment.userImg}
