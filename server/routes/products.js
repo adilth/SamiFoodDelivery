@@ -54,7 +54,7 @@ router.post("/create-checkout-session", async (req, res, next) => {
       line_items,
       customer: customer.id,
       mode: "payment",
-      success_url: `${process.env.CLIENT_URL}/#/checkout-success`,
+      success_url: `${process.env.CLIENT_URL}/checkout-success`,
       cancel_url: `${process.env.CLIENT_URL}/`,
     });
 
@@ -124,7 +124,7 @@ const createOrder = async (customer, lineItems, intent, res) => {
     });
     await db.collection("orders").doc(`/${orderId}/`).set(data);
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res
       .status(400)
       .send(`there is problem with create an order ${err.message}`);
