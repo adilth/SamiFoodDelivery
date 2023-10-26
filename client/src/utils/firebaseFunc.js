@@ -60,7 +60,7 @@ export const updateCartSts = async (id, sts) => {
     const cityRef = await doc(firestore, "orders", String(id));
     await updateDoc(cityRef, { sts: sts });
   } catch (e) {
-    console.log(e);
+    console.error(e);
   }
 };
 export const listenToOrders = (callback) => {
@@ -143,9 +143,8 @@ export const saveUser = async (user) => {
       // User doesn't exist; add the new user
       const newUserRef = doc(usersCollection);
       await setDoc(newUserRef, user);
-      console.log("User data saved successfully.");
     } else {
-      console.log("User already exists, skipping.");
+      return;
     }
   } catch (error) {
     console.error("Error saving user data:", error);

@@ -2,10 +2,6 @@ export function productData(product, activity) {
   const filterActivity = activity?.filter(
     (item) => item.item.id === product.id
   );
-  // if (filterActivity.length > 7) {
-  //   return filterActivity.slice(-7);
-  // }
-  console.log(product);
   return {
     id: 1,
     name: product.title,
