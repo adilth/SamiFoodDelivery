@@ -22,7 +22,6 @@ const baseURL = import.meta.env.VITE_BASED_URL || "http://localhost:3333";
 function CardShopping() {
   const [{ foodCart }, dispatch] = useFoodValue();
   const [{ user }] = useStateValue();
-
   const { setAlert } = useAlertState();
   const [flag, setFlag] = useState(1);
   const [tot, setTot] = useState(0);
@@ -42,20 +41,15 @@ function CardShopping() {
       foodCart: [],
     });
     localStorage.setItem("food", JSON.stringify([]));
-    // foodCart.forEach(async (food) => {
-    //   //?Todo find a way to remove from database the foodCart that removed from cart with id
-    //   await deleteActivity();
-    // });
   };
-  const handleCheckOut = useCallback(() => {
+  const handleCheckOut = useCallback(async () => {
     setLoading(true);
     const data = {
       user: user,
       cart: foodCart,
       total: tot,
     };
-    fetch(`${baseURL}/api/products/create-checkout-session`, {
-      priority: "high",
+    await fetch(`${baseURL}/api/products/create-checkout-session`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -70,7 +64,7 @@ function CardShopping() {
         }
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
         setAlert(alertActionTypes.SET_DANGER, "something went wrong");
         setTimeout(() => {
           setAlert(alertActionTypes.SET_ALERT_NULL, "");
@@ -163,12 +157,13 @@ function CardShopping() {
     </motion.div>
   );
 }
-function ButtonCheckOut({ children, onClick }) {
+function ButtonCheckOut({ children, onClick, loading }) {
   return (
     <motion.button
       onClick={onClick}
       {...buttonTap}
       type="button"
+      disabled={loading}
       className="w-full flex justify-center p-2 rounded-full bg-gradient-to-tr from-orange-400 to-orange-600 text-gray-50 text-lg my-2 hover:shadow-lg"
     >
       {children}
