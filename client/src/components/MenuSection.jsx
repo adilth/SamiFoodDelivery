@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { motion } from "framer-motion";
 import { categories } from "../utils/data";
 import { IoFastFood } from "@react-icons/all-files/io5/IoFastFood";
@@ -7,6 +7,7 @@ import { Splide, SplideSlide } from "@splidejs/react-splide";
 import { splideMenu } from "../animations/splides";
 import { buttonTap } from "../animations/motion";
 import { useFoodValue } from "../context/FoodProvider";
+import Loader from "./Loader";
 
 function MenuSection() {
   const [{ foodItems }] = useFoodValue();
@@ -23,11 +24,13 @@ function MenuSection() {
             filterCategory={filterCategory}
             setFilterCategory={setFilterCategory}
           />
-          <FoodRows
-            flag={false}
-            data={foodItems?.filter((n) => n.category == filterCategory)}
-            splide
-          />
+          <Suspense fallback={<Loader inside />}>
+            <FoodRows
+              flag={false}
+              data={foodItems?.filter((n) => n.category == filterCategory)}
+              splide
+            />
+          </Suspense>
         </div>
       </div>
     </section>
