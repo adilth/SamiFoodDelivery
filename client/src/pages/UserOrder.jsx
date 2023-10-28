@@ -9,7 +9,6 @@ const UsersOrder = () => {
   const [input, setInput] = useState("");
   const [userOrders, setUserOrders] = useState(null);
   let orderFilters = orders?.filter((item) => item.userId === user.uid);
-  console.log(orders);
   useEffect(() => {
     if (orders) {
       const filteredOrders = orders?.filter((order) => {

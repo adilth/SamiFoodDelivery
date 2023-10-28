@@ -11,7 +11,6 @@ const Comments = lazy(() => import("../components/foodDetails/Comments"));
 const FoodRows = lazy(() => import("../components/FoodRows"));
 function FoodDetails() {
   const { nameId } = useParams();
-
   const [{ foodItems, foodCart }, dispatch] = useFoodValue();
   const [dishFood, setDishFood] = useState(foodCart);
   const [details, setDetails] = useState({});
@@ -83,7 +82,6 @@ function FoodDetails() {
             onClick={() =>
               setDishFood((prev) => {
                 let exist = prev?.find((food) => food.id == details.id);
-                console.log(prev);
                 if (!exist) {
                   return [...foodCart, details];
                 } else {

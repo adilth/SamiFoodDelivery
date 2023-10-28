@@ -15,8 +15,6 @@ function Contact() {
   const submitHandler = (e) => {
     e.preventDefault();
     setContactInfo({ name: "", email: "", msg: "" });
-    //  addContact(contactInfo);
-    console.log(contactInfo);
   };
   return (
     <div className="my-5">
