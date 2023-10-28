@@ -19,6 +19,8 @@ function Footer() {
           <Link to={"/"} className="">
             <img
               src={Logo}
+              width="32"
+              height="13"
               className="w-36 h-12 object-cover invert brightness-0"
               alt="logo"
             />

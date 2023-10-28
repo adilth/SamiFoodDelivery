@@ -15,6 +15,8 @@ function Hero() {
           <div className="w-8 h-8 bg-white rounded-full overlay-hidden">
             <img
               src={Delivery}
+              width="32"
+              height="32"
               alt="bike delivery img"
               rel="preload"
               className="w-full h-full object-contain"
