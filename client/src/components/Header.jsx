@@ -64,6 +64,8 @@ const Header = () => {
           <Link to={"/"} className="flex items-center gap-2 ">
             <img
               src={Logo}
+              width="32"
+              height="13"
               className="w-32 aspect-[16/5] md:w-32 object-contain dark:invert dark:brightness-0"
               alt="logo"
             />
@@ -89,6 +91,8 @@ const Header = () => {
           <Link to={"/"} className="flex items-center gap-2">
             <img
               src={Logo}
+              width="32"
+              height="13"
               className="w-36 aspect-[16/5] object-contain dark:invert dark:brightness-0"
               alt="logo"
             />
