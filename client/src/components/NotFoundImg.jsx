@@ -8,6 +8,9 @@ function NotFoundImg() {
         src={NotFound}
         className="h-340 min-w-[480px] object-cover"
         fetchpriority="high"
+        rel="preconnect"
+        height="340"
+        width="480"
         alt="not found image that the category not found"
       />
       <p className="text-xl text-headingColor dark:text-darkHeadingColor font-semibold my-2">
