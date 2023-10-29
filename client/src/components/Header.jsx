@@ -6,7 +6,7 @@ import Logo from "../assets/png/logo-no-background.webp";
 import { useStateValue } from "../context/StateProvider";
 import { actionTypesSet } from "../context/reducer";
 import { useShowCard } from "../utils/getAllData";
-import { saveUser } from "../utils/firebaseFunc";
+import { saveUser } from "../utils/firebasePost";
 import useTheme from "../hooks/useTheme";
 import { useMediaQuery } from "react-responsive";
 import useClickOutside from "../hooks/useClickOutside";
