@@ -1,10 +1,8 @@
 import { useRef, useState } from "react";
 import { useStateValue } from "../../context/StateProvider";
-import {
-  activeProduct,
-  deleteComment,
-  saveCommentToFirebase,
-} from "../../utils/firebaseFunc";
+import { deleteComment } from "../../utils/firebaseFunc";
+import { saveCommentToFirebase, activeProduct } from "../../utils/firebasePost";
+
 import { useAlertState } from "../../context/alertProvider";
 import { alertActionTypes } from "../../context/alertReducer";
 import CommentsProduct from "./CommentsProduct";
