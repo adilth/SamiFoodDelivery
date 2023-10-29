@@ -7,29 +7,11 @@ import {
   onSnapshot,
   orderBy,
   query,
-  setDoc,
   updateDoc,
   where,
 } from "firebase/firestore";
 import { firestore } from "../firebase.config";
-export const saveItem = async (data) => {
-  const docItems = doc(firestore, "foodItems", `${Date.now()}`);
-  await setDoc(docItems, data, {
-    merge: true,
-  });
-};
-export const activeProduct = async (data) => {
-  const docItems = doc(firestore, "activity", `${Date.now()}`);
-  await setDoc(docItems, data, {
-    merge: true,
-  });
-};
-export const saveCommentToFirebase = async (data) => {
-  const docItems = doc(firestore, "comment", `${Date.now()}`);
-  await setDoc(docItems, data, {
-    merge: true,
-  });
-};
+
 export const updateItem = async (data, newData) => {
   const cityRef = await doc(firestore, "foodItems", String(data.id));
   await updateDoc(cityRef, newData, {
@@ -63,6 +45,7 @@ export const updateCartSts = async (id, sts) => {
     console.error(e);
   }
 };
+
 export const listenToOrders = (callback) => {
   const ordersCollection = collection(firestore, "orders");
 
@@ -76,16 +59,7 @@ export const listenToOrders = (callback) => {
 
   return unsubscribe; // This function allows you to stop listening to updates when needed
 };
-export const saveForm = async (data) => {
-  try {
-    const docItems = doc(firestore, "dataForm", `${Date.now()}`);
-    await setDoc(docItems, data, {
-      merge: true,
-    });
-  } catch (error) {
-    console.error("Error saving item:", error);
-  }
-};
+
 // get base on id or something
 export const getCommentOnId = async (id) => {
   try {
@@ -129,25 +103,6 @@ export const getAllOrders = async () => {
   } catch (error) {
     console.error("Error saving form data:", error);
     throw error;
-  }
-};
-
-export const saveUser = async (user) => {
-  try {
-    const usersCollection = collection(firestore, "users");
-    const userQuery = query(usersCollection, where("uid", "==", user.uid));
-    const userDocs = await getDocs(userQuery);
-
-    // Check if a user with the same UID already exists
-    if (userDocs.size === 0) {
-      // User doesn't exist; add the new user
-      const newUserRef = doc(usersCollection);
-      await setDoc(newUserRef, user);
-    } else {
-      return;
-    }
-  } catch (error) {
-    console.error("Error saving user data:", error);
   }
 };
 
