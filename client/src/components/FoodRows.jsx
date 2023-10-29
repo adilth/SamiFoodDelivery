@@ -5,7 +5,7 @@ import { useStateValue } from "../context/StateProvider";
 import { actionTypes } from "../context/reducer";
 import NotFoundImg from "./NotFoundImg";
 import { foodRowsSides } from "../animations/splides";
-import { activeProduct } from "../utils/firebaseFunc";
+import { activeProduct } from "../utils/firebasePost";
 import FoodItem from "./FoodItem";
 import { useFoodValue } from "../context/FoodProvider";
 
