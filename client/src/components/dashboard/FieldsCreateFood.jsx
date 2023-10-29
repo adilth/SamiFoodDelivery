@@ -8,7 +8,8 @@ import {
 import { categories } from "../../utils/data";
 import Loader from "../Loader";
 import { storage } from "../../firebase.config";
-import { saveItem, updateItem } from "../../utils/firebaseFunc";
+import { updateItem } from "../../utils/firebaseFunc";
+import { saveItem } from "../../utils/firebasePost";
 import useGetAllFoodData from "../../utils/getAllData";
 import { BiMessageSquareEdit } from "@react-icons/all-files/bi/BiMessageSquareEdit";
 import { MdCloudUpload } from "@react-icons/all-files/md/MdCloudUpload";
