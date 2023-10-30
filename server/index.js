@@ -2,7 +2,7 @@ const admin = require("firebase-admin");
 const express = require("express");
 require("dotenv").config();
 const cors = require("cors");
-// const serviceAccountKey = require("./serviceAccountKey.json");
+const serviceAccountKeyJSON = require("./serviceAccountKey.json");
 const app = express();
 app.use(
   express.json({
@@ -15,7 +15,9 @@ app.use((req, res, next) => {
   res.set("Access-Control-Allow-Origin", "*");
   next();
 });
-const serviceAccountKey = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_JSON);
+const serviceAccountKey =
+  JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_JSON) ||
+  serviceAccountKeyJSON;
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccountKey),
