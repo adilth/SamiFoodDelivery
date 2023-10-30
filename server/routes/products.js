@@ -64,7 +64,7 @@ router.post("/create-checkout-session", async (req, res, next) => {
     next(err);
   }
 });
-//stripe listen --forward-to localhost:3333/api/products/webhook    ///stripe trigger payment_intent.succeeded
+
 router.post("/webhook", async (req, res) => {
   const sig = req.headers["stripe-signature"];
 

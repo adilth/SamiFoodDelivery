@@ -3,7 +3,6 @@ const express = require("express");
 require("dotenv").config();
 const cors = require("cors");
 const serviceAccountKey = require("./etc/secrets/serviceAccountKey.json");
-// const path = require("path");
 const app = express();
 app.use(
   express.json({
@@ -20,21 +19,12 @@ admin.initializeApp({
   credential: admin.credential.cert(serviceAccountKey),
   databaseURL: "https://samifood-29fb5-default-rtdb.firebaseio.com",
 });
-// app.use(express.static("dist"));
-// app.use("/*", (_req, res) => {
-//   res.sendFile(path.join(__dirname, "../client/dist/index.html"), (err) => {
-//     if (err) {
-//       res.status(500).send(err);
-//     }
-//   });
-// });
+
 const productRoute = require("./routes/products");
-// const webHooks = require("./routes/webHooks");
 app.use("/api/products", productRoute);
 app.get("/", (req, res) => {
   res.send("hello world it work for you");
 });
-// app.use("/api/products", webHooks);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
