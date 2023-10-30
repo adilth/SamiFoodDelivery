@@ -2,7 +2,7 @@ const admin = require("firebase-admin");
 const express = require("express");
 require("dotenv").config();
 const cors = require("cors");
-const serviceAccountKey = require("/etc/secrets/serviceAccountKey.json");
+const serviceAccountKey = require("./etc/secrets/serviceAccountKey.json");
 // const path = require("path");
 const app = express();
 app.use(
