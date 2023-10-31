@@ -5,7 +5,6 @@ export const DataActionTypes = {
 };
 
 export const DataReducer = (state, action) => {
-  // console.log(action);
   switch (action.type) {
     case DataActionTypes.GET_ALL_USERS:
       return {
