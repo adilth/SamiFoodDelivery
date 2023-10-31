@@ -1,9 +1,10 @@
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { Suspense, lazy } from "react";
-import { CardShopping, Header, Loader, PageNotFound } from "../components";
+import { Header, Loader, PageNotFound } from "../components";
 import { useStateValue } from "../context/StateProvider";
 
 const Home = lazy(() => import("./Home"));
+const CardShopping = lazy(() => import("../components/CardShopping"));
 const Menu = lazy(() => import("./Menu"));
 const FoodDetails = lazy(() => import("./FoodDetails"));
 const UsersOrder = lazy(() => import("./UserOrder"));
@@ -75,7 +76,11 @@ function HomeRoute() {
       <Suspense fallback={<Loader />}>
         <Footer />
       </Suspense>
-      {cartShow && <CardShopping />}
+      {cartShow && (
+        <Suspense fallback={<Loader />}>
+          <CardShopping />
+        </Suspense>
+      )}
     </>
   );
 }
