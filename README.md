@@ -1,1 +1,4 @@
-#Sami Food delivery website
+# Sami Food delivery website
+It is interactive food delivery platform, designed to facilitate orders from Samifood restaurant. Built with React and Firebase Node, it ensures a smooth user experience. The site offers customers a user-friendly interface for placing orders, while the backend handles order processing, inventory management, and user authentication. This project provides a seamless online experience for food delivery services.It is interactive food delivery platform, designed to facilitate orders from Samifood restaurant. Built with React and Firebase Node, it ensures a smooth user experience. The site offers customers a user-friendly interface for placing orders, while the backend handles order processing, inventory management, and user authentication. This project provides a seamless online experience for food delivery services.
+
+**Skills**: Responsive Web Design · Server Side · Firebase · vite · Chart · MERN Stack · JSON · JavaScript · Cascading Style Sheets (CSS) · Tailwind CSS · React.js · Node.js
